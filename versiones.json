@@ -37,8 +37,8 @@
   },
   "simplesave": {
     "repositorio": "adrianmantilla/SimpleSave",
-    "rama": "claude/project-thread-uhccy4",
+    "rama": "main",
     "version": "1.0.0",
-    "commit": "b1a9668"
+    "commit": "ed1eabc"
   }
 }
