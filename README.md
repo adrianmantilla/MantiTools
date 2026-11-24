@@ -89,6 +89,12 @@ avisa en «Comprobar instalación» y no se fija nada.
 
 ## Si algo no funciona
 
+Maya pide permiso para cargar plugins sin firmar («Untrusted Plugin Loading»).
+Para no verlo en cada arranque, añade la carpeta `plug-ins` de MantiTools como
+ruta de confianza en **Preferences → Security**. Mientras ese diálogo espera,
+Arnold aún no ha cargado y Maya puede avisar «Arnold renderer not loaded»: es
+solo eso, Arnold carga en cuanto se acepta.
+
 **Ayuda → Comprobar instalación** revisa cada herramienta: si está cargada, si
 viene del pack o de otra copia, y si queda algún `.mod` suelto activo. **Copiar
 informe** lo deja listo para pegarlo en un correo.

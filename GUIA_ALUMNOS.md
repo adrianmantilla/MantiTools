@@ -56,6 +56,12 @@ En **Ajustes → General** puedes:
 
 Problemas típicos:
 
+- **Al abrir Maya sale «Untrusted Plugin Loading»** (y a veces, detrás, «Arnold
+  renderer not loaded»): Maya avisa porque MantiTools no está firmado. Pulsa
+  **Allow** y, para que no vuelva a salir, añade la carpeta `plug-ins` de
+  MantiTools en **Preferences → Security** como ruta de confianza. El aviso de
+  Arnold desaparece con él: solo salía porque Arnold esperaba a que aceptaras.
+
 - **No aparece el estante:** menú **MantiTools → Recrear estante**.
 - **Moviste la carpeta y ya no carga:** arrastra otra vez `instalar.py`.
 - **Quieres quitarlo:** arrastra `instalar.py` y elige **Desinstalar**. Si
