@@ -53,6 +53,8 @@ def construir():
     cmds.menuItem(divider=True)
     cmds.menuItem(label=t("menu_comprobar"), command=lambda *_: _comprobar())
     cmds.menuItem(label=t("menu_recrear_estante"), command=lambda *_: _recrear_estante())
+    cmds.menuItem(label=t("menu_openpbr"), annotation=t("menu_openpbr_ayuda"),
+                  command=lambda *_: _openpbr())
     cmds.menuItem(label=t("menu_acerca", version=mantitools.__version__), enable=False)
     from mantitools import carga
     for ficha in hr.FICHAS:
@@ -89,3 +91,10 @@ def _comprobar():
 def _recrear_estante():
     from mantitools import estante
     estante.crear(forzar=True)
+
+
+def _openpbr():
+    from mantitools import acciones
+    texto = acciones.resumen_openpbr(acciones.convertir_a_openpbr())
+    print(texto)
+    cmds.confirmDialog(title=t("menu_openpbr"), message=texto, button=[t("boton_aceptar")])

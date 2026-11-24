@@ -27,4 +27,30 @@ def ejecutar(ident, clave=None):
     except Exception as error:
         cmds.warning(t("aviso_orden", herramienta=ficha.nombre, error=error))
         raise
-    return espacio.get("_m")
+    return espacio.get("_r")
+
+
+def convertir_a_openpbr():
+    """Convierte a OpenPBR los materiales de escenas viejas de cada herramienta que sabe hacerlo.
+
+    Devuelve {nombre de la herramienta: materiales convertidos}. Las
+    herramientas desactivadas no se tocan.
+    """
+    from mantitools import carga
+    hechos = {}
+    for ficha in hr.FICHAS:
+        if "openpbr" not in [a.clave for a in ficha.acciones] or not carga.activa(ficha.id):
+            continue
+        try:
+            hechos[ficha.nombre] = list(ejecutar(ficha.id, "openpbr") or [])
+        except Exception:   # ya avisó ejecutar; las demás siguen
+            continue
+    return hechos
+
+
+def resumen_openpbr(hechos):
+    """Texto para el usuario con lo que ha hecho ``convertir_a_openpbr``."""
+    if not any(hechos.values()):
+        return t("openpbr_nada")
+    lineas = ["{}: {}".format(nombre, len(materiales)) for nombre, materiales in hechos.items()]
+    return t("openpbr_hecho", n=sum(len(m) for m in hechos.values())) + "\n" + "\n".join(lineas)

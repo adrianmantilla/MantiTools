@@ -100,7 +100,8 @@ semáforo de triángulos, las texturas, los materiales propios y qué hacer si a
 | Carpeta de la biblioteca... | Cambia dónde se guardan tus árboles |
 | Resolución de texturas | 512 (aula), 1K (recomendada), 2K o 4K (render final); cambia también las texturas ya puestas en la escena |
 | Estilo de texturas | Realista, Cartoon (colores planos) o Estilizado (pintado); cambia también los árboles de la escena |
-| Crear materiales clay | Crea `arboles_clay_corteza` y `arboles_clay_hoja` (standardSurface, se ven en el visor y en Arnold) |
+| Crear materiales clay | Crea `arboles_clay_corteza` y `arboles_clay_hoja` (openPBRSurface, se ven en el visor y en Arnold) |
+| Convertir materiales a OpenPBR | Para escenas de versiones anteriores: cambia sus materiales standardSurface por openPBRSurface, con las mismas texturas |
 | Comprobar instalación | Versión de Maya, Arnold y carpeta de la biblioteca |
 
 ## Texturas y materiales

@@ -121,6 +121,17 @@ def _crear_materiales():
     print(t("materiales_listos", nombres=", ".join(sorted(creados))))
 
 
+def convertir_a_openpbr():
+    """Convierte a OpenPBR los materiales de Árboles de escenas viejas y dice cuántos."""
+    from arboles import materiales, openpbr
+    if not openpbr.disponible():
+        cmds.warning(t("openpbr_no_disponible"))
+        return []
+    hechos = materiales.convertir_a_openpbr()
+    print(t("openpbr_convertidos", n=len(hechos)))
+    return hechos
+
+
 def _arbol_ejemplo():
     from arboles import construir_maya, ejemplos
     construir_maya.preparar()
@@ -219,6 +230,8 @@ def crear_menu():
     cmds.setParent("..", menu=True)
     cmds.menuItem(label=t("menu_carpeta"), command=lambda *_: bienvenida(forzar=True))
     cmds.menuItem(label=t("menu_materiales"), command=lambda *_: _crear_materiales())
+    cmds.menuItem(label=t("menu_openpbr"), annotation=t("ayuda_menu_openpbr"),
+                  command=lambda *_: convertir_a_openpbr())
     cmds.menuItem(divider=True)
     cmds.menuItem(label=t("menu_comprobar"), command=lambda *_: comprobar())
     cmds.menuItem(label=t("menu_acerca"), command=lambda *_: _acerca())

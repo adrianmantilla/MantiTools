@@ -53,6 +53,11 @@ En **Ajustes → General** se elige el idioma, qué herramientas se cargan y la
 carpeta de clase. Radial conserva además su ventana de tamaño en vivo; Materials,
 su pestaña de Ajustes.
 
+**Materiales OpenPBR.** Trepadora y Árboles crean sus materiales como
+**openPBRSurface** (el mismo tipo que Materials). Para escenas hechas con
+versiones anteriores, **MantiTools → Convertir materiales a OpenPBR** cambia los
+materiales viejos de las dos herramientas sin tocar texturas ni colores.
+
 ## Para el profesor: carpeta de clase
 
 Una sola carpeta compartida (en red o en la nube) sirve para todo el grupo. Se

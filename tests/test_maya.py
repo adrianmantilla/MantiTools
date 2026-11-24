@@ -118,6 +118,24 @@ class Acciones(unittest.TestCase):
         self.assertIn("'radial'", codigo)
         self.assertEqual(espacio, {})
 
+    def test_convertir_a_openpbr(self):
+        """La orden del pack llama a la de cada herramienta que la tiene y resume lo hecho."""
+        from unittest import mock
+
+        from mantitools import acciones
+        llamadas = []
+
+        def falsa(ident, clave=None):
+            llamadas.append((ident, clave))
+            return ["{}_mat".format(ident)] if ident == "trepadora" else []
+
+        with mock.patch.object(acciones, "ejecutar", falsa):
+            hechos = acciones.convertir_a_openpbr()
+        self.assertEqual(sorted(llamadas), [("arboles", "openpbr"), ("trepadora", "openpbr")])
+        self.assertEqual(hechos, {"Trepadora": ["trepadora_mat"], "Árboles": []})
+        self.assertIn("Trepadora: 1", acciones.resumen_openpbr(hechos))
+        self.assertNotIn("Trepadora", acciones.resumen_openpbr({"Trepadora": []}))
+
     def test_cada_accion_importa_su_modulo(self):
         from mantitools import herramientas as hr
         for ficha in hr.FICHAS:

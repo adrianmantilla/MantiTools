@@ -6,7 +6,9 @@ comprobación de la instalación se construyen a partir de estas fichas: para
 añadir una herramienta nueva al pack basta con añadir su ficha (y copiarla en
 ``incluidas/`` con ``herramientas/sincronizar.py``).
 
-Las órdenes son código Python corto que se ejecuta con ``acciones.ejecutar``.
+Las órdenes son código Python corto que se ejecuta con ``acciones.ejecutar``; lo
+que devuelve la llamada queda en ``_r``. La orden ``openpbr`` (convertir los
+materiales de escenas viejas a OpenPBR) la usa además ``acciones.convertir_a_openpbr``.
 """
 
 from collections import namedtuple
@@ -51,7 +53,7 @@ class Ficha(object):
 
 
 def _ordenes(modulo, **llamadas):
-    return [Accion(clave, "import {m} as _m\n_m.{f}".format(m=modulo, f=llamada))
+    return [Accion(clave, "import {m} as _m\n_r = _m.{f}".format(m=modulo, f=llamada))
             for clave, llamada in llamadas.items()]
 
 
@@ -60,12 +62,14 @@ FICHAS = [
           "trepadora.menu:crear",
           _ordenes("trepadora.menu", abrir="abrir()", escena_sencilla="escena_de_prueba('sencilla')",
                    escena_ruina="escena_de_prueba('ruina')", exportar="exportar_seleccion()",
-                   exportar_ligeras="exportar_seleccion(ligeras=True)"),
+                   exportar_ligeras="exportar_seleccion(ligeras=True)",
+                   openpbr="convertir_a_openpbr()"),
           "abrir", "adrianmantilla/trepadora"),
     Ficha("arboles", "Árboles", "#b07a48", "arboles", "arboles_plugin", "ArbolesMenu",
           "arboles.interfaz_maya:crear_menu",
           _ordenes("arboles.interfaz_maya", editor="_editor()", biblioteca="_plantar()",
-                   ejemplo="_arbol_ejemplo()", materiales="_crear_materiales()", comprobar="comprobar()"),
+                   ejemplo="_arbol_ejemplo()", materiales="_crear_materiales()",
+                   openpbr="convertir_a_openpbr()", comprobar="comprobar()"),
           "editor", "adrianmantilla/arboles"),
     Ficha("radial", "Radial", "#a58bd6", "radial", "radial_plugin", "RadialMenu",
           "radial.interfaz_maya:crear_menu",

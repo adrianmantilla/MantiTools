@@ -1,13 +1,16 @@
 """Materiales de Árboles: clay y, si están instaladas, texturas por especie.
 
-Usa ``standardSurface``, que viene con Maya, se ve en el visor y Arnold lo
-renderiza sin cargar nada más. Corteza y hoja van en materiales separados.
+Usa ``openPBRSurface`` (OpenPBR, ver openpbr.py), que viene con Maya 2026 y
+2027, se ve en el visor y Arnold lo renderiza sin cargar nada más; en un Maya
+sin OpenPBR, ``standardSurface``. Los atributos se escriben con los nombres de
+standardSurface y openpbr.py los traduce. Corteza y hoja van en materiales separados.
 Los materiales con texturas se llaman ``arboles_<juego>_corteza`` y
 ``arboles_<juego>_hoja`` y leen las imágenes de ``texturas/<juego>/<resolución>``.
 """
 
 from maya import cmds
 
+from arboles import openpbr
 from arboles import texturas as tx
 
 # nombre: (color base, rugosidad, intensidad especular, transmisión)
@@ -15,6 +18,10 @@ CLAY = {
     "arboles_clay_corteza": ((0.58, 0.55, 0.52), 0.6, 0.3, 0.0),
     "arboles_clay_hoja": ((0.66, 0.66, 0.62), 0.5, 0.35, 0.15),
 }
+
+
+# Tipos de material de Árboles: los nuevos (OpenPBR) y los de escenas viejas.
+TIPOS = [openpbr.TIPO, "standardSurface"]
 
 
 def _grupo(material):
@@ -31,16 +38,17 @@ def crear_material(nombre):
     if cmds.objExists(nombre):
         return nombre, _grupo(nombre)
     color, rugosidad, especular, transmision = CLAY[nombre]
-    material = cmds.shadingNode("standardSurface", asShader=True, name=nombre)
-    cmds.setAttr(material + ".base", 1.0)
-    cmds.setAttr(material + ".baseColor", *color, type="double3")
-    cmds.setAttr(material + ".specular", especular)
-    cmds.setAttr(material + ".specularRoughness", rugosidad)
+    material = cmds.shadingNode(openpbr.tipo(), asShader=True, name=nombre)
+    poner = openpbr.poner
+    poner(material, "base", 1.0)
+    poner(material, "baseColor", *color, type="double3")
+    poner(material, "specular", especular)
+    poner(material, "specularRoughness", rugosidad)
     if transmision:
         # Las hojas dejan pasar algo de luz, como en Trepadora.
-        cmds.setAttr(material + ".thinWalled", 1)
-        cmds.setAttr(material + ".subsurface", transmision)
-        cmds.setAttr(material + ".subsurfaceColor", *color, type="double3")
+        poner(material, "thinWalled", 1)
+        poner(material, "subsurface", transmision)
+        poner(material, "subsurfaceColor", *color, type="double3")
     return material, _grupo(material)
 
 
@@ -93,35 +101,36 @@ def crear_material_texturas(juego, parte, resolucion=tx.RESOLUCION_POR_DEFECTO, 
     if not tx.existe(juego):
         return crear_material(nombre)
     clay = CLAY["arboles_clay_" + parte]
-    material = cmds.shadingNode("standardSurface", asShader=True, name=nombre)
-    cmds.setAttr(material + ".base", 1.0)
-    cmds.setAttr(material + ".baseColor", *clay[0], type="double3")  # si falta la imagen de color
-    cmds.setAttr(material + ".specular", _especular(parte, estilo))
-    cmds.setAttr(material + ".specularRoughness", clay[1])
+    material = cmds.shadingNode(openpbr.tipo(), asShader=True, name=nombre)
+    poner, conectar = openpbr.poner, openpbr.conectar
+    poner(material, "base", 1.0)
+    poner(material, "baseColor", *clay[0], type="double3")  # si falta la imagen de color
+    poner(material, "specular", _especular(parte, estilo))
+    poner(material, "specularRoughness", clay[1])
     if parte == "hoja":
-        cmds.setAttr(material + ".thinWalled", 1)
-        cmds.setAttr(material + ".subsurface", 0.4)
-        cmds.setAttr(material + ".subsurfaceColor", *clay[0], type="double3")
+        poner(material, "thinWalled", 1)
+        poner(material, "subsurface", 0.4)
+        poner(material, "subsurfaceColor", *clay[0], type="double3")
     canales = tx.canales(juego, parte, resolucion, estilo=estilo)
     if "color" in canales:
         n = _archivo(nombre + "_color", canales["color"], True)
-        cmds.connectAttr(n + ".outColor", material + ".baseColor")
-        cmds.connectAttr(n + ".outColor", material + ".emissionColor")
-        cmds.setAttr(material + ".emission", EMISION_ESTILO.get(estilo, 0.0))
+        conectar(n + ".outColor", material, "baseColor")
+        conectar(n + ".outColor", material, "emissionColor")
+        poner(material, "emission", EMISION_ESTILO.get(estilo, 0.0))
         if parte == "hoja" and "translucidez" not in canales:
-            cmds.connectAttr(n + ".outColor", material + ".subsurfaceColor")
+            conectar(n + ".outColor", material, "subsurfaceColor")
     if "translucidez" in canales:
         n = _archivo(nombre + "_translucidez", canales["translucidez"], True)
-        cmds.connectAttr(n + ".outColor", material + ".subsurfaceColor")
+        conectar(n + ".outColor", material, "subsurfaceColor")
     if "rugosidad" in canales:
         n = _archivo(nombre + "_rugosidad", canales["rugosidad"], False)
-        cmds.connectAttr(n + ".outAlpha", material + ".specularRoughness")
+        conectar(n + ".outAlpha", material, "specularRoughness")
     if "normal" in canales:
         n = _archivo(nombre + "_normal", canales["normal"], False)
         relieve = cmds.shadingNode("bump2d", asUtility=True, name=nombre + "_relieve")
         cmds.setAttr(relieve + ".bumpInterp", 1)  # mapa de normales en espacio tangente
         cmds.connectAttr(n + ".outAlpha", relieve + ".bumpValue")
-        cmds.connectAttr(relieve + ".outNormal", material + ".normalCamera")
+        conectar(relieve + ".outNormal", material, "normalCamera")
         cmds.setAttr(n + ".alphaIsLuminance", 0)
     return material, _grupo(material)
 
@@ -137,14 +146,27 @@ def cambiar_texturas(resolucion, estilo=tx.ESTILO_POR_DEFECTO):
         if ruta:
             cmds.setAttr(nodo + ".fileTextureName", ruta, type="string")
             cambiados += 1
-    for material in cmds.ls("arboles_*_corteza", "arboles_*_hoja", type="standardSurface") or []:
+    for material in cmds.ls("arboles_*_corteza", "arboles_*_hoja", type=TIPOS) or []:
         if material in CLAY:
             continue
         parte = material.rsplit("_", 1)[-1]
-        cmds.setAttr(material + ".specular", _especular(parte, estilo))
+        openpbr.poner(material, "specular", _especular(parte, estilo))
         if cmds.listConnections(material + ".emissionColor", source=True, destination=False):
-            cmds.setAttr(material + ".emission", EMISION_ESTILO.get(estilo, 0.0))
+            openpbr.poner(material, "emission", EMISION_ESTILO.get(estilo, 0.0))
     return cambiados
+
+
+def convertir_a_openpbr():
+    """Pasa a openPBRSurface los materiales de Árboles de escenas viejas (standardSurface).
+
+    Las mallas, las texturas y los ajustes no cambian. Devuelve la lista de
+    materiales convertidos (vacía si no había o si este Maya no tiene OpenPBR).
+    """
+    cmds.undoInfo(openChunk=True, chunkName="Arboles: OpenPBR")
+    try:
+        return openpbr.convertir_escena(("arboles_*_corteza", "arboles_*_hoja"))
+    finally:
+        cmds.undoInfo(closeChunk=True)
 
 
 def cambiar_resolucion(resolucion, estilo=tx.ESTILO_POR_DEFECTO):

@@ -270,5 +270,9 @@
   "hoja_propia_sin_malla": "Selecciona en la escena la malla que quieres usar como hoja (no una del árbol).",
   "hoja_propia_nombre": "Nombre de la hoja:",
   "hoja_propia_mal": "No se puede usar como hoja: {error}",
-  "hoja_propia_guardada": "Hoja «{nombre}» guardada; puesta en {n} ramas. También la tienes en la lista Hojas."
+  "hoja_propia_guardada": "Hoja «{nombre}» guardada; puesta en {n} ramas. También la tienes en la lista Hojas.",
+  "menu_openpbr": "Convertir materiales a OpenPBR",
+  "ayuda_menu_openpbr": "Para escenas hechas con versiones anteriores: cambia los materiales de los árboles (standardSurface) por openPBRSurface. Las texturas no cambian.",
+  "openpbr_convertidos": "Árboles: {n} materiales convertidos a OpenPBR.",
+  "openpbr_no_disponible": "Este Maya no tiene openPBRSurface (hace falta Maya 2025.3 o posterior)."
 }
