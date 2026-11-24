@@ -1,39 +1,39 @@
 {
   "trepadora": {
     "repositorio": "adrianmantilla/Trepadora",
-    "rama": "claude/project-thread-6csd11",
+    "rama": "main",
     "version": "0.1.0",
-    "commit": "314754f"
+    "commit": "6b1d93b"
   },
   "arboles": {
     "repositorio": "adrianmantilla/Arboles",
-    "rama": "claude/project-thread-6csd11",
+    "rama": "main",
     "version": "0.10.0",
-    "commit": "02463a9"
+    "commit": "05e778b"
   },
   "radial": {
     "repositorio": "adrianmantilla/radial",
-    "rama": "claude/project-thread-6csd11",
+    "rama": "main",
     "version": "1.3.1",
-    "commit": "176a9f0"
+    "commit": "60ecb30"
   },
   "muro": {
     "repositorio": "adrianmantilla/muro",
-    "rama": "claude/project-thread-6csd11",
+    "rama": "main",
     "version": "1.0.0",
-    "commit": "5da54a1"
+    "commit": "b272268"
   },
   "materials": {
     "repositorio": "adrianmantilla/Materials",
-    "rama": "claude/project-thread-6csd11",
+    "rama": "main",
     "version": "1.0.0",
-    "commit": "073efa7"
+    "commit": "b1ede66"
   },
   "grasseditor": {
     "repositorio": "adrianmantilla/GrassEditor",
-    "rama": "claude/project-thread-6csd11",
+    "rama": "main",
     "version": "1.0.0",
-    "commit": "690cbe1"
+    "commit": "3875492"
   },
   "simplesave": {
     "repositorio": "adrianmantilla/SimpleSave",
