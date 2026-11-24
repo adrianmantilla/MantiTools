@@ -4,6 +4,14 @@ Con ellos se dibujan las tarjetas de la ventana central y se generan los PNG del
 estante (``herramientas/generar_iconos.py``).
 """
 
+# Estilo de los iconos (propuesta A2, 24-nov-2026): dibujo de línea fina blanca sobre un
+# cuadrado negro, igual en todas las herramientas; se distinguen por el dibujo, no por el color.
+FONDO = "#161616"
+TRAZO = "#ffffff"
+GROSOR_ESTANTE = 0.85
+GROSOR_TARJETA = 1.0
+FONDO_TARJETA = "#202020"
+
 TRAZOS = {
     "trepadora": '<path d="M12 21c0-6 1-10 5-14"/><path d="M14 12c-3 0-5-1.5-5.5-4 2.6-.4 4.6.8 5.5 4z"/>'
                  '<path d="M15.5 8.5c2.4.2 4-.9 4.5-3-2.2-.4-3.9.6-4.5 3z"/>'
@@ -24,7 +32,7 @@ TRAZOS = {
 }
 
 
-def svg(ident, color="#ffffff", grosor=1.7, fondo=None, radio=5):
+def svg(ident, color=TRAZO, grosor=GROSOR_TARJETA, fondo=None, radio=5):
     """El icono de ``ident`` como texto SVG. Con ``fondo``, sobre un cuadrado redondeado de ese color."""
     base = ""
     if fondo:
@@ -39,7 +47,7 @@ def svg(ident, color="#ffffff", grosor=1.7, fondo=None, radio=5):
             '</svg>').format(base, color, grosor, trazos)
 
 
-def pixmap(ident, lado, color="#ffffff", fondo=None, grosor=1.7):
+def pixmap(ident, lado, color=TRAZO, fondo=None, grosor=GROSOR_TARJETA):
     """QPixmap del icono (necesita QtSvg). None si no se puede dibujar."""
     from mantitools.qt import QtCore, QtGui, QtSvg
     if QtSvg is None:

@@ -102,8 +102,8 @@ class Servicios(object):
 
 # --- Piezas ----------------------------------------------------------------------------------
 
-def _icono(ident, lado, color="#ffffff", fondo=None):
-    mapa = iconos.pixmap(ident, lado, color=color, fondo=fondo)
+def _icono(ident, lado, color=iconos.TRAZO, fondo=None, grosor=iconos.GROSOR_TARJETA):
+    mapa = iconos.pixmap(ident, lado, color=color, fondo=fondo, grosor=grosor)
     etiqueta = QtWidgets.QLabel()
     etiqueta.setAlignment(Qt.AlignCenter)
     if mapa is not None:
@@ -124,16 +124,14 @@ class TarjetaHerramienta(QtWidgets.QFrame):
         capa.setSpacing(0)
         mini = QtWidgets.QFrame()
         mini.setFixedHeight(74)
-        c = QtGui.QColor(ficha.color)
-        mini.setStyleSheet("background: qlineargradient(x1:0, y1:0, x2:0.6, y2:1, stop:0 rgba({},{},{},70), "
-                           "stop:1 #333333); border-top-left-radius: 8px; border-top-right-radius: 8px;"
-                           .format(c.red(), c.green(), c.blue()))
+        mini.setStyleSheet("background: {}; border-top-left-radius: 8px; border-top-right-radius: 8px;"
+                           .format(iconos.FONDO_TARJETA))
         fila_mini = QtWidgets.QHBoxLayout(mini)
-        fila_mini.addWidget(_icono(ficha.id, 40, color=ficha.color))
+        fila_mini.addWidget(_icono(ficha.id, 40, color="#f2f2f2"))
         capa.addWidget(mini)
         franja = QtWidgets.QFrame()
         estilo.rol(franja, "franja")
-        franja.setStyleSheet("background: {};".format(ficha.color))
+        franja.setStyleSheet("background: #303030;")
         capa.addWidget(franja)
         info = QtWidgets.QVBoxLayout()
         info.setContentsMargins(10, 8, 10, 10)
@@ -247,7 +245,8 @@ class PaginaAjustes(QtWidgets.QScrollArea):
         self.capa.setContentsMargins(0, 0, 6, 0)
         self.capa.setSpacing(8)
         ficha = pagina.ficha
-        cab, fila = estilo.cabecera(ficha.nombre, ficha.color, servicios.version(ficha.id))
+        cab, fila = estilo.cabecera(ficha.nombre, None, servicios.version(ficha.id))
+        fila.insertWidget(0, _icono(ficha.id, 20, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE))
         cab.setStyleSheet("border-radius: 8px;")
         self.capa.addWidget(cab)
         for titulo, controles in pagina.secciones():
@@ -389,7 +388,8 @@ class PaginaGeneral(QtWidgets.QScrollArea):
         capa = QtWidgets.QVBoxLayout(contenido)
         capa.setContentsMargins(0, 0, 6, 0)
         capa.setSpacing(8)
-        cab, _ = estilo.cabecera(t("pagina_general"), hr.ACENTO, mantitools.__version__)
+        cab, fila_cab = estilo.cabecera(t("pagina_general"), None, mantitools.__version__)
+        fila_cab.insertWidget(0, _icono("centro", 20, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE))
         cab.setStyleSheet("border-radius: 8px;")
         capa.addWidget(cab)
 
@@ -414,7 +414,7 @@ class PaginaGeneral(QtWidgets.QScrollArea):
         for i, ficha in enumerate(hr.FICHAS):
             fila = QtWidgets.QHBoxLayout()
             fila.setSpacing(6)
-            fila.addWidget(estilo.punto(ficha.color, 9))
+            fila.addWidget(_icono(ficha.id, 16, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE))
             casilla = QtWidgets.QCheckBox(ficha.nombre)
             casilla.toggled.connect(lambda v, i=ficha.id: self._activa(i, v))
             fila.addWidget(casilla)
@@ -533,7 +533,7 @@ class VentanaCentro(QtWidgets.QWidget):
         fila = QtWidgets.QHBoxLayout(marco)
         fila.setContentsMargins(10, 8, 10, 8)
         fila.setSpacing(8)
-        fila.addWidget(_icono("centro", 22, fondo=hr.ACENTO))
+        fila.addWidget(_icono("centro", 22, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE))
         fila.addWidget(estilo.etiqueta("MantiTools", "titulo"))
         self.cuenta = estilo.etiqueta("", "tenue")
         fila.addWidget(self.cuenta)
@@ -582,29 +582,22 @@ class VentanaCentro(QtWidgets.QWidget):
         fila.setSpacing(10)
         self.lista = QtWidgets.QListWidget()
         self.lista.setFixedWidth(180)
-        self.lista.setIconSize(QtCore.QSize(10, 10))
+        self.lista.setIconSize(QtCore.QSize(16, 16))
         self.pilas = QtWidgets.QStackedWidget()
         self.paginas = {}
-        self._anadir_pagina("general", t("pagina_general"), hr.ACENTO,
+        self._anadir_pagina("general", t("pagina_general"), "centro",
                             lambda: PaginaGeneral(self.servicios, self.mensaje))
         for ficha in hr.FICHAS:
-            self._anadir_pagina(ficha.id, ficha.nombre, ficha.color, lambda f=ficha: self._pagina_de(f))
+            self._anadir_pagina(ficha.id, ficha.nombre, ficha.id, lambda f=ficha: self._pagina_de(f))
         self.lista.currentRowChanged.connect(self._mostrar_pagina)
         fila.addWidget(self.lista)
         fila.addWidget(self.pilas, 1)
         self.lista.setCurrentRow(0)
         return panel
 
-    def _anadir_pagina(self, ident, texto, color, fabrica):
-        mapa = QtGui.QPixmap(10, 10)
-        mapa.fill(Qt.transparent)
-        pintor = QtGui.QPainter(mapa)
-        pintor.setRenderHint(QtGui.QPainter.Antialiasing, True)
-        pintor.setPen(Qt.NoPen)
-        pintor.setBrush(QtGui.QColor(color))
-        pintor.drawEllipse(0, 0, 10, 10)
-        pintor.end()
-        elemento = QtWidgets.QListWidgetItem(QtGui.QIcon(mapa), texto)
+    def _anadir_pagina(self, ident, texto, icono, fabrica):
+        mapa = iconos.pixmap(icono, 32, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE)
+        elemento = QtWidgets.QListWidgetItem(QtGui.QIcon(mapa) if mapa is not None else QtGui.QIcon(), texto)
         elemento.setData(Qt.UserRole, ident)
         self.lista.addItem(elemento)
         hueco = QtWidgets.QWidget()
@@ -615,7 +608,7 @@ class VentanaCentro(QtWidgets.QWidget):
     def _pagina_de(self, ficha):
         if not self.servicios.activa(ficha.id) or not self.servicios.cargada(ficha.id):
             marco, capa = estilo.tarjeta(14)
-            cab, _ = estilo.cabecera(ficha.nombre, ficha.color)
+            cab, _ = estilo.cabecera(ficha.nombre)
             capa.addWidget(cab)
             texto = t("pagina_inactiva") if not self.servicios.activa(ficha.id) else t("pagina_sin_cargar")
             capa.addWidget(estilo.etiqueta(texto, "tenue", ajuste=True))
@@ -663,9 +656,9 @@ class VentanaCentro(QtWidgets.QWidget):
         c.addWidget(estilo.etiqueta(t("ayuda_guias"), "seccion"))
         rejilla = QtWidgets.QGridLayout()
         rejilla.setHorizontalSpacing(10)
-        filas = [("mantitools", "MantiTools", hr.ACENTO)] + [(f.id, f.nombre, f.color) for f in hr.FICHAS]
-        for i, (ident, nombre, color) in enumerate(filas):
-            rejilla.addWidget(estilo.punto(color, 9), i, 0)
+        filas = [("mantitools", "MantiTools", "centro")] + [(f.id, f.nombre, f.id) for f in hr.FICHAS]
+        for i, (ident, nombre, icono) in enumerate(filas):
+            rejilla.addWidget(_icono(icono, 16, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE), i, 0)
             rejilla.addWidget(estilo.etiqueta(nombre), i, 1)
             version = mantitools.__version__ if ident == "mantitools" else self.servicios.version(ident)
             rejilla.addWidget(estilo.etiqueta(version or "—", "tenue"), i, 2)
