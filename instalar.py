@@ -35,6 +35,7 @@ MODS_SUELTOS = {
     "materials": ("materials.mod", "muestrario.mod"),
     "grasseditor": ("grasseditor.mod", "pradera.mod"),
     "simplesave": ("simplesave.mod",),
+    "lightmanager": ("lightmanager.mod",),
 }
 PLUGINS_ANTIGUOS = ("muestrario_plugin", "pradera_plugin")
 
