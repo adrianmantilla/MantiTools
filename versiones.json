@@ -1,0 +1,44 @@
+{
+  "trepadora": {
+    "repositorio": "adrianmantilla/Trepadora",
+    "rama": "main",
+    "version": "0.1.0",
+    "commit": "6b1d93b"
+  },
+  "arboles": {
+    "repositorio": "adrianmantilla/Arboles",
+    "rama": "main",
+    "version": "0.10.0",
+    "commit": "05e778b"
+  },
+  "radial": {
+    "repositorio": "adrianmantilla/radial",
+    "rama": "main",
+    "version": "1.3.1",
+    "commit": "60ecb30"
+  },
+  "muro": {
+    "repositorio": "adrianmantilla/muro",
+    "rama": "main",
+    "version": "1.0.0",
+    "commit": "b272268"
+  },
+  "materials": {
+    "repositorio": "adrianmantilla/Materials",
+    "rama": "main",
+    "version": "1.0.0",
+    "commit": "b1ede66"
+  },
+  "grasseditor": {
+    "repositorio": "adrianmantilla/GrassEditor",
+    "rama": "main",
+    "version": "1.0.0",
+    "commit": "3875492"
+  },
+  "simplesave": {
+    "repositorio": "adrianmantilla/SimpleSave",
+    "rama": "main",
+    "version": "1.0.0",
+    "commit": "ed1eabc"
+  }
+}

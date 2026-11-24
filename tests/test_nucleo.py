@@ -1,0 +1,177 @@
+"""Lo que no necesita Maya: ajustes, carpeta de clase, instalador y comprobación."""
+
+import json
+import os
+import shutil
+import tempfile
+import unittest
+
+import comun
+import instalar
+from mantitools import comprobar
+from mantitools.ajustes import Ajustes
+from mantitools.clase import Clase, subcarpeta
+
+
+class Temporal(unittest.TestCase):
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.dir, True)
+
+
+class PruebaAjustes(Temporal):
+    def test_por_defecto_todo_activo_y_en_espanol(self):
+        a = Ajustes(self.dir)
+        self.assertEqual(a.idioma, "es")
+        self.assertTrue(a.activa("radial"))
+
+    def test_guarda_y_relee(self):
+        a = Ajustes(self.dir)
+        a.fijar_activa("radial", False)
+        a["idioma"] = "en"
+        b = Ajustes(self.dir)
+        self.assertFalse(b.activa("radial"))
+        self.assertEqual(b.idioma, "en")
+        b.fijar_activa("radial", True)
+        self.assertEqual(Ajustes(self.dir)["activas"], {})
+
+    def test_archivo_roto_o_valores_raros(self):
+        with open(os.path.join(self.dir, "ajustes.json"), "w") as f:
+            f.write("{roto")
+        self.assertEqual(Ajustes(self.dir).idioma, "es")
+        with open(os.path.join(self.dir, "ajustes.json"), "w") as f:
+            json.dump({"idioma": "klingon", "activas": []}, f)
+        a = Ajustes(self.dir)
+        self.assertEqual(a.idioma, "es")
+        self.assertTrue(a.activa("muro"))
+
+
+class PruebaClase(Temporal):
+    def escribir(self, datos):
+        with open(os.path.join(self.dir, "mantitools_clase.json"), "w", encoding="utf-8") as f:
+            f.write(datos if isinstance(datos, str) else json.dumps(datos))
+
+    def test_sin_carpeta(self):
+        c = Clase("")
+        self.assertFalse(c.existe)
+        self.assertEqual(c.desactivadas, [])
+        self.assertFalse(c.bloqueada("muro", "abrir_con_escena"))
+
+    def test_desactivar_y_fijar(self):
+        self.escribir({"desactivar": ["radial", 3], "fijar": {"muro": {"abrir_con_escena": False}}})
+        c = Clase(self.dir)
+        self.assertEqual(c.desactivadas, ["radial"])
+        self.assertEqual(c.fijadas("muro"), {"abrir_con_escena": False})
+        self.assertTrue(c.bloqueada("muro", "abrir_con_escena"))
+        self.assertEqual(c.fijadas("materials"), {})
+
+    def test_json_roto_avisa(self):
+        self.escribir("[1,")
+        c = Clase(self.dir)
+        self.assertTrue(c.error)
+        self.assertEqual(c.datos, {})
+
+    def test_subcarpetas(self):
+        self.assertEqual(subcarpeta(self.dir, "radial"), os.path.join(self.dir, "radial"))
+        self.assertEqual(subcarpeta(self.dir, "trepadora"), "")
+        self.assertEqual(subcarpeta("", "radial"), "")
+
+
+class PruebaInstalador(Temporal):
+    def test_incluidas_en_orden(self):
+        self.assertEqual([i for i, _ in instalar.incluidas(comun.RAIZ)],
+                         ["trepadora", "arboles", "radial", "muro", "materials", "grasseditor", "simplesave"])
+
+    def test_mod_con_un_bloque_por_herramienta(self):
+        texto = instalar.contenido_mod(comun.RAIZ, self.dir)
+        bloques = [b for b in texto.split("\n\n") if b.strip()]
+        self.assertEqual(len(bloques), 8)
+        self.assertTrue(bloques[0].startswith("+ MantiTools 1."))
+        self.assertIn("+ MantiTools_materials ", texto)
+        for b in bloques:
+            self.assertIn("scripts: scripts", b)
+        # Cada herramienta con carpeta de iconos (icons o iconos) la declara en su bloque.
+        for ident, carpeta in instalar.incluidas(comun.RAIZ):
+            bloque = [b for b in bloques if b.startswith("+ MantiTools_{} ".format(ident))][0]
+            for nombre in ("icons", "iconos"):
+                if os.path.isdir(os.path.join(carpeta, nombre)):
+                    self.assertIn("icons: " + nombre, bloque)
+                    break
+
+    def test_ruta_con_tildes(self):
+        modulos = os.path.join(self.dir, "maya", "modules")
+        self.assertEqual(instalar.ruta_para_mod("/a/b", modulos), "/a/b")
+        con_tilde = os.path.join(self.dir, "José", "mantitools")
+        self.assertEqual(instalar.ruta_para_mod(con_tilde, os.path.join(self.dir, "José", "modules")),
+                         "../mantitools")
+
+    def test_apartar_saca_los_mod_de_la_carpeta_de_modulos(self):
+        modulos = os.path.join(self.dir, "modules")
+        os.makedirs(modulos)
+        for nombre in ("radial.mod", "muestrario.mod", "otro.mod", "arboles.mod.mantitools"):
+            open(os.path.join(modulos, nombre), "w").close()
+        apartadas = instalar.apartar_sueltas(modulos)
+        self.assertEqual(sorted(i for i, _ in apartadas), ["arboles", "materials", "radial"])
+        # En «modules» no queda nada de ellas (Maya lee cualquier archivo de ahí)
+        self.assertEqual(os.listdir(modulos), ["otro.mod"])
+        for _, ruta in apartadas:
+            self.assertEqual(os.path.dirname(ruta), instalar.carpeta_apartadas(modulos))
+        self.assertEqual(comprobar.sueltas_activas(modulos), [])
+        devueltas = instalar.devolver_sueltas([r for _, r in apartadas], modulos)
+        self.assertEqual(len(devueltas), 3)
+        self.assertEqual(sorted(os.listdir(modulos)), ["arboles.mod", "muestrario.mod", "otro.mod", "radial.mod"])
+
+    def test_devolver_sin_carpeta_de_modulos(self):
+        modulos = os.path.join(self.dir, "modules")
+        os.makedirs(modulos)
+        open(os.path.join(modulos, "muro.mod"), "w").close()
+        apartadas = instalar.apartar_sueltas(modulos)
+        self.assertEqual(instalar.devolver_sueltas([r for _, r in apartadas]),
+                         [os.path.join(modulos, "muro.mod")])
+
+    def test_devolver_no_pisa(self):
+        modulos = os.path.join(self.dir, "modules")
+        os.makedirs(modulos)
+        open(os.path.join(modulos, "radial.mod"), "w").close()
+        apartadas = instalar.apartar_sueltas(modulos)
+        open(os.path.join(modulos, "radial.mod"), "w").close()  # otro instalado después
+        self.assertEqual(instalar.devolver_sueltas([r for _, r in apartadas], modulos), [])
+
+    def test_devolver_renombrados_antiguos(self):
+        ruta = os.path.join(self.dir, "radial.mod.mantitools")
+        open(ruta, "w").close()
+        self.assertEqual(instalar.devolver_sueltas([ruta]), [os.path.join(self.dir, "radial.mod")])
+
+
+class PruebaPainter(Temporal):
+    def test_carpeta_por_defecto_y_elegida(self):
+        from mantitools import painter
+        self.assertTrue(painter.carpeta().endswith(os.path.join("Adobe Substance 3D Painter", "python", "plugins")))
+        self.assertEqual(painter.carpeta(self.dir), self.dir)
+
+    def test_copiar_y_quitar(self):
+        from mantitools import painter
+        destino = os.path.join(self.dir, "plugins")
+        self.assertFalse(painter.instalado(destino))
+        ruta = painter.copiar(comun.RAIZ, destino)
+        self.assertTrue(os.path.isfile(ruta))
+        self.assertTrue(painter.instalado(destino))
+        open(os.path.join(destino, "muestrario_painter.py"), "w").close()
+        self.assertEqual(len(painter.quitar(destino)), 2)
+        self.assertFalse(painter.instalado(destino))
+
+    def test_sin_complemento_en_el_pack(self):
+        from mantitools import painter
+        with self.assertRaises(OSError):
+            painter.copiar(self.dir, os.path.join(self.dir, "plugins"))
+
+
+class PruebaComprobar(Temporal):
+    def test_sueltas_activas(self):
+        open(os.path.join(self.dir, "pradera.mod"), "w").close()
+        open(os.path.join(self.dir, "muro.mod.mantitools"), "w").close()  # Maya también lo lee
+        self.assertEqual(sorted(i for i, _ in comprobar.sueltas_activas(self.dir)), ["grasseditor", "muro"])
+
+
+if __name__ == "__main__":
+    unittest.main()
