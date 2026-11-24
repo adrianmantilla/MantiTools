@@ -143,6 +143,29 @@ class PruebaInstalador(Temporal):
         self.assertEqual(instalar.devolver_sueltas([ruta]), [os.path.join(self.dir, "radial.mod")])
 
 
+class PruebaPainter(Temporal):
+    def test_carpeta_por_defecto_y_elegida(self):
+        from mantitools import painter
+        self.assertTrue(painter.carpeta().endswith(os.path.join("Adobe Substance 3D Painter", "python", "plugins")))
+        self.assertEqual(painter.carpeta(self.dir), self.dir)
+
+    def test_copiar_y_quitar(self):
+        from mantitools import painter
+        destino = os.path.join(self.dir, "plugins")
+        self.assertFalse(painter.instalado(destino))
+        ruta = painter.copiar(comun.RAIZ, destino)
+        self.assertTrue(os.path.isfile(ruta))
+        self.assertTrue(painter.instalado(destino))
+        open(os.path.join(destino, "muestrario_painter.py"), "w").close()
+        self.assertEqual(len(painter.quitar(destino)), 2)
+        self.assertFalse(painter.instalado(destino))
+
+    def test_sin_complemento_en_el_pack(self):
+        from mantitools import painter
+        with self.assertRaises(OSError):
+            painter.copiar(self.dir, os.path.join(self.dir, "plugins"))
+
+
 class PruebaComprobar(Temporal):
     def test_sueltas_activas(self):
         open(os.path.join(self.dir, "pradera.mod"), "w").close()

@@ -14,6 +14,7 @@ DEFECTOS = {
     "idioma": "es",
     "activas": {},          # {"radial": False}: las que no aparecen están activas
     "carpeta_clase": "",
+    "carpeta_painter": "",  # carpeta de complementos de Painter elegida a mano ("" = la de por defecto)
     "sueltas_desactivadas": [],  # .mod de herramientas sueltas que el instalador apartó
 }
 

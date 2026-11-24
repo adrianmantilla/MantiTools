@@ -281,19 +281,54 @@ class PaginaMaterials(Pagina):
                 Control("casilla", "sincronizar", t("aj_sincronizar")),
                 Control("casilla", "abrir_painter", t("aj_abrir_painter")),
             ]),
+            (t("sec_complemento_painter"), [
+                Control("carpeta", "carpeta_complemento", t("aj_carpeta_complemento"),
+                        ayuda=t("aj_carpeta_complemento_ayuda")),
+                Control("info", "estado_complemento", ""),
+                Control("boton", "instalar_complemento", t("aj_instalar_complemento")),
+            ]),
             (t("sec_nota"), [Control("info", "nota_materials", t("aj_materials_nota"))]),
         ]
 
     def _a(self):
         return self._modulo("materials.interfaz_maya").ajustes()
 
+    # La carpeta del complemento de Painter es de MantiTools (la usa su instalador), no de Materials.
+    def _carpeta_complemento(self):
+        from mantitools import carga, painter
+        return painter.carpeta(carga.ajustes()["carpeta_painter"])
+
     def leer(self, clave):
+        from mantitools import painter
         if clave == "nota_materials":
             return ""
+        if clave == "carpeta_complemento":
+            return self._carpeta_complemento()
+        if clave == "estado_complemento":
+            carpeta = self._carpeta_complemento()
+            return t("complemento_instalado" if painter.instalado(carpeta) else "complemento_no_instalado")
         return self._a()[clave]
 
     def escribir(self, clave, valor):
+        if clave == "carpeta_complemento":
+            from mantitools import carga, painter
+            valor = os.path.normpath(valor) if valor else ""
+            elegida = "" if not valor or valor == os.path.normpath(painter.carpeta_por_defecto()) else valor
+            if elegida == carga.ajustes()["carpeta_painter"]:
+                return
+            anterior = self._carpeta_complemento()
+            carga.ajustes()["carpeta_painter"] = elegida
+            if painter.instalado(anterior):  # se mueve: que no queden dos copias
+                painter.copiar(carga.RAIZ, self._carpeta_complemento())
+                painter.quitar(anterior)
+            return
         self._a()[clave] = valor
+
+    def boton(self, clave):
+        if clave == "instalar_complemento":
+            from mantitools import carga, painter
+            ruta = painter.copiar(carga.RAIZ, self._carpeta_complemento())
+            return t("complemento_copiado", ruta=ruta)
 
 
 # --- GrassEditor ---------------------------------------------------------------------------------

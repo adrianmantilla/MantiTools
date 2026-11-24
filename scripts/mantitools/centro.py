@@ -311,6 +311,8 @@ class PaginaAjustes(QtWidgets.QScrollArea):
         self.controles[c.clave] = (c, w)
         if c.tipo == "casilla":
             formulario.addRow("", w)
+        elif c.tipo == "info":  # a todo lo ancho, para que el texto se parta en líneas
+            formulario.addRow(w)
         else:
             etiqueta = c.texto + ("  \U0001F512" if bloqueada else "")
             formulario.addRow(etiqueta, w)
@@ -367,7 +369,10 @@ class PaginaAjustes(QtWidgets.QScrollArea):
 
     def _boton(self, c):
         try:
-            self.pagina.boton(c.clave)
+            mensaje = self.pagina.boton(c.clave)
+            if mensaje:
+                self.al_mensaje(mensaje, False)
+                self.recargar()
         except Exception as error:
             self.al_mensaje(t("aviso_orden", herramienta=self.pagina.ficha.nombre, error=error), True)
 

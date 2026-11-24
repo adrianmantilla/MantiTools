@@ -7,7 +7,8 @@ Arrastra este archivo desde el explorador de archivos hasta el visor de Maya.
 - Si tenías alguna herramienta instalada por separado (``radial.mod``,
   ``materials.mod``…), la aparta sin borrarla: mueve su .mod a la carpeta
   «mantitools_apartadas», junto a «modules», y quita su carga automática. Sus ajustes valen igual.
-- Copia el complemento de Substance 3D Painter de Materials.
+- Copia el complemento de Substance 3D Painter de Materials a su carpeta de
+  complementos (se puede cambiar en Ajustes → Materials).
 - Carga MantiTools, lo marca para que se cargue siempre y crea el estante.
 
 Para desinstalar, arrastra otra vez este archivo y elige «Desinstalar»: quita
@@ -142,21 +143,11 @@ def devolver_sueltas(rutas, carpeta_modulos=None):
     return devueltas
 
 
-def carpeta_plugins_painter():
-    return os.path.join(os.path.expanduser("~"), "Documents", "Adobe", "Adobe Substance 3D Painter", "python",
-                        "plugins")
-
-
-def instalar_en_painter(base):
+def instalar_en_painter(base, elegida=""):
     """Copia el complemento de Painter de Materials. Devuelve la ruta o None."""
-    origen = os.path.join(base, "incluidas", "materials", "painter", "materials_painter.py")
-    if not os.path.isfile(origen):
-        return None
-    destino = carpeta_plugins_painter()
+    from mantitools import painter
     try:
-        os.makedirs(destino, exist_ok=True)
-        shutil.copy2(origen, os.path.join(destino, "materials_painter.py"))
-        return os.path.join(destino, "materials_painter.py")
+        return painter.copiar(base, painter.carpeta(elegida))
     except OSError as error:
         print("MantiTools | no se pudo copiar el complemento de Painter: {}".format(error))
         return None
@@ -214,13 +205,12 @@ def instalar():
     apartadas = apartar_sueltas(carpeta_modulos)
     for ident, ruta in apartadas:
         print("MantiTools | herramienta suelta apartada: " + ruta)
-    ruta_painter = instalar_en_painter(base)
-    if ruta_painter:
-        print("MantiTools | complemento de Painter copiado en " + ruta_painter)
-
     _olvidar_codigo_viejo(base)
     from mantitools import carga, estante
     from mantitools.i18n import t
+    ruta_painter = instalar_en_painter(base, carga.ajustes()["carpeta_painter"])
+    if ruta_painter:
+        print("MantiTools | complemento de Painter copiado en " + ruta_painter)
     if apartadas:
         previas = carga.ajustes()["sueltas_desactivadas"]
         nuevas = {r for _, r in apartadas}
@@ -271,9 +261,9 @@ def desinstalar():
     ruta_mod = os.path.join(_carpeta_modulos(), NOMBRE_MOD)
     if os.path.exists(ruta_mod):
         os.remove(ruta_mod)
-    painter = os.path.join(carpeta_plugins_painter(), "materials_painter.py")
-    if os.path.isfile(painter) and not devueltas:
-        os.remove(painter)
+    if not any(os.path.basename(r).startswith(("materials", "muestrario")) for r in devueltas):
+        from mantitools import painter  # sin Materials suelto, el complemento ya no lo usa nadie
+        painter.quitar(painter.carpeta(carga.ajustes()["carpeta_painter"]))
     try:
         cmds.savePrefs(general=True, plugins=True)
     except RuntimeError:

@@ -129,6 +129,30 @@ class Acciones(unittest.TestCase):
 class PaginasDeAjustes(unittest.TestCase):
     """Cada control de la ventana central lee y escribe en la herramienta de verdad."""
 
+    def test_carpeta_del_complemento_de_painter(self):
+        import os
+        import tempfile
+        from mantitools import adaptadores as ad
+        from mantitools import carga, painter
+        pagina = ad.pagina("materials", None)
+        primera, segunda = tempfile.mkdtemp(), tempfile.mkdtemp()
+        try:
+            pagina.escribir("carpeta_complemento", primera)
+            self.assertEqual(pagina.leer("carpeta_complemento"), primera)
+            self.assertFalse(painter.instalado(primera))
+            self.assertIn(primera, pagina.boton("instalar_complemento"))
+            self.assertTrue(painter.instalado(primera))
+            # Al cambiar de carpeta, el complemento se mueve con ella
+            pagina.escribir("carpeta_complemento", segunda)
+            self.assertTrue(painter.instalado(segunda))
+            self.assertFalse(painter.instalado(primera))
+            # Elegir la de por defecto la deja vacía en los ajustes
+            pagina.escribir("carpeta_complemento", painter.carpeta_por_defecto())
+            self.assertEqual(carga.ajustes()["carpeta_painter"], "")
+        finally:
+            carga.ajustes()["carpeta_painter"] = ""
+            painter.quitar(painter.carpeta_por_defecto())
+
     def test_leer_y_escribir_cada_control(self):
         from mantitools import adaptadores as ad
         from mantitools import herramientas as hr
