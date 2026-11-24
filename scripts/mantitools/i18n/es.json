@@ -148,6 +148,7 @@
  "informe_no_incluida": "el pack no la trae (falta su carpeta en «incluidas»)",
  "informe_otra_copia": "se está usando otra copia ({ruta}), no la del pack",
  "informe_pack": "MantiTools {version}",
+ "informe_propia_avisos": "su comprobación propia avisa de algo (debajo).",
  "informe_propia_error": "Su comprobación falló: {error}",
  "informe_suelta": "{herramienta} sigue instalada también por separado ({ruta}). Vuelve a arrastrar instalar.py para apartarla.",
  "instalado_painter": "También he copiado el complemento de Substance 3D Painter de Materials.",

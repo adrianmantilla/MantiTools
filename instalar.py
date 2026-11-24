@@ -5,8 +5,8 @@ Arrastra este archivo desde el explorador de archivos hasta el visor de Maya.
 - Escribe «mantitools.mod» en tu carpeta de módulos de Maya. Un solo archivo
   da a Maya MantiTools y las herramientas que trae (carpeta ``incluidas``).
 - Si tenías alguna herramienta instalada por separado (``radial.mod``,
-  ``materials.mod``…), la aparta sin borrarla: renombra su .mod a
-  «.mod.mantitools» y quita su carga automática. Sus ajustes valen igual.
+  ``materials.mod``…), la aparta sin borrarla: mueve su .mod a la carpeta
+  «mantitools_apartadas», junto a «modules», y quita su carga automática. Sus ajustes valen igual.
 - Copia el complemento de Substance 3D Painter de Materials.
 - Carga MantiTools, lo marca para que se cargue siempre y crea el estante.
 
@@ -94,30 +94,51 @@ def contenido_mod(base, carpeta_modulos):
     return "\n".join(bloques)
 
 
+def carpeta_apartadas(carpeta_modulos):
+    """Dónde se guardan los .mod sueltos: junto a «modules», no dentro.
+
+    Maya lee como módulo cualquier archivo de la carpeta modules, tenga la extensión
+    que tenga, así que renombrarlos no basta: hay que sacarlos de ahí.
+    """
+    return os.path.join(os.path.dirname(os.path.normpath(carpeta_modulos)), "mantitools_apartadas")
+
+
 def apartar_sueltas(carpeta_modulos):
-    """Renombra los .mod de herramientas sueltas. Devuelve [(id, ruta_nueva)]."""
+    """Saca de la carpeta de módulos los .mod de herramientas sueltas. Devuelve [(id, ruta_nueva)].
+
+    También recoge los que una versión anterior del instalador dejó renombrados a «.mod.mantitools».
+    """
     apartadas = []
+    destino = carpeta_apartadas(carpeta_modulos)
     for ident, nombres in MODS_SUELTOS.items():
         for nombre in nombres:
-            ruta = os.path.join(carpeta_modulos, nombre)
-            if os.path.isfile(ruta):
-                nueva = ruta + SUFIJO_APARTADO
+            for candidato in (nombre, nombre + SUFIJO_APARTADO):
+                ruta = os.path.join(carpeta_modulos, candidato)
+                if not os.path.isfile(ruta):
+                    continue
+                os.makedirs(destino, exist_ok=True)
+                nueva = os.path.join(destino, nombre)
                 if os.path.exists(nueva):
                     os.remove(nueva)
-                os.rename(ruta, nueva)
+                shutil.move(ruta, nueva)
                 apartadas.append((ident, nueva))
     return apartadas
 
 
-def devolver_sueltas(rutas):
-    """Deshace ``apartar_sueltas``. Devuelve las rutas devueltas."""
+def devolver_sueltas(rutas, carpeta_modulos=None):
+    """Deshace ``apartar_sueltas``: vuelve a poner cada .mod en la carpeta de módulos. Devuelve las rutas devueltas."""
     devueltas = []
     for ruta in rutas:
-        if ruta.endswith(SUFIJO_APARTADO) and os.path.isfile(ruta):
+        if not os.path.isfile(ruta):
+            continue
+        if ruta.endswith(SUFIJO_APARTADO):  # instalaciones antiguas: renombrado dentro de modules
             original = ruta[:-len(SUFIJO_APARTADO)]
-            if not os.path.exists(original):
-                os.rename(ruta, original)
-                devueltas.append(original)
+        else:
+            modulos = carpeta_modulos or os.path.join(os.path.dirname(os.path.dirname(ruta)), "modules")
+            original = os.path.join(modulos, os.path.basename(ruta))
+        if not os.path.exists(original):
+            shutil.move(ruta, original)
+            devueltas.append(original)
     return devueltas
 
 
@@ -178,20 +199,6 @@ def _olvidar_codigo_viejo(base):
             del sys.modules[nombre]
 
 
-def _iconos_en_sesion(base):
-    """Maya lee las carpetas de iconos del .mod al arrancar: para que el estante se vea ya, se añaden ahora."""
-    carpetas = [os.path.join(base, "icons")]
-    for _, carpeta in incluidas(base):
-        for nombre in ("icons", "iconos"):
-            if os.path.isdir(os.path.join(carpeta, nombre)):
-                carpetas.append(os.path.join(carpeta, nombre))
-                break
-    sufijo = "/%B" if sys.platform.startswith("linux") else ""
-    actuales = os.environ.get("XBMLANGPATH", "").split(os.pathsep)
-    nuevas = [c + sufijo for c in carpetas if c + sufijo not in actuales]
-    os.environ["XBMLANGPATH"] = os.pathsep.join(nuevas + [a for a in actuales if a])
-
-
 def instalar():
     from maya import cmds
     base = raiz()
@@ -212,12 +219,13 @@ def instalar():
         print("MantiTools | complemento de Painter copiado en " + ruta_painter)
 
     _olvidar_codigo_viejo(base)
-    _iconos_en_sesion(base)
     from mantitools import carga, estante
     from mantitools.i18n import t
     if apartadas:
         previas = carga.ajustes()["sueltas_desactivadas"]
-        carga.ajustes()["sueltas_desactivadas"] = sorted(set(previas) | {r for _, r in apartadas})
+        nuevas = {r for _, r in apartadas}
+        movidas = {os.path.join(carpeta_modulos, os.path.basename(r)) + SUFIJO_APARTADO for r in nuevas}
+        carga.ajustes()["sueltas_desactivadas"] = sorted((set(previas) - movidas) | nuevas)
     cmds.loadPlugin(os.path.join(base, "plug-ins", PLUGIN + ".py"))
     cmds.pluginInfo(PLUGIN, edit=True, autoload=True)
     if cmds.about(batch=True):
@@ -236,7 +244,7 @@ def _despues_de_instalar(apartadas, ruta_painter):
     from maya import cmds
     from mantitools import centro, estante, herramientas
     from mantitools.i18n import t
-    estante.crear(forzar=True, seleccionar=True)
+    estante.crear(forzar=True, seleccionar=True, ruta_completa=True)
     texto = t("instalado_texto")
     if apartadas:
         nombres = sorted({herramientas.ficha(i).nombre for i, _ in apartadas})
@@ -252,7 +260,7 @@ def desinstalar():
     base = raiz()
     _olvidar_codigo_viejo(base)
     from mantitools import carga, estante
-    devueltas = devolver_sueltas(carga.ajustes()["sueltas_desactivadas"])
+    devueltas = devolver_sueltas(carga.ajustes()["sueltas_desactivadas"], _carpeta_modulos())
     carga.ajustes()["sueltas_desactivadas"] = []
     try:
         if cmds.pluginInfo(PLUGIN, query=True, registered=True):

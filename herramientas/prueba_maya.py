@@ -135,6 +135,8 @@ def main():
     preparar_rutas()
     try:
         from maya import cmds
+        if not hasattr(cmds, "about"):  # mayapy: «maya» se importa, pero sin standalone no hay órdenes
+            raise ImportError("maya.standalone sin iniciar")
         interfaz = not cmds.about(batch=True)
         propio = False
     except ImportError:

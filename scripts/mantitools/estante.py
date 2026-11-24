@@ -14,9 +14,24 @@ from mantitools.i18n import t
 
 ESTANTE = "MantiTools"
 CODIGO_CENTRO = "import mantitools.centro as _c\n_c.mostrar()"
+# En la sesión en que se instala, los iconos van por ruta (ver ``icono``).
+_sesion = {"rutas": False}
 
 
-def botones():
+def icono(nombre, ruta_completa=False):
+    """El icono por su nombre (Maya lo busca en las carpetas de iconos del .mod, con sus versiones
+    _150 y _200) o, con ``ruta_completa``, por su ruta en el pack.
+
+    Justo después de instalar Maya aún no conoce la carpeta de iconos del pack (la lee al
+    arrancar), así que en esa sesión se usa la ruta; al arrancar otra vez se cambia por el nombre.
+    """
+    if not ruta_completa:
+        return nombre
+    from mantitools import carga
+    return os.path.join(carga.RAIZ, "icons", nombre).replace("\\", "/")
+
+
+def botones(ruta_completa=False):
     """Lo que lleva el estante, como datos: [(etiqueta, ayuda, icono, orden, [(texto, orden), ...]), ...]."""
     from mantitools import carga
     lista = []
@@ -26,11 +41,12 @@ def botones():
         principal = ficha.accion(ficha.principal)
         menu = [(t(ficha.texto(a.clave)), codigo_estante(ficha.id, a.clave)) for a in ficha.secundarias]
         ayuda = "{}: {}".format(ficha.nombre, t(ficha.texto(principal.clave)))
-        lista.append((ficha.nombre, ayuda, ficha.icono, codigo_estante(ficha.id, principal.clave), menu))
+        lista.append((ficha.nombre, ayuda, icono(ficha.icono, ruta_completa), codigo_estante(ficha.id, principal.clave), menu))
     menu_centro = [(t("menu_ajustes"), "import mantitools.centro as _c\n_c.mostrar('ajustes')"),
                    (t("menu_ayuda"), "import mantitools.centro as _c\n_c.mostrar('ayuda')"),
                    (t("menu_comprobar"), "import mantitools.comprobar as _c\n_c.mostrar()")]
-    lista.append(("MantiTools", t("estante_centro"), "mantitools_centro.png", CODIGO_CENTRO, menu_centro))
+    lista.append(("MantiTools", t("estante_centro"), icono("mantitools_centro.png", ruta_completa), CODIGO_CENTRO,
+                  menu_centro))
     return lista
 
 
@@ -38,24 +54,42 @@ def existe():
     return bool(cmds.shelfLayout(ESTANTE, exists=True))
 
 
-def crear(forzar=False, seleccionar=False):
-    """Crea el estante si falta; con ``forzar`` lo rehace aunque exista."""
+def _con_rutas():
+    """¿Algún botón del estante usa la ruta completa del icono (estante hecho justo al instalar)?"""
+    for boton in cmds.shelfLayout(ESTANTE, query=True, childArray=True) or []:
+        try:
+            imagen = cmds.shelfButton(boton, query=True, image=True) or ""
+        except RuntimeError:
+            continue
+        if "/" in imagen or "\\" in imagen:
+            return True
+    return False
+
+
+def crear(forzar=False, seleccionar=False, ruta_completa=False):
+    """Crea el estante si falta; con ``forzar`` lo rehace aunque exista.
+
+    Si el estante se hizo al instalar (iconos por ruta), se rehace con los nombres.
+    """
     if cmds.about(batch=True):
         return None
+    if ruta_completa:
+        _sesion["rutas"] = True
+    ruta_completa = _sesion["rutas"]
     padre = mel.eval("$tmp = $gShelfTopLevel")
     if existe():
-        if not forzar:
+        if not forzar and (ruta_completa or not _con_rutas()):
             return ESTANTE
         for boton in cmds.shelfLayout(ESTANTE, query=True, childArray=True) or []:
             cmds.deleteUI(boton)
     else:
         mel.eval('addNewShelfTab "{}"'.format(ESTANTE))
-    for etiqueta, ayuda, icono, orden, menu in botones():
+    for etiqueta, ayuda, imagen, orden, menu in botones(ruta_completa):
         opciones = {}
         if menu:
             opciones["menuItem"] = [(texto, codigo) for texto, codigo in menu]
             opciones["menuItemPython"] = list(range(len(menu)))
-        cmds.shelfButton(parent=ESTANTE, label=etiqueta, annotation=ayuda, image=icono, image1=icono,
+        cmds.shelfButton(parent=ESTANTE, label=etiqueta, annotation=ayuda, image=imagen, image1=imagen,
                          imageOverlayLabel="", command=orden, sourceType="python", **opciones)
     if seleccionar:
         cmds.tabLayout(padre, edit=True, selectTab=ESTANTE)

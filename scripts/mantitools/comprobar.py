@@ -25,9 +25,11 @@ def sueltas_activas(carpeta_modulos, mods=None):
     encontradas = []
     for ident, nombres in mods.items():
         for nombre in nombres:
-            ruta = os.path.join(carpeta_modulos, nombre)
-            if os.path.isfile(ruta):
-                encontradas.append((ident, ruta))
+            # Maya lee cualquier archivo de «modules»: también los «.mod.mantitools» de instalaciones antiguas.
+            for candidato in (nombre, nombre + ".mantitools"):
+                ruta = os.path.join(carpeta_modulos, candidato)
+                if os.path.isfile(ruta):
+                    encontradas.append((ident, ruta))
     return encontradas
 
 
@@ -71,6 +73,8 @@ def informe():
             modulo, funcion, argumentos = PROPIAS[ficha.id]
             try:
                 propio_bien, propias = getattr(importlib.import_module(modulo), funcion)(**argumentos)
+                if not propio_bien:
+                    lineas.append("! {}: {}".format(ficha.nombre, t("informe_propia_avisos")))
                 for linea in propias:
                     if linea:
                         lineas.append("    " + linea)

@@ -148,6 +148,7 @@
  "informe_no_incluida": "the pack doesn't include it (its folder is missing from «incluidas»)",
  "informe_otra_copia": "another copy is in use ({ruta}), not the pack's",
  "informe_pack": "MantiTools {version}",
+ "informe_propia_avisos": "its own check reports something (below).",
  "informe_propia_error": "Its own check failed: {error}",
  "informe_suelta": "{herramienta} is also installed separately ({ruta}). Drag instalar.py again to set it aside.",
  "instalado_painter": "I also copied Materials' Substance 3D Painter plugin.",

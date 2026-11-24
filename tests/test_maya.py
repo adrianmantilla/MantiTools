@@ -72,6 +72,15 @@ class Arranque(unittest.TestCase):
         for b in ultimos:
             self.assertEqual(len(b.get("menuItem", [])), len(b.get("menuItemPython", [])))
 
+    def test_estante_de_la_instalacion_usa_rutas_y_luego_nombres(self):
+        import os
+        from mantitools import estante
+        estante._sesion["rutas"] = False
+        botones = estante.botones(ruta_completa=True)
+        for _, _, imagen, _, _ in botones:
+            self.assertTrue(os.path.isfile(imagen), imagen)
+        self.assertEqual([b[2] for b in estante.botones()][-1], "mantitools_centro.png")
+
     def test_desactivar_quita_submenu_y_boton(self):
         from mantitools import estante, menu
         self.carga.cambiar_activa("muro", False)

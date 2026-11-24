@@ -105,29 +105,49 @@ class PruebaInstalador(Temporal):
         self.assertEqual(instalar.ruta_para_mod(con_tilde, os.path.join(self.dir, "José", "modules")),
                          "../mantitools")
 
-    def test_apartar_y_devolver_sueltas(self):
-        for nombre in ("radial.mod", "muestrario.mod", "otro.mod"):
-            open(os.path.join(self.dir, nombre), "w").close()
-        apartadas = instalar.apartar_sueltas(self.dir)
-        self.assertEqual(sorted(i for i, _ in apartadas), ["materials", "radial"])
-        self.assertTrue(os.path.isfile(os.path.join(self.dir, "otro.mod")))
-        self.assertFalse(os.path.exists(os.path.join(self.dir, "radial.mod")))
-        self.assertEqual(comprobar.sueltas_activas(self.dir), [])
-        devueltas = instalar.devolver_sueltas([r for _, r in apartadas])
-        self.assertEqual(len(devueltas), 2)
-        self.assertTrue(os.path.isfile(os.path.join(self.dir, "muestrario.mod")))
+    def test_apartar_saca_los_mod_de_la_carpeta_de_modulos(self):
+        modulos = os.path.join(self.dir, "modules")
+        os.makedirs(modulos)
+        for nombre in ("radial.mod", "muestrario.mod", "otro.mod", "arboles.mod.mantitools"):
+            open(os.path.join(modulos, nombre), "w").close()
+        apartadas = instalar.apartar_sueltas(modulos)
+        self.assertEqual(sorted(i for i, _ in apartadas), ["arboles", "materials", "radial"])
+        # En «modules» no queda nada de ellas (Maya lee cualquier archivo de ahí)
+        self.assertEqual(os.listdir(modulos), ["otro.mod"])
+        for _, ruta in apartadas:
+            self.assertEqual(os.path.dirname(ruta), instalar.carpeta_apartadas(modulos))
+        self.assertEqual(comprobar.sueltas_activas(modulos), [])
+        devueltas = instalar.devolver_sueltas([r for _, r in apartadas], modulos)
+        self.assertEqual(len(devueltas), 3)
+        self.assertEqual(sorted(os.listdir(modulos)), ["arboles.mod", "muestrario.mod", "otro.mod", "radial.mod"])
+
+    def test_devolver_sin_carpeta_de_modulos(self):
+        modulos = os.path.join(self.dir, "modules")
+        os.makedirs(modulos)
+        open(os.path.join(modulos, "muro.mod"), "w").close()
+        apartadas = instalar.apartar_sueltas(modulos)
+        self.assertEqual(instalar.devolver_sueltas([r for _, r in apartadas]),
+                         [os.path.join(modulos, "muro.mod")])
 
     def test_devolver_no_pisa(self):
-        ruta = os.path.join(self.dir, "radial.mod")
-        open(ruta + ".mantitools", "w").close()
+        modulos = os.path.join(self.dir, "modules")
+        os.makedirs(modulos)
+        open(os.path.join(modulos, "radial.mod"), "w").close()
+        apartadas = instalar.apartar_sueltas(modulos)
+        open(os.path.join(modulos, "radial.mod"), "w").close()  # otro instalado después
+        self.assertEqual(instalar.devolver_sueltas([r for _, r in apartadas], modulos), [])
+
+    def test_devolver_renombrados_antiguos(self):
+        ruta = os.path.join(self.dir, "radial.mod.mantitools")
         open(ruta, "w").close()
-        self.assertEqual(instalar.devolver_sueltas([ruta + ".mantitools"]), [])
+        self.assertEqual(instalar.devolver_sueltas([ruta]), [os.path.join(self.dir, "radial.mod")])
 
 
 class PruebaComprobar(Temporal):
     def test_sueltas_activas(self):
         open(os.path.join(self.dir, "pradera.mod"), "w").close()
-        self.assertEqual([i for i, _ in comprobar.sueltas_activas(self.dir)], ["grasseditor"])
+        open(os.path.join(self.dir, "muro.mod.mantitools"), "w").close()  # Maya también lo lee
+        self.assertEqual(sorted(i for i, _ in comprobar.sueltas_activas(self.dir)), ["grasseditor", "muro"])
 
 
 if __name__ == "__main__":
