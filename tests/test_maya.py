@@ -83,11 +83,12 @@ class Arranque(unittest.TestCase):
 
     def test_desactivar_quita_submenu_y_boton(self):
         from mantitools import estante, menu
+        from mantitools import herramientas as hr
         self.carga.cambiar_activa("muro", False)
         try:
             self.assertFalse(self.carga.cargada("muro"))
             self.assertNotIn("MuroMenu", cmds.menus[menu.MENU])
-            self.assertEqual(len(cmds.estantes[estante.ESTANTE]), 7)
+            self.assertEqual(len(cmds.estantes[estante.ESTANTE]), len(hr.FICHAS))
         finally:
             self.carga.cambiar_activa("muro", True)
         self.assertIn("MuroMenu", cmds.menus[menu.MENU])

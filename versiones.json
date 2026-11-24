@@ -29,6 +29,12 @@
     "version": "1.0.0",
     "commit": "b1ede66"
   },
+  "lightmanager": {
+    "repositorio": "adrianmantilla/lightmanager",
+    "rama": "main",
+    "version": "1.0.0",
+    "commit": "11ac4db"
+  },
   "grasseditor": {
     "repositorio": "adrianmantilla/GrassEditor",
     "rama": "main",

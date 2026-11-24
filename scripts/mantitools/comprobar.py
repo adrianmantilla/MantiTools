@@ -19,7 +19,7 @@ def sueltas_activas(carpeta_modulos, mods=None):
     """[(id, ruta)] de .mod sueltos que siguen activos junto al pack. No depende de Maya."""
     mods = mods or {
         "trepadora": ("trepadora.mod",), "arboles": ("arboles.mod",), "radial": ("radial.mod",),
-        "muro": ("muro.mod",), "materials": ("materials.mod", "muestrario.mod"),
+        "muro": ("muro.mod",), "materials": ("materials.mod", "muestrario.mod"), "lightmanager": ("lightmanager.mod",),
         "grasseditor": ("grasseditor.mod", "pradera.mod"), "simplesave": ("simplesave.mod",),
     }
     encontradas = []
