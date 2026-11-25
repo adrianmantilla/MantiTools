@@ -1,89 +1,82 @@
----
-titulo: Si algo no funciona
-corto: Si algo no funciona
-resumen: Cómo comprobar la instalación, los problemas más comunes y cómo pedir ayuda con un informe.
----
+# Problemas y preguntas
 
-## Comprobar la instalación
+Lo primero, siempre: **MantiTools → Comprobar instalación**. Revisa todo el pack en un segundo y suele decir qué pasa. Aquí tienes cómo leer su informe y las dudas más frecuentes. Los problemas propios de cada herramienta están al final de su página.
 
-1. Menú **MantiTools › Comprobar instalación**, o en la ventana central **Ayuda › Comprobar instalación**.
-2. Las líneas con **✓** están bien; las que empiezan por **!** dicen qué falla y cómo arreglarlo.
-3. **Copiar informe** lo deja en el portapapeles para pegarlo en un correo o en una incidencia.
+## Comprobar instalación
 
-La comprobación revisa, para cada herramienta:
+![La pestaña Ayuda con Comprobar instalación](img/mantitools/centro_ayuda.png)
 
-- si está activa y cargada, y con qué versión;
-- si viene del pack o de otra copia (por ejemplo, una instalación suelta que no se apartó);
-- la comprobación propia de la herramienta, si la tiene;
-- si queda algún `.mod` suelto activo en la carpeta de módulos;
-- si la [carpeta compartida](carpeta-compartida.md) se ha leído bien.
+Está en el menú **MantiTools** y en la pestaña **Ayuda** de la ventana central. El informe dice, para el pack y para cada herramienta:
 
-## Problemas comunes
+| Línea | Qué significa |
+|---|---|
+| `✓ Trepadora 0.1.0` | Cargada, desde la carpeta del pack, con esa versión. |
+| `! … se está usando otra copia (…), no la del pack` | Se ha cargado una copia suelta en vez de la del pack. Vuelve a arrastrar `instalar.py` → **Reinstalar**. |
+| `! … sigue instalada también por separado (…)` | Queda un `.mod` suelto activo junto al pack. Vuelve a arrastrar `instalar.py` para apartarlo. |
+| `! … no se ha cargado.` | La herramienta está activa pero su plugin no ha cargado. Mira el Script Editor por si hay un error. |
+| `MantiTools está pensado para Maya 2026 y 2027.` | Estás en otra versión de Maya: puede que algo no funcione. |
+| `! … su comprobación propia avisa de algo (debajo)` | Árboles, Radial y GrassEditor tienen su propia revisión; debajo sale lo que encuentran (por ejemplo, Árboles sin carpeta de biblioteca elegida). |
+| Error de `mantitools_clase.json` | El JSON de la carpeta de clase tiene un error y no se fija nada. Ver [Carpeta de clase](profesor.md). |
 
-### Al abrir Maya sale «Untrusted Plugin Loading»
+Las líneas que empiezan por «!» son avisos; si no hay ninguna, todo está en orden. **Copiar informe** lo deja en el portapapeles para pegarlo en un correo al profesor.
 
-Maya avisa porque los plugins de MantiTools no están firmados. Pulsa **Allow**. Para que no vuelva a salir, añade la
-carpeta `plug-ins` de MantiTools en **Preferences › Security** como ruta de confianza.
+## Al abrir Maya
 
-### Sale «Arnold renderer not loaded» al arrancar
+**Sale un aviso de seguridad «Untrusted Plugin Loading».**
+Maya pregunta antes de cargar plugins sin firmar. Pulsa **Allow**. Para que no vuelva a salir, añade la carpeta `plug-ins` de MantiTools a las rutas de confianza en **Preferences → Security**. Ver [Instalación](instalacion.md#el-aviso-de-seguridad-de-maya).
 
-Aparece detrás del aviso anterior: mientras Maya espera tu respuesta, Arnold aún no ha cargado. En cuanto pulsas
-**Allow**, Arnold carga y el aviso no importa. Con la ruta de confianza desaparecen los dos.
+**Sale «Warning: Arnold renderer not loaded».**
+Aparece mientras el aviso de seguridad espera tu respuesta: Maya crea la escena vacía, ve que el render es Arnold y todavía no lo ha cargado. En cuanto aceptas, Arnold carga y todo funciona. Con la ruta de confianza no vuelve a salir. Si aun así no carga, abre **Windows → Settings/Preferences → Plug-in Manager** y marca **Loaded** y **Auto load** en `mtoa`.
 
-### No aparece el estante, o le faltan iconos
+**No aparece el menú MantiTools.**
+Abre el **Plug-in Manager** y comprueba que `mantitools_plugin.py` está cargado y con **Auto load**. Si no aparece en la lista, la instalación no se hizo o la carpeta se movió: vuelve a arrastrar `instalar.py`.
 
-Menú **MantiTools › Recrear estante**. El estante también se rehace solo al arrancar si no coincide con las
-herramientas activas.
+**Falta el estante o le faltan iconos.**
+**MantiTools → Recrear estante** (o **Ajustes → General → Recrear estante**). Si has actualizado MantiTools y el estante no tiene el orden o los iconos nuevos, también.
 
-### No aparece el menú MantiTools
+**Una herramienta no tiene submenú ni icono.**
+Puede estar desactivada en **Ajustes → General → Herramientas activas**, o desactivada por el profesor en la carpeta de clase. Si está activa y aun así no sale, mira su línea en Comprobar instalación.
 
-El plugin no se cargó. Abre **Windows › Settings/Preferences › Plug-in Manager**, busca `mantitools_plugin.py` y
-marca **Loaded** y **Auto load**. Si no está en la lista, arrastra otra vez `instalar.py`.
+## Instalación y actualización
 
-### Moví la carpeta y ya no carga
+**He movido la carpeta de MantiTools y ya no carga.**
+Maya la busca en el sitio donde estaba. Arrastra `instalar.py` desde la carpeta nueva y elige **Reinstalar**.
 
-Arrastra otra vez `instalar.py` desde la carpeta nueva y elige **Reinstalar**.
+**Tenía Radial (o Materials, LightManager…) instalado aparte. ¿Lo he perdido?**
+No. El instalador mueve su `.mod` a `mantitools_apartadas` sin borrar nada, y MantiTools usa los mismos ajustes, radiales, bibliotecas y tableros. Si desinstalas MantiTools, se devuelven tal cual.
 
-### Una herramienta no carga
+**¿Cómo actualizo?**
+Cierra Maya, sustituye la carpeta por la nueva (o `git pull` si la tienes clonada), abre Maya y arrastra `instalar.py` → **Reinstalar**. Ver [Instalación](instalacion.md#reinstalar-actualizar-o-desinstalar).
 
-Su tarjeta dice «No se pudo cargar». En la comprobación, su línea explica por qué. Lo más común:
+**El complemento de Painter no aparece en Substance Painter.**
+Comprueba en **Ajustes → Materials → Complemento de Painter** que la carpeta es la de complementos de Painter (en Painter: **Python → Plugins Folder**). Si tu carpeta Documentos está en OneDrive o en red, cámbiala ahí y pulsa **Copiar el complemento ahí**. Ver [Materials](materials.md).
 
-- otra copia suelta de esa herramienta en la carpeta de módulos (la comprobación la señala): vuelve a instalar
-  MantiTools para apartarla;
-- la herramienta está desactivada en **Ajustes › General** o por la [carpeta compartida](carpeta-compartida.md).
+## Escenas y materiales
 
-### Los árboles o la hiedra se ven grises
+**Abro una escena antigua y los materiales no son OpenPBR.**
+Las versiones anteriores de Trepadora y Árboles usaban aiStandardSurface y standardSurface. Funcionan igual; para pasarlas a OpenPBR usa **MantiTools → Convertir materiales a OpenPBR**. Ver [Materiales OpenPBR](openpbr.md).
 
-Pulsa <kbd>6</kbd> en el visor (modo con texturas). En el render, comprueba que Arnold está cargado.
+**Al abrir una escena salen avisos «defaultColorMgtGlobals… is already connected».**
+Son avisos de Maya al leer nodos de textura de Arnold con la gestión de color. No afectan al resultado.
 
-### Texturas rosas al abrir en otro ordenador
+**Los renders tienen marca de agua.**
+Arnold sin licencia renderiza con marca de agua. Es cosa de la licencia de Arnold, no de MantiTools.
 
-En [Materials](materials.md), **Texturas › Reparar rutas**. Las texturas de Trepadora y Árboles se recolocan solas
-al abrir la escena.
+## Idioma
 
-### Escenas antiguas con materiales aiStandardSurface
-
-**MantiTools › Convertir materiales a OpenPBR**. Ver [OpenPBR](openpbr.md).
-
-### Maya va lento con mucha vegetación
-
-- [GrassEditor](grasseditor.md): mira el semáforo y usa **Analizar rendimiento**.
-- [Árboles](arboles.md): planta en calidad baja o media y mira el semáforo del editor.
-- [Trepadora](trepadora.md): baja la densidad de hojas o usa resolución de texturas 512 o 1K.
-
-### Perdí trabajo porque Maya se cerró
-
-Abre Maya otra vez: [SimpleSave](simplesave.md) te ofrece recuperar el autoguardado. Si no lo ofrece, clic derecho
-en su icono › **Recuperar autoguardado**.
-
-## Quitar MantiTools
-
-Arrastra `instalar.py` al visor y elige **Desinstalar**. Si tenías herramientas sueltas, vuelven como estaban. Tu
-carpeta y tus ajustes no se borran.
+**He cambiado el idioma y una herramienta sigue en español.**
+El idioma se cambia para todas en **Ajustes → General**, pero no todas están traducidas aún: las que no lo están siguen en español. Algunos menús cambian al reiniciar Maya.
 
 ## Pedir ayuda
 
-Copia el informe de la comprobación y abre una incidencia en
-[github.com/adrianmantilla/mantitools/issues](https://github.com/adrianmantilla/mantitools/issues), con la versión
-de Maya, el sistema y qué estabas haciendo. Si el problema es de una herramienta concreta, su página de esta wiki
-enlaza a su repositorio.
+Si nada de esto lo resuelve:
+
+1. **Ayuda → Comprobar instalación → Copiar informe**.
+2. Pégalo en un correo al profesor, con una captura del error (el Script Editor de Maya suele tener el mensaje completo: **Windows → General Editors → Script Editor**).
+3. Di qué estabas haciendo cuando falló y con qué escena.
+
+## Ver también
+
+- [Instalación](instalacion.md)
+- [Carpeta de clase](profesor.md)
+- Los apartados **Problemas frecuentes** de cada herramienta.

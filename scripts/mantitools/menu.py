@@ -84,9 +84,9 @@ def _centro(pestana):
     centro.mostrar(pestana)
 
 
-def _wiki():
-    from mantitools import documentacion
-    if not documentacion.abrir():
+def _wiki(pagina="index"):
+    from mantitools import wiki
+    if wiki.abrir(pagina) is None:
         cmds.warning(t("wiki_no_hay"))
 
 

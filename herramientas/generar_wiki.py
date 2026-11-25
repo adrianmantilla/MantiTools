@@ -1,435 +1,453 @@
-"""Genera la wiki de MantiTools (``docs/wiki/*.html``) a partir de sus ``.md``.
+"""Genera la wiki en HTML (``docs/wiki/*.html``) a partir de sus páginas en Markdown.
 
-Uso (fuera de Maya; necesita ``pandoc`` y PySide6)::
+Uso (no necesita Maya ni nada instalado aparte de Python 3)::
 
     python herramientas/generar_wiki.py
 
-Las páginas se escriben en Markdown (``docs/wiki/<página>.md``), que GitHub ya
-enseña bien. Este script:
+Las páginas se escriben en ``docs/wiki/<pagina>.md`` con un Markdown sencillo
+(títulos, párrafos, listas, tablas, código, imágenes, avisos «> **Consejo:**»),
+que también se lee bien en GitHub. Este script las pasa a HTML con la misma
+plantilla: barra lateral con los iconos del pack, índice de la página, buscador,
+anterior/siguiente y visor de imágenes. El resultado funciona sin conexión: la
+orden «MantiTools → Documentación (wiki)» abre ``docs/wiki/index.html``.
 
-1. Rellena los bloques automáticos ``<!-- auto:... -->`` … ``<!-- /auto -->`` a
-   partir del código (órdenes del estante, ajustes de cada herramienta, lista de
-   herramientas), y vuelve a guardar el ``.md`` si han cambiado. Así la wiki no se
-   queda atrás cuando cambia un ajuste.
-2. Convierte cada página a HTML con la plantilla de la wiki: barra lateral,
-   buscador, cabecera con el icono de la herramienta, índice de la página y
-   enlaces a la anterior y la siguiente.
-3. Escribe los iconos (``recursos/iconos``), el esquema del flujo de trabajo y el
-   índice del buscador.
-
-Las páginas HTML no necesitan conexión: MantiTools las abre en el navegador
-desde el menú, el estante y la pestaña Ayuda.
+Escribe también los iconos de las herramientas en ``docs/wiki/img/iconos/``.
+Hay que volver a ejecutarlo (y hacer commit del HTML) cada vez que cambia un ``.md``;
+las pruebas avisan si el HTML se ha quedado viejo.
 """
 
 import html
 import json
 import os
 import re
-import subprocess
 import sys
+import unicodedata
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 WIKI = os.path.join(RAIZ, "docs", "wiki")
-RECURSOS = os.path.join(WIKI, "recursos")
-REPO = "https://github.com/adrianmantilla/mantitools"
 
-sys.path.insert(0, os.path.join(RAIZ, "tests"))
-import comun  # noqa: E402  (rutas de las herramientas incluidas y QT offscreen)
-import maya_falso  # noqa: E402
+from mantitools import herramientas as hr  # noqa: E402  (no depende de Maya)
+from mantitools import iconos  # noqa: E402
 
-# Navegación: (título del grupo, [páginas]). Las herramientas van en el orden del estante.
-GRUPOS_HERRAMIENTAS = {
-    "empezar": "Empezar el proyecto",
-    "construir": "Construir",
-    "look": "Look y render",
-    "a_mano": "Siempre a mano",
-}
+# Navegación: (sección, [(página, título, icono)]). El icono es el de una herramienta o uno de ICONOS_WIKI.
+GRUPO_TITULOS = {"empezar": "Empezar", "construir": "Construir la escena", "look": "Materiales, luz y render",
+                 "a_mano": "Siempre a mano"}
 
 
 def navegacion():
-    from mantitools import herramientas as hr
-    nav = [("Empezar", ["index", "instalar", "primeros-pasos"]),
-           ("La suite", ["interfaz", "flujo", "carpeta-compartida", "openpbr"])]
+    nav = [("Guía", [("index", "Inicio", "centro"),
+                     ("instalacion", "Instalación", "descargar"),
+                     ("primeros-pasos", "Primeros pasos", "brujula"),
+                     ("ventana-central", "Ventana central", "ventana"),
+                     ("ajustes", "Ajustes", "ajustes"),
+                     ("flujo-de-trabajo", "Flujo de trabajo", "flujo")])]
     for grupo, ids in hr.GRUPOS:
-        nav.append((GRUPOS_HERRAMIENTAS[grupo], list(ids)))
-    nav.append(("Referencia", ["atajos", "problemas", "desarrollo"]))
+        nav.append(("Herramientas · " + GRUPO_TITULOS.get(grupo, grupo),
+                    [(i, hr.ficha(i).nombre, i) for i in ids]))
+    nav.append(("Más", [("openpbr", "Materiales OpenPBR", "materials"),
+                        ("profesor", "Carpeta de clase", "clase"),
+                        ("problemas", "Problemas y preguntas", "ayuda"),
+                        ("desarrollo", "Para desarrollar", "codigo")]))
     return nav
 
 
-# --- Markdown con cabecera ---------------------------------------------------------------------
-
-def leer(pagina):
-    with open(os.path.join(WIKI, pagina + ".md"), encoding="utf-8") as f:
-        texto = f.read()
-    datos = {}
-    m = re.match(r"---\n(.*?)\n---\n", texto, re.S)
-    if m:
-        for linea in m.group(1).splitlines():
-            clave, _, valor = linea.partition(":")
-            datos[clave.strip()] = valor.strip()
-        texto = texto[m.end():]
-    return datos, texto
-
-
-def cabecera_md(datos):
-    return "---\n" + "".join("{}: {}\n".format(k, v) for k, v in datos.items()) + "---\n"
-
-
-# --- Bloques automáticos -----------------------------------------------------------------------
-
-def _celda(texto):
-    return str(texto).replace("|", "\\|").replace("\n", " ")
-
-
-def _valores(c):
-    if c.tipo == "opciones":
-        return ", ".join(texto for _v, texto in c.opciones)
-    if c.tipo in ("entero", "decimal"):
-        if c.minimo is None:
-            return "Número"
-        def num(v):
-            return ("{:g}".format(v)).replace(".", ",")
-        return "{} a {}{}".format(num(c.minimo), num(c.maximo), c.sufijo.rstrip() and " " + c.sufijo.strip())
-    return {"casilla": "Sí / no", "carpeta": "Una carpeta", "archivo": "Un archivo", "texto": "Texto",
-            "boton": "Botón"}.get(c.tipo, "")
-
-
-def auto_ajustes(ident):
-    from mantitools import adaptadores as ad
-    partes = []
-    for titulo, controles in ad.pagina(ident).secciones():
-        filas = [c for c in controles if c.tipo != "info"]
-        if not filas:
-            continue
-        partes.append("**{}**\n\n| Ajuste | Valores | Qué hace | Clave |\n|---|---|---|---|".format(titulo))
-        for c in filas:
-            clave = "" if c.tipo == "boton" else "`{}`".format(c.clave)
-            partes[-1] += "\n| {} | {} | {} | {} |".format(_celda(c.texto), _celda(_valores(c)),
-                                                          _celda(c.ayuda), clave)
-    return "\n\n".join(partes) if partes else "_Esta herramienta no tiene ajustes en la ventana central._"
-
-
-def auto_ordenes(ident):
-    from mantitools import herramientas as hr
-    from mantitools.i18n import t
-    f = hr.ficha(ident)
-    filas = ["| Cómo | Orden |", "|---|---|",
-             "| **Clic** en el icono | {} |".format(t(f.texto(f.principal)))]
-    for a in f.secundarias:
-        filas.append("| Clic derecho | {} |".format(t(f.texto(a.clave))))
-    return "\n".join(filas)
-
-
-def auto_todas_ordenes():
-    from mantitools import herramientas as hr
-    from mantitools.i18n import t
-    filas = ["| | Herramienta | Clic | Clic derecho |", "|---|---|---|---|"]
-    for f in hr.FICHAS:
-        filas.append("| ![](recursos/iconos/{id}.svg) | [{n}]({id}.md) | {p} | {s} |".format(
-            id=f.id, n=f.nombre, p=t(f.texto(f.principal)),
-            s=" · ".join(t(f.texto(a.clave)) for a in f.secundarias)))
-    from mantitools import estante
-    filas.append("| ![](recursos/iconos/centro.svg) | [MantiTools](interfaz.md) | Ventana central | {} |".format(
-        " · ".join([t("menu_ajustes"), t("menu_ayuda"), t("menu_comprobar")])))
-    filas.append("| ![](recursos/iconos/wiki.svg) | [Wiki](index.md) | Esta documentación | {} |".format(
-        " · ".join(t(texto) for _p, texto in estante.PAGINAS_WIKI)))
-    return "\n".join(filas)
-
-
-def auto_herramientas():
-    from mantitools import herramientas as hr
-    filas = ["| | Herramienta | Grupo | Para qué sirve |", "|---|---|---|---|"]
-    for f in hr.FICHAS:
-        datos, _ = leer(f.id)
-        filas.append("| ![](recursos/iconos/{id}.svg) | [**{n}**]({id}.md) | {g} | {r} |".format(
-            id=f.id, n=f.nombre, g=GRUPOS_HERRAMIENTAS[hr.grupo(f.id)], r=datos.get("resumen", "")))
-    return "\n".join(filas)
-
-
-def html_herramientas():
-    """En HTML, la lista de herramientas va en tarjetas, agrupadas como en el estante."""
-    from mantitools import herramientas as hr
-    partes = []
-    for grupo, ids in hr.GRUPOS:
-        tarjetas = []
-        for ident in ids:
-            f = hr.ficha(ident)
-            datos, _ = leer(ident)
-            tarjetas.append(
-                '<a class="tarjeta" href="{id}.html" style="--marca:{m}">'
-                '<img src="recursos/iconos/{id}.svg" alt=""><span><strong>{n}</strong>'
-                '<small>{r}</small></span></a>'.format(id=ident, m=marca(ident), n=f.nombre,
-                                                        r=html.escape(datos.get("resumen", ""))))
-        partes.append('<div class="grupo-tarjetas"><h3>{}</h3><div class="tarjetas">{}</div></div>'.format(
-            GRUPOS_HERRAMIENTAS[grupo], "".join(tarjetas)))
-    return '<div class="herramientas">{}</div>'.format("".join(partes))
-
-
-AUTOMATICOS = {
-    "ajustes": (auto_ajustes, None),
-    "ordenes": (auto_ordenes, None),
-    "todas-ordenes": (auto_todas_ordenes, None),
-    "herramientas": (auto_herramientas, html_herramientas),
+# Iconos propios de la wiki, en el mismo estilo de línea que los del pack (24×24).
+ICONOS_WIKI = {
+    "descargar": '<path d="M12 4v11"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/>',
+    "brujula": '<circle cx="12" cy="12" r="8"/><path d="M14.8 9.2l-1.6 4-4 1.6 1.6-4z"/>',
+    "ventana": '<rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 9h17"/><path d="M6.5 7h.01M8.5 7h.01"/>',
+    "ajustes": '<path d="M5 7h9M18 7h1M5 12h3M12 12h7M5 17h11M19 17h0"/><circle cx="16" cy="7" r="2"/>'
+               '<circle cx="10" cy="12" r="2"/><circle cx="17.5" cy="17" r="1.5"/>',
+    "flujo": '<circle cx="6" cy="6" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/>'
+             '<path d="M8 6h4a4 4 0 0 1 4 4M16 14a4 4 0 0 1-4 4H8"/>',
+    "clase": '<path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v4c3 2 7 2 10 0v-4"/><path d="M21 9v5"/>',
+    "ayuda": '<circle cx="12" cy="12" r="8"/><path d="M9.8 9.6a2.3 2.3 0 0 1 4.4.9c0 1.6-2.2 2-2.2 3.3"/>'
+             '<path d="M12 16.8h.01"/>',
+    "codigo": '<path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/>',
+    "buscar": '<circle cx="11" cy="11" r="6"/><path d="M15.5 15.5L20 20"/>',
 }
 
-PATRON_AUTO = re.compile(r"<!-- auto:([\w-]+)(?: ([\w-]+))? -->\n.*?<!-- /auto -->", re.S)
 
-
-def rellenar(texto):
-    """Devuelve (md con los bloques al día, {marca: html} para los que tienen versión HTML propia)."""
-    ricos = {}
-
-    def cambiar(m):
-        nombre, arg = m.group(1), m.group(2)
-        hacer_md, hacer_html = AUTOMATICOS[nombre]
-        contenido = hacer_md(arg) if arg else hacer_md()
-        bloque = "<!-- auto:{}{} -->\n{}\n<!-- /auto -->".format(nombre, " " + arg if arg else "", contenido)
-        if hacer_html:
-            ricos[bloque] = hacer_html(arg) if arg else hacer_html()
-        return bloque
-
-    return PATRON_AUTO.sub(cambiar, texto), ricos
-
-
-# --- Iconos y esquema ---------------------------------------------------------------------------
-
-def marca(ident):
-    from mantitools import herramientas as hr, iconos
-    return hr.ACENTO if ident in ("centro", "wiki") else iconos.tono_marca(hr.ficha(ident).color)
-
-
-def escribir_iconos():
-    from mantitools import herramientas as hr, iconos
-    carpeta = os.path.join(RECURSOS, "iconos")
-    os.makedirs(carpeta, exist_ok=True)
-    for ident in list(hr.ORDEN) + ["centro", "wiki"]:
-        with open(os.path.join(carpeta, ident + ".svg"), "w", encoding="utf-8") as f:
-            f.write(iconos.svg(ident, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE, marca=marca(ident)))
-        with open(os.path.join(carpeta, ident + "_linea.svg"), "w", encoding="utf-8") as f:
-            f.write(iconos.svg(ident, color=marca(ident), grosor=1.3))
-
-
-def escribir_flujo():
-    """El esquema del flujo de trabajo: los cuatro grupos del estante, de izquierda a derecha."""
-    from mantitools import herramientas as hr, iconos
-    lado, hueco, pad = 56, 14, 22
-    columnas = []
-    x = 20
-    for grupo, ids in hr.GRUPOS:
-        ancho = len(ids) * lado + (len(ids) - 1) * hueco + 2 * pad
-        columnas.append((x, ancho, grupo, ids))
-        x += ancho + 46
-    total = x - 46 + 20
-    alto = 196
-    partes = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" '
-              'font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">'.format(w=total, h=alto),
-              '<rect width="{}" height="{}" rx="14" fill="#2b2b2b"/>'.format(total, alto)]
-    for i, (x, ancho, grupo, ids) in enumerate(columnas):
-        partes.append('<rect x="{}" y="22" width="{}" height="150" rx="12" fill="#333333" stroke="#444"/>'.format(x, ancho))
-        partes.append('<text x="{}" y="48" fill="#8fc3e8" font-size="12" font-weight="700" letter-spacing="1" '
-                      'text-anchor="middle">{}. {}</text>'.format(x + ancho / 2, i + 1,
-                                                                    GRUPOS_HERRAMIENTAS[grupo].upper()))
-        for j, ident in enumerate(ids):
-            ix = x + pad + j * (lado + hueco)
-            icono = iconos.svg(ident, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE, marca=marca(ident))
-            icono = icono.replace('width="24" height="24"', 'x="{}" y="66" width="{}" height="{}"'.format(ix, lado, lado), 1)
-            partes.append(icono)
-            partes.append('<text x="{}" y="146" fill="#dcdcdc" font-size="11" text-anchor="middle">{}</text>'.format(
-                ix + lado / 2, hr.ficha(ident).nombre))
-        if i < len(columnas) - 1:
-            fx = x + ancho + 10
-            partes.append('<path d="M{} 97h22m-7 -6l7 6-7 6" fill="none" stroke="#4a9bd1" stroke-width="2.2" '
-                          'stroke-linecap="round" stroke-linejoin="round"/>'.format(fx + 2))
-    partes.append("</svg>")
-    with open(os.path.join(RECURSOS, "flujo.svg"), "w", encoding="utf-8") as f:
-        f.write("".join(partes))
-
-
-# --- HTML ---------------------------------------------------------------------------------------
-
-AVISOS = {"NOTE": ("nota", "Nota"), "TIP": ("consejo", "Consejo"), "IMPORTANT": ("importante", "Importante"),
-          "WARNING": ("cuidado", "Cuidado"), "CAUTION": ("cuidado", "Cuidado")}
-
-
-def pandoc(texto):
-    proceso = subprocess.run(["pandoc", "-f", "gfm", "-t", "html5", "--wrap=none"], input=texto.encode("utf-8"),
-                             stdout=subprocess.PIPE, check=True)
-    return proceso.stdout.decode("utf-8")
-
-
-def pulir(cuerpo):
-    # Enlaces entre páginas: .md -> .html
-    cuerpo = re.sub(r'href="([\w-]+)\.md(#[^"]*)?"', lambda m: 'href="{}.html{}"'.format(m.group(1), m.group(2) or ""),
-                    cuerpo)
-    # Avisos de GitHub (> [!TIP]) -> recuadros
-    def aviso(m):
-        clase, titulo = AVISOS[m.group(1)]
-        return '<div class="aviso {}"><p class="aviso-titulo">{}</p><p>{}</div>'.format(clase, titulo, m.group(2).strip())
-    cuerpo = re.sub(r'<blockquote>\s*<p>\[!(\w+)\]\s*(.*?)</blockquote>', aviso, cuerpo, flags=re.S)
-    # Imagen sola en un párrafo -> figura con pie (el texto alternativo)
-    def figura(m):
-        img = m.group(1)
-        alt = re.search(r'alt="([^"]*)"', img)
-        pie = alt.group(1) if alt else ""
-        img = img.replace("<img ", '<img loading="lazy" ', 1)
-        return '<figure>{}{}</figure>'.format(img, "<figcaption>{}</figcaption>".format(pie) if pie else "")
-    cuerpo = re.sub(r'<p>(<img [^>]*>)</p>', figura, cuerpo)
-    # Tablas con iconos pequeños
-    cuerpo = cuerpo.replace('<img src="recursos/iconos/', '<img class="icono" src="recursos/iconos/')
-    # Tablas anchas: que se puedan desplazar en pantallas estrechas
-    cuerpo = cuerpo.replace("<table>", '<div class="tabla"><table>').replace("</table>", "</table></div>")
-    return cuerpo
-
-
-def indice_de(cuerpo):
-    return re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', cuerpo)
-
-
-def texto_plano(cuerpo):
-    texto = re.sub(r"<[^>]+>", " ", cuerpo)
-    return re.sub(r"\s+", " ", html.unescape(texto)).strip()
-
-
-def titulo_de(pagina):
-    datos, _ = leer(pagina)
-    return datos.get("titulo", pagina)
-
-
-def barra_lateral(actual, nav):
-    partes = []
-    for grupo, paginas in nav:
-        enlaces = []
-        for p in paginas:
-            datos, _ = leer(p)
-            icono = ""
-            if datos.get("herramienta"):
-                icono = '<img src="recursos/iconos/{}.svg" alt="">'.format(datos["herramienta"])
-            enlaces.append('<li><a href="{p}.html"{c}>{i}{t}</a></li>'.format(
-                p=p, c=' class="actual" aria-current="page"' if p == actual else "", i=icono,
-                t=html.escape(datos.get("corto", datos.get("titulo", p)))))
-        partes.append("<h4>{}</h4><ul>{}</ul>".format(grupo, "".join(enlaces)))
-    return "".join(partes)
-
-
-def cabecera(pagina, datos):
-    from mantitools import herramientas as hr
-    ident = datos.get("herramienta")
-    if ident:
-        f = hr.ficha(ident)
-        grupo = GRUPOS_HERRAMIENTAS[hr.grupo(ident)]
-        version = _version(ident)
-        return ('<header class="portada-herramienta" style="--marca:{m}">'
-                '<img class="icono-grande" src="recursos/iconos/{id}.svg" alt="">'
-                '<div><p class="miga">{g}</p><h1>{n}</h1><p class="resumen">{r}</p>'
-                '<p class="chips"><span>Estante: icono {n}</span><span>Menú MantiTools › {n}</span>'
-                '<span>Versión {v}</span>'
-                '<a href="https://github.com/{repo}">Código</a></p></div></header>').format(
-                    m=marca(ident), id=ident, g=grupo, n=f.nombre, r=html.escape(datos.get("resumen", "")),
-                    v=version, repo=f.repositorio)
-    clase = "portada" if pagina == "index" else "titulo-pagina"
-    return '<header class="{}"><h1>{}</h1>{}</header>'.format(
-        clase, html.escape(datos.get("titulo", pagina)),
-        '<p class="resumen">{}</p>'.format(html.escape(datos["resumen"])) if datos.get("resumen") else "")
-
-
-def _version(ident):
+def icono_svg(ident, lado=24, fondo=True, color=None):
+    """SVG de un icono del pack o de la wiki; con ``fondo``, en el cuadrado gris del estante."""
+    trazos = iconos.TRAZOS.get(ident) or ICONOS_WIKI[ident]
+    marca = None
     try:
-        with open(os.path.join(RAIZ, "versiones.json"), encoding="utf-8") as f:
-            return json.load(f)[ident].get("version", "")
-    except Exception:
-        return ""
+        marca = iconos.tono_marca(hr.ficha(ident).color)
+    except KeyError:
+        pass
+    if fondo:
+        base = '<rect width="24" height="24" rx="5" fill="{}"/>'.format(iconos.FONDO)
+        if marca:
+            base += '<rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="{}"/>'.format(marca)
+        cuerpo = '<g transform="translate(3.6 {}) scale(0.7)">{}</g>'.format(2.8 if marca else 3.6, trazos)
+        grosor = iconos.GROSOR_TARJETA / 0.7
+        trazo = iconos.TRAZO
+    else:
+        base, cuerpo, grosor, trazo = "", trazos, 1.6, color or "currentColor"
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="{l}" height="{l}" '
+            'aria-hidden="true">{b}<g fill="none" stroke="{t}" stroke-width="{g:.3g}" stroke-linecap="round" '
+            'stroke-linejoin="round">{c}</g></svg>').format(l=lado, b=base, t=trazo, g=grosor, c=cuerpo)
 
+
+# --- Markdown -----------------------------------------------------------------------------
+
+def ancla(texto):
+    texto = unicodedata.normalize("NFKD", texto)
+    texto = "".join(c for c in texto if not unicodedata.combining(c)).lower()
+    texto = re.sub(r"[`*_\[\]()]", "", texto)
+    texto = re.sub(r"[^a-z0-9\s-]", "", texto)
+    return re.sub(r"[\s]+", "-", texto.strip())
+
+
+def _destino(url):
+    if re.match(r"^[a-z]+:", url) or url.startswith("#"):
+        return url
+    ruta, _, frag = url.partition("#")
+    if ruta.endswith(".md"):
+        ruta = ruta[:-3] + ".html"
+    return ruta + ("#" + frag if frag else "")
+
+
+def en_linea(texto):
+    """Formato dentro de un párrafo: código, imágenes, enlaces, negrita y cursiva."""
+    codigos = []
+
+    def guardar(m):
+        codigos.append("<code>{}</code>".format(html.escape(m.group(1))))
+        return "\x00{}\x00".format(len(codigos) - 1)
+    t = re.sub(r"`([^`]+)`", guardar, texto)
+    t = html.escape(t, quote=False)
+    t = re.sub(r"!\[([^\]]*)\]\(([^)\s]+)\)",
+               lambda m: '<img src="{}" alt="{}" loading="lazy">'.format(m.group(2), html.escape(m.group(1))), t)
+    t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)",
+               lambda m: '<a href="{}"{}>{}</a>'.format(
+                   _destino(m.group(2)),
+                   ' target="_blank" rel="noopener"' if m.group(2).startswith("http") else "", m.group(1)), t)
+    t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+    t = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", t)
+    return re.sub(r"\x00(\d+)\x00", lambda m: codigos[int(m.group(1))], t)
+
+
+AVISOS = {"consejo": ("consejo", "Consejo"), "importante": ("importante", "Importante"), "nota": ("nota", "Nota"),
+          "atención": ("importante", "Atención"), "atencion": ("importante", "Atención")}
+
+
+def bloques(md):
+    """Pasa el Markdown a HTML. Devuelve (html, título, [(nivel, texto, ancla)])."""
+    lineas = md.replace("\r\n", "\n").split("\n")
+    salida, titulos, titulo = [], [], None
+    usadas = {}
+    i = 0
+
+    def es_inicio(linea):
+        return (linea.startswith("#") or linea.startswith("```") or linea.startswith("> ")
+                or re.match(r"^\s*([-*]|\d+\.)\s", linea) or linea.startswith("|")
+                or linea.strip() == "---" or re.match(r"^!\[[^\]]*\]\([^)]+\)\s*$", linea.strip()))
+
+    while i < len(lineas):
+        linea = lineas[i]
+        s = linea.strip()
+        if not s:
+            i += 1
+            continue
+        m = re.match(r"^(#{1,4})\s+(.*)$", s)
+        if m:
+            nivel, texto = len(m.group(1)), m.group(2).strip()
+            if nivel == 1 and titulo is None:
+                titulo = texto
+                i += 1
+                continue
+            a = ancla(texto)
+            if a in usadas:
+                usadas[a] += 1
+                a = "{}-{}".format(a, usadas[a])
+            else:
+                usadas[a] = 0
+            titulos.append((nivel, re.sub(r"[`*]", "", texto), a))
+            salida.append('<h{n} id="{a}">{t}<a class="ancla" href="#{a}" aria-label="Enlace">#</a></h{n}>'
+                          .format(n=nivel, a=a, t=en_linea(texto)))
+            i += 1
+            continue
+        if s.startswith("```"):
+            lengua = s[3:].strip()
+            i += 1
+            codigo = []
+            while i < len(lineas) and not lineas[i].strip().startswith("```"):
+                codigo.append(lineas[i])
+                i += 1
+            i += 1
+            salida.append('<div class="codigo"><button class="copiar" type="button">Copiar</button>'
+                          '<pre><code class="{}">{}</code></pre></div>'
+                          .format(html.escape(lengua), html.escape("\n".join(codigo))))
+            continue
+        if s == "---":
+            salida.append("<hr>")
+            i += 1
+            continue
+        m = re.match(r"^!\[([^\]]*)\]\(([^)\s]+)\)\s*$", s)
+        if m:
+            alt, src = m.group(1), m.group(2)
+            pie = ""
+            j = i + 1
+            while j < len(lineas) and not lineas[j].strip():
+                j += 1
+            if j < len(lineas):
+                mp = re.match(r"^\*([^*].*[^*]|[^*])\*\s*$", lineas[j].strip())
+                if mp:
+                    pie = mp.group(1)
+                    i = j
+            salida.append('<figure><a class="zoom" href="{s}"><img src="{s}" alt="{a}" loading="lazy"></a>{p}</figure>'
+                          .format(s=src, a=html.escape(alt),
+                                  p="<figcaption>{}</figcaption>".format(en_linea(pie)) if pie else ""))
+            i += 1
+            continue
+        if s.startswith(">"):
+            cita = []
+            while i < len(lineas) and lineas[i].strip().startswith(">"):
+                cita.append(lineas[i].strip()[1:].strip())
+                i += 1
+            texto = " ".join(c for c in cita if c)
+            m = re.match(r"^\*\*([^*:]+):\*\*\s*(.*)$", texto)
+            clase, etiqueta = "nota", None
+            if m and m.group(1).lower() in AVISOS:
+                clase, etiqueta = AVISOS[m.group(1).lower()]
+                texto = m.group(2)
+            salida.append('<div class="aviso {c}">{e}<p>{t}</p></div>'.format(
+                c=clase, e='<span class="aviso-titulo">{}</span>'.format(etiqueta) if etiqueta else "",
+                t=en_linea(texto)))
+            continue
+        if s.startswith("|"):
+            filas = []
+            while i < len(lineas) and lineas[i].strip().startswith("|"):
+                filas.append(lineas[i].strip())
+                i += 1
+
+            def celdas(f):
+                return [c.strip() for c in f.strip("|").split("|")]
+            cab = celdas(filas[0])
+            cuerpo = [celdas(f) for f in filas[1:] if not re.match(r"^\|[\s:|-]+\|?$", f)]
+            t = ['<div class="tabla"><table><thead><tr>']
+            t += ["<th>{}</th>".format(en_linea(c)) for c in cab]
+            t.append("</tr></thead><tbody>")
+            for f in cuerpo:
+                t.append("<tr>" + "".join("<td>{}</td>".format(en_linea(c)) for c in f) + "</tr>")
+            t.append("</tbody></table></div>")
+            salida.append("".join(t))
+            continue
+        if re.match(r"^\s*([-*]|\d+\.)\s", linea):
+            salida.append(_lista(lineas, i))
+            i = _fin_lista(lineas, i)
+            continue
+        parrafo = [s]
+        i += 1
+        while i < len(lineas) and lineas[i].strip() and not es_inicio(lineas[i]):
+            parrafo.append(lineas[i].strip())
+            i += 1
+        salida.append("<p>{}</p>".format(en_linea(" ".join(parrafo))))
+    return "\n".join(salida), titulo or "", titulos
+
+
+def _fin_lista(lineas, i):
+    while i < len(lineas):
+        linea = lineas[i]
+        if not linea.strip():
+            j = i + 1
+            while j < len(lineas) and not lineas[j].strip():
+                j += 1
+            if j < len(lineas) and (re.match(r"^\s*([-*]|\d+\.)\s", lineas[j]) or lineas[j].startswith("  ")):
+                i = j
+                continue
+            return i
+        if not (re.match(r"^\s*([-*]|\d+\.)\s", linea) or linea.startswith("  ")):
+            return i
+        i += 1
+    return i
+
+
+def _lista(lineas, inicio):
+    """Lista (con un nivel de anidado por sangría) a HTML."""
+    fin = _fin_lista(lineas, inicio)
+    elementos = []  # (sangría, ordenada, texto)
+    for linea in lineas[inicio:fin]:
+        if not linea.strip():
+            continue
+        m = re.match(r"^(\s*)([-*]|\d+\.)\s+(.*)$", linea)
+        if m:
+            elementos.append([len(m.group(1)), m.group(2)[-1] == ".", m.group(3)])
+        elif elementos:
+            elementos[-1][2] += " " + linea.strip()
+
+    def construir(items, k):
+        if not items:
+            return "", k
+        base = items[k][0]
+        ordenada = items[k][1]
+        partes = ["<ol>" if ordenada else "<ul>"]
+        while k < len(items) and items[k][0] >= base:
+            if items[k][0] > base:
+                sub, k = construir(items, k)
+                partes[-1] = partes[-1][:-5] + sub + "</li>"
+                continue
+            partes.append("<li>{}</li>".format(en_linea(items[k][2])))
+            k += 1
+        partes.append("</ol>" if ordenada else "</ul>")
+        return "".join(partes), k
+
+    resultado, k = "", 0
+    while k < len(elementos):
+        trozo, k = construir(elementos, k)
+        resultado += trozo
+    return resultado
+
+
+# --- Plantilla ----------------------------------------------------------------------------
 
 PLANTILLA = """<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{titulo} · MantiTools</title>
-<link rel="icon" href="recursos/iconos/centro.svg">
-<link rel="stylesheet" href="recursos/estilo.css">
+<title>{titulo}</title>
+<link rel="icon" href="img/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/wiki.css">
 </head>
 <body>
-<a class="saltar" href="#contenido">Ir al contenido</a>
-<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
-<nav class="lateral" aria-label="Páginas de la wiki">
-  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v{version}</small></span></a>
-  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
-  {lateral}
-</nav>
-<main id="contenido">
-{cabecera}
+<header class="barra">
+  <button class="menu-movil" type="button" aria-label="Menú">☰</button>
+  <a class="marca" href="index.html">{logo}<span>MantiTools <small>wiki</small></span></a>
+  <div class="buscador">{lupa}<input id="buscar" type="search" placeholder="Buscar en la wiki…" autocomplete="off">
+    <div id="resultados" hidden></div></div>
+  <span class="version">v{version}</span>
+</header>
 <div class="cuerpo">
+<nav class="lateral">{nav}</nav>
+<main>
 <article>
-{cuerpo}
-<footer class="pie">
-  <div class="vecinas">{anterior}{siguiente}</div>
-  <p>MantiTools {version} · Licencia MIT · <a href="{repo}">github.com/adrianmantilla/mantitools</a> · <a href="{repo}/blob/main/docs/wiki/{pagina}.md">Ver esta página en GitHub</a></p>
-</footer>
+{cabecera}
+{contenido}
+<nav class="pasos">{anterior}{siguiente}</nav>
 </article>
-{indice}
-</div>
+<footer>MantiTools {version} · Wiki generada desde <code>docs/wiki/{pagina}.md</code> · Licencia MIT</footer>
 </main>
-<script src="recursos/buscador.js"></script>
+<aside class="indice">{indice}</aside>
+</div>
+<div id="visor" hidden><img alt=""></div>
+<script src="recursos/indice.js"></script>
 <script src="recursos/wiki.js"></script>
 </body>
 </html>
 """
 
 
-def generar():
-    maya_falso.instalar()
-    from mantitools import carga
-    carga.iniciar()
-    import mantitools
-    os.makedirs(RECURSOS, exist_ok=True)
-    escribir_iconos()
-    escribir_flujo()
+def _version(ident):
+    try:
+        with open(os.path.join(RAIZ, "versiones.json"), encoding="utf-8") as f:
+            return json.load(f).get(ident, {}).get("version", "")
+    except (OSError, ValueError):
+        return ""
+
+
+def _descripcion(ident):
+    with open(os.path.join(RAIZ, "scripts", "mantitools", "i18n", "es.json"), encoding="utf-8") as f:
+        return json.load(f).get("desc_" + ident, "")
+
+
+def cabecera_pagina(pagina, titulo):
+    try:
+        ficha = hr.ficha(pagina)
+    except KeyError:
+        return "<h1>{}</h1>".format(en_linea(titulo))
+    grupo = GRUPO_TITULOS.get(hr.grupo(pagina) or "", "")
+    return ('<div class="ficha" style="--marca:{marca}">{icono}<div><h1>{t}</h1><p class="desc">{d}</p>'
+            '<p class="datos"><span>v{v}</span><span>Estante: {g}</span>'
+            '<a href="https://github.com/{r}" target="_blank" rel="noopener">github.com/{r}</a></p></div></div>'
+            ).format(marca=iconos.tono_marca(ficha.color), icono=icono_svg(pagina, 72), t=html.escape(titulo),
+                     d=html.escape(_descripcion(pagina)), v=_version(pagina), g=grupo, r=ficha.repositorio)
+
+
+def html_nav(nav, actual):
+    partes = []
+    for seccion, paginas in nav:
+        partes.append('<div class="grupo"><h4>{}</h4>'.format(html.escape(seccion)))
+        for pagina, titulo, icono in paginas:
+            partes.append('<a href="{p}.html"{c}>{i}<span>{t}</span></a>'.format(
+                p=pagina, c=' class="actual"' if pagina == actual else "",
+                i=icono_svg(icono, 22, fondo=icono in iconos.TRAZOS),
+                t=html.escape(titulo)))
+        partes.append("</div>")
+    return "".join(partes)
+
+
+def html_indice(titulos):
+    h2 = [(n, t, a) for n, t, a in titulos if n in (2, 3)]
+    if len(h2) < 2:
+        return ""
+    return '<h4>En esta página</h4><ul>{}</ul>'.format("".join(
+        '<li class="n{}"><a href="#{}">{}</a></li>'.format(n, a, html.escape(t)) for n, t, a in h2))
+
+
+def texto_plano(contenido):
+    t = re.sub(r"<[^>]+>", " ", contenido)
+    return re.sub(r"\s+", " ", html.unescape(t)).strip()
+
+
+def construir():
+    """Todo lo que se escribe, sin escribirlo: ({ruta relativa a docs/wiki: texto}, [páginas sin .md])."""
     nav = navegacion()
-    orden = [p for _g, paginas in nav for p in paginas]
-    buscador = []
-    escritas = []
-    for i, pagina in enumerate(orden):
-        datos, texto = leer(pagina)
-        nuevo, ricos = rellenar(texto)
-        if nuevo != texto:
-            with open(os.path.join(WIKI, pagina + ".md"), "w", encoding="utf-8") as f:
-                f.write(cabecera_md(datos) + nuevo)
-        marcas_ricas = {}
-        for n, (bloque, rico) in enumerate(ricos.items()):
-            marca_txt = "MTAUTO{}FIN".format(n)
-            nuevo = nuevo.replace(bloque, "\n\n" + marca_txt + "\n\n")
-            marcas_ricas[marca_txt] = rico
-        cuerpo = pulir(pandoc(nuevo))
-        for marca_txt, rico in marcas_ricas.items():
-            cuerpo = cuerpo.replace("<p>{}</p>".format(marca_txt), rico)
-        apartados = indice_de(cuerpo)
-        indice = ""
-        if len(apartados) >= 2:
-            indice = '<aside class="indice"><h4>En esta página</h4><ul>{}</ul></aside>'.format(
-                "".join('<li><a href="#{}">{}</a></li>'.format(a, re.sub(r"<[^>]+>", "", t)) for a, t in apartados))
+    orden = [p for _, paginas in nav for p, _, _ in paginas]
+    archivos = {}
+    for ident in list(iconos.TRAZOS) + list(ICONOS_WIKI):
+        archivos["img/iconos/{}.svg".format(ident)] = icono_svg(ident, 96)
+    titulos_nav = {p: t for _, paginas in nav for p, t, _ in paginas}
+    indice_busqueda, faltan = [], []
+    for n, pagina in enumerate(orden):
+        ruta_md = os.path.join(WIKI, pagina + ".md")
+        if not os.path.isfile(ruta_md):
+            faltan.append(pagina)
+            continue
+        with open(ruta_md, encoding="utf-8") as f:
+            contenido, titulo, titulos = bloques(f.read())
+        titulo = titulo or titulos_nav[pagina]
         anterior = siguiente = ""
-        if i > 0:
-            anterior = '<a class="anterior" href="{}.html"><small>Anterior</small>{}</a>'.format(
-                orden[i - 1], html.escape(titulo_de(orden[i - 1])))
-        if i < len(orden) - 1:
-            siguiente = '<a class="siguiente" href="{}.html"><small>Siguiente</small>{}</a>'.format(
-                orden[i + 1], html.escape(titulo_de(orden[i + 1])))
-        pagina_html = PLANTILLA.format(
-            titulo=html.escape(datos.get("titulo", pagina)), version=mantitools.__version__,
-            lateral=barra_lateral(pagina, nav), cabecera=cabecera(pagina, datos), cuerpo=cuerpo,
-            indice=indice, anterior=anterior, siguiente=siguiente, repo=REPO, pagina=pagina)
-        with open(os.path.join(WIKI, pagina + ".html"), "w", encoding="utf-8") as f:
-            f.write(pagina_html)
-        escritas.append(pagina)
-        buscador.append({"p": pagina, "t": datos.get("titulo", pagina),
-                         "h": [[a, re.sub(r"<[^>]+>", "", t)] for a, t in apartados],
-                         "x": texto_plano(cuerpo)[:6000]})
-    with open(os.path.join(RECURSOS, "buscador.js"), "w", encoding="utf-8") as f:
-        f.write("window.WIKI_PAGINAS = " + json.dumps(buscador, ensure_ascii=False) + ";\n")
-    return escritas
+        if n > 0:
+            p = orden[n - 1]
+            anterior = '<a class="ant" href="{}.html"><small>Anterior</small>{}</a>'.format(p, titulos_nav[p])
+        if n + 1 < len(orden):
+            p = orden[n + 1]
+            siguiente = '<a class="sig" href="{}.html"><small>Siguiente</small>{}</a>'.format(p, titulos_nav[p])
+        archivos[pagina + ".html"] = PLANTILLA.format(
+            titulo=html.escape(re.sub(r"[`*]", "", titulo) + ("" if pagina == "index" else " · Wiki de MantiTools")), logo=icono_svg("centro", 30),
+            lupa=icono_svg("buscar", 18, fondo=False), version=_version_pack(), nav=html_nav(nav, pagina),
+            cabecera=cabecera_pagina(pagina, titulo), contenido=contenido, anterior=anterior,
+            siguiente=siguiente, indice=html_indice(titulos), pagina=pagina)
+        indice_busqueda.append({"p": pagina, "t": titulos_nav[pagina],
+                                "s": [[t, a] for nv, t, a in titulos if nv in (2, 3)],
+                                "x": texto_plano(contenido)[:20000]})
+    archivos["recursos/indice.js"] = ("window.WIKI_INDICE = " + json.dumps(indice_busqueda, ensure_ascii=False)
+                                      + ";\n")
+    return archivos, faltan
+
+
+def generar():
+    archivos, faltan = construir()
+    for relativa, texto in archivos.items():
+        destino = os.path.join(WIKI, *relativa.split("/"))
+        os.makedirs(os.path.dirname(destino), exist_ok=True)
+        with open(destino, "w", encoding="utf-8", newline="\n") as f:
+            f.write(texto)
+    return sorted(r[:-5] for r in archivos if r.endswith(".html")), faltan
+
+
+def _version_pack():
+    with open(os.path.join(RAIZ, "scripts", "mantitools", "__init__.py"), encoding="utf-8") as f:
+        m = re.search(r'__version__\s*=\s*"([^"]+)"', f.read())
+    return m.group(1) if m else ""
 
 
 if __name__ == "__main__":
-    for p in generar():
-        print("docs/wiki/{}.html".format(p))
+    hechas, sin_md = generar()
+    print("Páginas: {} · en {}".format(len(hechas), WIKI))
+    if sin_md:
+        print("Sin .md todavía: " + ", ".join(sin_md))

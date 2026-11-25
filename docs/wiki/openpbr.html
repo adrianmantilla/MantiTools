@@ -3,123 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Materiales OpenPBR · MantiTools</title>
-<link rel="icon" href="recursos/iconos/centro.svg">
-<link rel="stylesheet" href="recursos/estilo.css">
+<title>Materiales OpenPBR · Wiki de MantiTools</title>
+<link rel="icon" href="img/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/wiki.css">
 </head>
 <body>
-<a class="saltar" href="#contenido">Ir al contenido</a>
-<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
-<nav class="lateral" aria-label="Páginas de la wiki">
-  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
-  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
-  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html" class="actual" aria-current="page">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
-</nav>
-<main id="contenido">
-<header class="titulo-pagina"><h1>Materiales OpenPBR</h1><p class="resumen">Trepadora, Árboles y Materials crean el mismo tipo de material, openPBRSurface. Cómo convertir escenas hechas con versiones anteriores.</p></header>
+<header class="barra">
+  <button class="menu-movil" type="button" aria-label="Menú">☰</button>
+  <a class="marca" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 3.6) scale(0.7)"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><path d="M16.5 13v7M13 16.5h7"/></g></g></svg><span>MantiTools <small>wiki</small></span></a>
+  <div class="buscador"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="M15.5 15.5L20 20"/></g></svg><input id="buscar" type="search" placeholder="Buscar en la wiki…" autocomplete="off">
+    <div id="resultados" hidden></div></div>
+  <span class="version">v1.1.0</span>
+</header>
 <div class="cuerpo">
+<nav class="lateral"><div class="grupo"><h4>Guía</h4><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 3.6) scale(0.7)"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><path d="M16.5 13v7M13 16.5h7"/></g></g></svg><span>Inicio</span></a><a href="instalacion.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/></g></svg><span>Instalación</span></a><a href="primeros-pasos.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M14.8 9.2l-1.6 4-4 1.6 1.6-4z"/></g></svg><span>Primeros pasos</span></a><a href="ventana-central.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 9h17"/><path d="M6.5 7h.01M8.5 7h.01"/></g></svg><span>Ventana central</span></a><a href="ajustes.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h9M18 7h1M5 12h3M12 12h7M5 17h11M19 17h0"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="17.5" cy="17" r="1.5"/></g></svg><span>Ajustes</span></a><a href="flujo-de-trabajo.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><path d="M8 6h4a4 4 0 0 1 4 4M16 14a4 4 0 0 1-4 4H8"/></g></svg><span>Flujo de trabajo</span></a></div><div class="grupo"><h4>Herramientas · Empezar</h4><a href="muro.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#cab372"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><rect x="6.5" y="7.5" width="5" height="4"/><rect x="13" y="9" width="4.5" height="6"/><path d="M6.5 15h4.5"/></g></g></svg><span>Muro</span></a></div><div class="grupo"><h4>Herramientas · Construir la escena</h4><a href="arboles.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca9c72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M12 21v-7"/><path d="M12 14l-3-3"/><path d="M12 15l3.5-3"/><circle cx="12" cy="8" r="5"/></g></g></svg><span>Árboles</span></a><a href="trepadora.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#72caaf"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M12 21c0-6 1-10 5-14"/><path d="M14 12c-3 0-5-1.5-5.5-4 2.6-.4 4.6.8 5.5 4z"/><path d="M15.5 8.5c2.4.2 4-.9 4.5-3-2.2-.4-3.9.6-4.5 3z"/><path d="M12.6 16.5c-2.6.4-4.6-.6-5.4-2.8 2.4-.5 4.4.5 5.4 2.8z"/></g></g></svg><span>Trepadora</span></a><a href="grasseditor.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#adca72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M4 20h16"/><path d="M7 20c0-5-1-8-3-11"/><path d="M11 20c0-6 0-10 1.5-14"/><path d="M15 20c.3-5 1.5-8 4-10"/><path d="M18.5 20c0-2.5.5-4 1.5-5"/></g></g></svg><span>GrassEditor</span></a></div><div class="grupo"><h4>Herramientas · Materiales, luz y render</h4><a href="materials.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca7c72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><circle cx="12" cy="12" r="8"/><path d="M7.5 9.5a5 5 0 0 1 4-3"/><path d="M4 13c3 2 13 2 16 0"/></g></g></svg><span>Materials</span></a><a href="lightmanager.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca9b72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M5.2 6.4l5.6-2.2 2 5.2-5.6 2.2z"/><path d="M12.8 6.2l5.7-1.4M13.6 8.3l6 .6M13.1 10.6l4.8 2.6"/><path d="M8.9 11l1.1 3.2M10 14.2v6M10 14.2l-3.4 5.8M10 14.2l3.4 5.8"/></g></g></svg><span>LightManager</span></a><a href="renderdesk.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#7296ca"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><rect x="3.5" y="4.5" width="17" height="12" rx="1.5"/><path d="M10.5 8l4 2.5-4 2.5z"/><path d="M8 20h8M12 16.5V20"/></g></g></svg><span>RenderDesk</span></a></div><div class="grupo"><h4>Herramientas · Siempre a mano</h4><a href="simplesave.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca729b"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4"/><circle cx="12" cy="15" r="3"/><path d="M12 13.5V15l1 .8"/></g></g></svg><span>SimpleSave</span></a><a href="radial.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#9172ca"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="4" r="1.3"/><circle cx="18.9" cy="8" r="1.3"/><circle cx="18.9" cy="16" r="1.3"/><circle cx="12" cy="20" r="1.3"/><circle cx="5.1" cy="16" r="1.3"/><circle cx="5.1" cy="8" r="1.3"/></g></g></svg><span>Radial</span></a></div><div class="grupo"><h4>Más</h4><a href="openpbr.html" class="actual"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca7c72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><circle cx="12" cy="12" r="8"/><path d="M7.5 9.5a5 5 0 0 1 4-3"/><path d="M4 13c3 2 13 2 16 0"/></g></g></svg><span>Materiales OpenPBR</span></a><a href="profesor.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v4c3 2 7 2 10 0v-4"/><path d="M21 9v5"/></g></svg><span>Carpeta de clase</span></a><a href="problemas.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M9.8 9.6a2.3 2.3 0 0 1 4.4.9c0 1.6-2.2 2-2.2 3.3"/><path d="M12 16.8h.01"/></g></svg><span>Problemas y preguntas</span></a><a href="desarrollo.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></g></svg><span>Para desarrollar</span></a></div></nav>
+<main>
 <article>
-<h2 id="qué-es-openpbr">Qué es OpenPBR</h2>
-<p><strong>OpenPBR</strong> es un modelo de material abierto que Maya y Arnold traen como <code>openPBRSurface</code>. Sustituye a <code>aiStandardSurface</code> y <code>standardSurface</code> con parámetros parecidos (color base, rugosidad, metal, transmisión, subsuperficie, barniz, pelusa, emisión), y se entiende igual en otros programas.</p>
-<p>En MantiTools:</p>
-<div class="tabla"><table>
-<thead>
-<tr class="header">
-<th>Herramienta</th>
-<th>Material que crea</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="materials.html">Materials</a></td>
-<td><code>openPBRSurface</code> para todas sus recetas</td>
-</tr>
-<tr class="even">
-<td><a href="trepadora.html">Trepadora</a></td>
-<td><code>openPBRSurface</code> para tallos y hojas, con color por hoja y luz a contraluz</td>
-</tr>
-<tr class="odd">
-<td><a href="arboles.html">Árboles</a></td>
-<td><code>openPBRSurface</code> para corteza y hojas de cada especie</td>
-</tr>
-</tbody>
-</table></div>
-<p>Así todos los objetos de la escena responden igual a la luz y se pueden retocar con Materials.</p>
-<h2 id="convertir-escenas-antiguas">Convertir escenas antiguas</h2>
-<p>Las escenas hechas con versiones anteriores de Trepadora y Árboles usan <code>aiStandardSurface</code>. Para pasarlas:</p>
-<ol type="1">
-<li>Abre la escena.</li>
-<li>Menú <strong>MantiTools › Convertir materiales a OpenPBR</strong>.</li>
-<li>Un aviso dice cuántos materiales se han convertido.</li>
-</ol>
-<p>La conversión cambia solo los materiales de Trepadora y de Árboles: conserva texturas, colores y conexiones, y el material nuevo se llama igual que el viejo. Se puede deshacer con <kbd>Ctrl</kbd>+<kbd>Z</kbd>. También está en el submenú de cada herramienta y en el clic derecho de sus iconos.</p>
-<p>Para convertir otros materiales (Standard Surface, aiStandardSurface o Lambert), usa la pestaña <strong>Escena</strong> de <a href="materials.html">Materials</a>.</p>
-<div class="aviso nota"><p class="aviso-titulo">Nota</p><p>En pruebas con Arnold, los árboles convertidos se ven prácticamente iguales. En Trepadora, el brillo de las hojas a contraluz es algo más suave que con el material antiguo.</p></div>
-<h2 id="equivalencias">Equivalencias</h2>
-<div class="tabla"><table>
-<thead>
-<tr class="header">
-<th>aiStandardSurface</th>
-<th>openPBRSurface</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>base</td>
-<td>baseWeight</td>
-</tr>
-<tr class="even">
-<td>baseColor</td>
-<td>baseColor</td>
-</tr>
-<tr class="odd">
-<td>metalness</td>
-<td>baseMetalness</td>
-</tr>
-<tr class="even">
-<td>specular</td>
-<td>specularWeight</td>
-</tr>
-<tr class="odd">
-<td>specularRoughness</td>
-<td>specularRoughness</td>
-</tr>
-<tr class="even">
-<td>transmission</td>
-<td>transmissionWeight</td>
-</tr>
-<tr class="odd">
-<td>subsurface</td>
-<td>subsurfaceWeight</td>
-</tr>
-<tr class="even">
-<td>coat</td>
-<td>coatWeight</td>
-</tr>
-<tr class="odd">
-<td>sheen</td>
-<td>fuzzWeight</td>
-</tr>
-<tr class="even">
-<td>emission</td>
-<td>emissionLuminance</td>
-</tr>
-<tr class="odd">
-<td>thinWalled</td>
-<td>geometryThinWalled</td>
-</tr>
-</tbody>
-</table></div>
-
-<footer class="pie">
-  <div class="vecinas"><a class="anterior" href="carpeta-compartida.html"><small>Anterior</small>La carpeta compartida</a><a class="siguiente" href="muro.html"><small>Siguiente</small>Muro</a></div>
-  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/openpbr.md">Ver esta página en GitHub</a></p>
-</footer>
+<h1>Materiales OpenPBR</h1>
+<p>Trepadora, Árboles y Materials crean sus materiales como <strong>openPBRSurface</strong>, el material de superficie estándar de Maya 2026 y 2027. Esta página explica qué es, qué cambia respecto a los materiales de antes y cómo convertir escenas viejas.</p>
+<h2 id="que-es-openpbr">Qué es OpenPBR<a class="ancla" href="#que-es-openpbr" aria-label="Enlace">#</a></h2>
+<p>OpenPBR es un modelo de material abierto (de la Academy Software Foundation) que reúne lo mejor de Autodesk Standard Surface y de Adobe Standard Material. En Maya es el nodo <strong>openPBRSurface</strong>:</p>
+<ul><li>lo renderiza <strong>Arnold</strong> sin cargar nada más,</li><li>se ve en el <strong>visor</strong> de Maya (Viewport 2.0),</li><li>y lo entienden también otros motores y programas, como Substance 3D Painter.</li></ul>
+<p>Por eso el pack lo usa en todas sus herramientas: un mismo tipo de material de principio a fin, desde la biblioteca de <a href="materials.html">Materials</a> hasta la hiedra de <a href="trepadora.html">Trepadora</a> o los árboles de <a href="arboles.html">Árboles</a>.</p>
+<h2 id="que-herramienta-crea-que">Qué herramienta crea qué<a class="ancla" href="#que-herramienta-crea-que" aria-label="Enlace">#</a></h2>
+<div class="tabla"><table><thead><tr><th>Herramienta</th><th>Materiales</th><th>Antes eran</th></tr></thead><tbody><tr><td><a href="trepadora.html">Trepadora</a></td><td><code>trepadora_*_ai</code>: hojas, tallos y rabillos de cada planta, para el render. El visor sigue usando su lambert con colores de vértice.</td><td>aiStandardSurface</td></tr><tr><td><a href="arboles.html">Árboles</a></td><td><code>arboles_&lt;especie&gt;_corteza</code> y <code>arboles_&lt;especie&gt;_hoja</code>, y los de clay.</td><td>standardSurface</td></tr><tr><td><a href="materials.html">Materials</a></td><td>Todos los de la biblioteca.</td><td>(ya era OpenPBR)</td></tr></tbody></table></div>
+<div class="aviso nota"><span class="aviso-titulo">Nota</span><p>En un Maya sin OpenPBR (anterior a 2025.3) Trepadora y Árboles crean los materiales de antes. MantiTools es para Maya 2026 y 2027, así que lo normal es OpenPBR.</p></div>
+<h2 id="equivalencia-de-atributos">Equivalencia de atributos<a class="ancla" href="#equivalencia-de-atributos" aria-label="Enlace">#</a></h2>
+<p>Si tocas los materiales a mano, estos son los nombres que cambian. Los demás (<code>baseColor</code>, <code>specularRoughness</code>, <code>subsurfaceColor</code>, <code>emissionColor</code>, <code>normalCamera</code>…) se llaman igual.</p>
+<div class="tabla"><table><thead><tr><th>Standard Surface</th><th>OpenPBR</th><th>Notas</th></tr></thead><tbody><tr><td><code>base</code></td><td><code>baseWeight</code></td><td></td></tr><tr><td><code>metalness</code></td><td><code>baseMetalness</code></td><td></td></tr><tr><td><code>diffuseRoughness</code></td><td><code>baseDiffuseRoughness</code></td><td></td></tr><tr><td><code>specular</code></td><td><code>specularWeight</code></td><td></td></tr><tr><td><code>thinWalled</code></td><td><code>geometryThinWalled</code></td><td>Hojas: finas, la luz las atraviesa.</td></tr><tr><td><code>subsurface</code></td><td><code>subsurfaceWeight</code></td><td>La translucidez de las hojas.</td></tr><tr><td><code>transmission</code></td><td><code>transmissionWeight</code></td><td></td></tr><tr><td><code>coat</code></td><td><code>coatWeight</code></td><td></td></tr><tr><td><code>sheen</code>, <code>sheenColor</code>, <code>sheenRoughness</code></td><td><code>fuzzWeight</code>, <code>fuzzColor</code>, <code>fuzzRoughness</code></td><td></td></tr><tr><td><code>emission</code></td><td><code>emissionLuminance</code></td><td>En <strong>nits</strong>: 1 de Standard Surface son 1000 nits.</td></tr></tbody></table></div>
+<div class="aviso consejo"><span class="aviso-titulo">Consejo</span><p>La emisión del estilo cartoon de Árboles pasa de <code>emission</code> 0,35 a <code>emissionLuminance</code> 350. El brillo que se ve en el render es el mismo.</p></div>
+<h2 id="convertir-escenas-viejas">Convertir escenas viejas<a class="ancla" href="#convertir-escenas-viejas" aria-label="Enlace">#</a></h2>
+<p>Las escenas hechas con versiones anteriores de Trepadora o Árboles tienen los materiales de antes. Funcionan igual, pero para tenerlo todo en OpenPBR:</p>
+<ol><li>Abre la escena.</li><li><strong>MantiTools → Convertir materiales a OpenPBR</strong> (también está en el clic derecho de Trepadora y de Árboles en el estante, y en sus submenús).</li><li>Un mensaje dice cuántos materiales se han convertido.</li></ol>
+<p>La conversión:</p>
+<ul><li>crea un openPBRSurface por cada material viejo, con el <strong>mismo nombre</strong>,</li><li>copia sus valores traduciendo los nombres (tabla de arriba) y la emisión a nits,</li><li>conecta las <strong>mismas texturas</strong> (color, rugosidad, mapa de normales, translucidez),</li><li>pasa sus salidas a los mismos grupos de sombreado (también la conexión <code>aiSurfaceShader</code> de Trepadora),</li><li>y borra el material viejo.</li></ul>
+<p>No toca mallas, texturas, colores de vértice ni el material del visor. Se puede deshacer con <strong>Ctrl+Z</strong> de una vez. Si la escena ya estaba en OpenPBR, dice que no había nada que convertir.</p>
+<h2 id="que-cambia-en-el-render">Qué cambia en el render<a class="ancla" href="#que-cambia-en-el-render" aria-label="Enlace">#</a></h2>
+<p>En las pruebas de comparación (Maya 2027, MtoA 5.6.2, misma escena y cámara) la diferencia media por píxel entre antes y después es pequeña:</p>
+<div class="tabla"><table><thead><tr><th>Escena</th><th>Diferencia media (0-255)</th><th>Tiempo de render</th></tr></thead><tbody><tr><td>Trepadora, vista general</td><td>2,96</td><td>97,5 s → 100,8 s</td></tr><tr><td>Trepadora, de cerca</td><td>1,94</td><td>83,0 s → 83,7 s</td></tr><tr><td>Trepadora, a contraluz</td><td>3,15</td><td>109,9 s → 116,7 s</td></tr><tr><td>Árboles, jardín realista</td><td>1,28</td><td>22,5 s → 23,9 s</td></tr><tr><td>Árboles, jardín cartoon</td><td>1,38</td><td>23,6 s → 24,1 s</td></tr></tbody></table></div>
+<p>Lo que se nota a simple vista:</p>
+<ul><li><strong>Hiedra menos brillante.</strong> OpenPBR da reflejos algo más suaves en las hojas.</li><li><strong>Contraluz más apagado.</strong> Las hojas finas de Trepadora dejan pasar menos luz cuando el sol está detrás. Si quieres recuperar ese verde brillante, sube un poco <code>subsurfaceWeight</code> de <code>trepadora_hoja_*_ai</code>.</li><li>Una escena convertida con la orden sale <strong>idéntica</strong> a una creada directamente en OpenPBR.</li></ul>
+<h2 id="ver-tambien">Ver también<a class="ancla" href="#ver-tambien" aria-label="Enlace">#</a></h2>
+<ul><li><a href="materials.html">Materials</a></li><li><a href="trepadora.html">Trepadora</a></li><li><a href="arboles.html">Árboles</a></li><li><a href="renderdesk.html">RenderDesk</a></li></ul>
+<nav class="pasos"><a class="ant" href="radial.html"><small>Anterior</small>Radial</a><a class="sig" href="profesor.html"><small>Siguiente</small>Carpeta de clase</a></nav>
 </article>
-<aside class="indice"><h4>En esta página</h4><ul><li><a href="#qué-es-openpbr">Qué es OpenPBR</a></li><li><a href="#convertir-escenas-antiguas">Convertir escenas antiguas</a></li><li><a href="#equivalencias">Equivalencias</a></li></ul></aside>
-</div>
+<footer>MantiTools 1.1.0 · Wiki generada desde <code>docs/wiki/openpbr.md</code> · Licencia MIT</footer>
 </main>
-<script src="recursos/buscador.js"></script>
+<aside class="indice"><h4>En esta página</h4><ul><li class="n2"><a href="#que-es-openpbr">Qué es OpenPBR</a></li><li class="n2"><a href="#que-herramienta-crea-que">Qué herramienta crea qué</a></li><li class="n2"><a href="#equivalencia-de-atributos">Equivalencia de atributos</a></li><li class="n2"><a href="#convertir-escenas-viejas">Convertir escenas viejas</a></li><li class="n2"><a href="#que-cambia-en-el-render">Qué cambia en el render</a></li><li class="n2"><a href="#ver-tambien">Ver también</a></li></ul></aside>
+</div>
+<div id="visor" hidden><img alt=""></div>
+<script src="recursos/indice.js"></script>
 <script src="recursos/wiki.js"></script>
 </body>
 </html>

@@ -33,7 +33,6 @@ class ServiciosFalsos(object):
         self.ejecutadas = []
         self.cambios = []
         self.paginas = {}
-        self.wikis = []
 
     def activa(self, ident):
         return self._ajustes.activa(ident)
@@ -84,10 +83,6 @@ class ServiciosFalsos(object):
     def guia(self, ident):
         return ""
 
-    def wiki(self, ident):
-        self.wikis.append(ident)
-        return True
-
 
 class Centro(unittest.TestCase):
     def setUp(self):
@@ -121,11 +116,6 @@ class Centro(unittest.TestCase):
         self.v.ir_a("ayuda")
         self.v._comprobar()
         self.assertIn("todo", self.v.informe.toPlainText())
-
-    def test_guias_abren_la_wiki(self):
-        self.v._guia("muro")
-        self.v.boton_wiki.click()
-        self.assertEqual(self.servicios.wikis, ["muro", "mantitools"])
 
     def test_actualizar_tras_desactivar(self):
         self.servicios.cambiar_activa("muro", False)

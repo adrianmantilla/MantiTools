@@ -113,11 +113,11 @@ def probar_informe():
 
 def probar_documentacion():
     print("\n== Documentación (wiki)")
-    from mantitools import documentacion
+    from mantitools import wiki
     from mantitools import herramientas as hr
-    comprobar(bool(documentacion.ruta()), "wiki en {}".format(documentacion.carpeta()))
+    comprobar(bool(wiki.ruta()), "wiki en {}".format(wiki.CARPETA))
     for ficha in hr.FICHAS:
-        comprobar(documentacion.pagina_de(ficha.id) == ficha.id, "página de {} en la wiki".format(ficha.nombre))
+        comprobar(wiki.pagina_de(ficha.id) == ficha.id, "página de {} en la wiki".format(ficha.nombre))
 
 
 def carga_activa(ident):

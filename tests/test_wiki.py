@@ -1,82 +1,76 @@
-"""La wiki (docs/wiki): una página por herramienta, sin enlaces ni imágenes rotos, y se abre desde el pack."""
+"""La wiki (docs/wiki): HTML al día con sus .md, enlaces e imágenes que existen, y la orden que la abre."""
 
 import os
 import re
+import sys
 import unittest
 
-import comun
-from mantitools import herramientas as hr
+import comun  # noqa: F401  (rutas del pack)
 
-WIKI = os.path.join(comun.RAIZ, "docs", "wiki")
-ENLACE_HTML = re.compile(r'(?:href|src)="([^"]+)"')
-ENLACE_MD = re.compile(r'!?\[[^\]]*\]\(([^)\s]+)\)|<img src="([^"]+)"')
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(RAIZ, "herramientas"))
 
-
-def paginas(extension):
-    return sorted(f for f in os.listdir(WIKI) if f.endswith(extension))
+import generar_wiki as gw  # noqa: E402
+from mantitools import herramientas as hr  # noqa: E402
+from mantitools import wiki  # noqa: E402
 
 
-def _locales(enlaces):
-    for enlace in enlaces:
-        if not enlace or enlace.startswith(("http://", "https://", "mailto:", "#")):
-            continue
-        yield enlace
+class PruebaWiki(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.archivos, cls.faltan = gw.construir()
 
+    def test_todas_las_paginas_tienen_md(self):
+        self.assertEqual(self.faltan, [])
 
-class Wiki(unittest.TestCase):
-    def test_una_pagina_por_herramienta(self):
-        for f in hr.FICHAS:
-            for extension in (".md", ".html"):
-                self.assertTrue(os.path.isfile(os.path.join(WIKI, f.id + extension)), f.id + extension)
-            with open(os.path.join(WIKI, f.id + ".md"), encoding="utf-8") as archivo:
-                self.assertIn("herramienta: {}\n".format(f.id), archivo.read())
+    def test_cada_herramienta_tiene_pagina(self):
+        for ident in hr.ORDEN:
+            self.assertIn(ident + ".html", self.archivos)
+            self.assertEqual(wiki.pagina_de(ident), ident)
+        self.assertEqual(wiki.pagina_de("mantitools"), "index")
 
-    def test_cada_md_tiene_su_html(self):
-        self.assertEqual([p[:-3] for p in paginas(".md")], [p[:-5] for p in paginas(".html")])
+    def test_html_al_dia(self):
+        for relativa, texto in self.archivos.items():
+            ruta = os.path.join(gw.WIKI, *relativa.split("/"))
+            self.assertTrue(os.path.isfile(ruta), "falta " + relativa + ": ejecuta herramientas/generar_wiki.py")
+            with open(ruta, encoding="utf-8") as f:
+                self.assertEqual(f.read(), texto, relativa + " está viejo: ejecuta herramientas/generar_wiki.py")
 
-    def test_html_sin_enlaces_rotos(self):
+    def test_enlaces_e_imagenes_existen(self):
         anclas = {}
-        for pagina in paginas(".html"):
-            with open(os.path.join(WIKI, pagina), encoding="utf-8") as archivo:
-                anclas[pagina] = set(re.findall(r'id="([^"]+)"', archivo.read()))
-        for pagina in paginas(".html"):
-            with open(os.path.join(WIKI, pagina), encoding="utf-8") as archivo:
-                texto = archivo.read()
-            for enlace in _locales(ENLACE_HTML.findall(texto)):
-                ruta, _, ancla = enlace.partition("#")
-                destino = os.path.normpath(os.path.join(WIKI, ruta))
-                self.assertTrue(os.path.isfile(destino), "{}: {}".format(pagina, enlace))
-                if ancla and ruta.endswith(".html"):
-                    self.assertIn(ancla, anclas[os.path.basename(ruta)], "{}: {}".format(pagina, enlace))
+        for relativa, texto in self.archivos.items():
+            if relativa.endswith(".html"):
+                anclas[relativa] = set(re.findall(r'id="([^"]+)"', texto))
+        for relativa, texto in self.archivos.items():
+            if not relativa.endswith(".html"):
+                continue
+            for destino in re.findall(r'(?:href|src)="([^"]+)"', texto):
+                if re.match(r"^[a-z]+:", destino):
+                    continue
+                ruta, _, frag = destino.partition("#")
+                if not ruta:
+                    ruta = relativa
+                else:
+                    self.assertTrue(os.path.exists(os.path.join(gw.WIKI, *ruta.split("/"))),
+                                    "{}: no existe {}".format(relativa, destino))
+                if frag and ruta.endswith(".html"):
+                    self.assertIn(frag, anclas.get(ruta, set()), "{}: no hay sección #{} en {}".format(
+                        relativa, frag, ruta))
 
-    def test_md_sin_enlaces_rotos(self):
-        """En GitHub se leen los .md: sus enlaces e imágenes también tienen que existir."""
-        for pagina in paginas(".md"):
-            with open(os.path.join(WIKI, pagina), encoding="utf-8") as archivo:
-                texto = re.sub(r"```.*?```", "", archivo.read(), flags=re.S)
-            for enlace in _locales(a or b for a, b in ENLACE_MD.findall(texto)):
-                ruta = enlace.partition("#")[0]
-                self.assertTrue(os.path.isfile(os.path.normpath(os.path.join(WIKI, ruta))),
-                                "{}: {}".format(pagina, enlace))
-
-    def test_bloques_automaticos_rellenos(self):
-        for pagina in paginas(".md"):
-            with open(os.path.join(WIKI, pagina), encoding="utf-8") as archivo:
-                texto = archivo.read()
-            self.assertNotRegex(texto, r"<!-- auto:[\w -]+ -->\n<!-- /auto -->", pagina)
-
-    def test_documentacion_encuentra_las_paginas(self):
-        from mantitools import documentacion
-        self.assertTrue(documentacion.ruta().endswith("index.html"))
-        self.assertEqual(documentacion.pagina_de("muro"), "muro")
-        self.assertEqual(documentacion.pagina_de("mantitools"), "index")
-        self.assertEqual(documentacion.pagina_de("no_existe"), "index")
-        self.assertEqual(documentacion.ruta("no_existe"), "")
-
-    def test_paginas_del_estante_existen(self):
+    def test_paginas_del_boton_wiki_del_estante(self):
         from mantitools import estante
         for pagina, _texto in estante.PAGINAS_WIKI:
-            self.assertTrue(os.path.isfile(os.path.join(WIKI, pagina + ".html")), pagina)
+            self.assertIn(pagina + ".html", self.archivos, pagina)
+
+    def test_markdown(self):
+        html, titulo, titulos = gw.bloques("# T\n\nUn **a** y `b`.\n\n## Sección dos\n\n> **Consejo:** hola\n\n"
+                                           "- uno\n  - dos\n\n| x | y |\n|---|---|\n| 1 | 2 |\n\n"
+                                           "![alt](img/a.png)\n\n*Pie.*\n\n[p](otra.md#s)\n")
+        self.assertEqual(titulo, "T")
+        self.assertEqual(titulos, [(2, "Sección dos", "seccion-dos")])
+        for trozo in ("<strong>a</strong>", "<code>b</code>", 'class="aviso consejo"', "<ul><li>uno<ul><li>dos",
+                      "<td>1</td>", "<figcaption>Pie.</figcaption>", 'href="otra.html#s"'):
+            self.assertIn(trozo, html)
 
 
 if __name__ == "__main__":

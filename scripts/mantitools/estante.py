@@ -14,10 +14,10 @@ from mantitools.i18n import t
 
 ESTANTE = "MantiTools"
 CODIGO_CENTRO = "import mantitools.centro as _c\n_c.mostrar()"
-CODIGO_WIKI = "import mantitools.documentacion as _d\n_d.abrir()"
-CODIGO_WIKI_PAGINA = "import mantitools.documentacion as _d\n_d.abrir('{}')"
+CODIGO_WIKI = "import mantitools.wiki as _w\n_w.abrir()"
+CODIGO_WIKI_PAGINA = "import mantitools.wiki as _w\n_w.abrir('{}')"
 # Clic derecho en el icono de la wiki: las páginas que más se buscan.
-PAGINAS_WIKI = (("primeros-pasos", "wiki_primeros_pasos"), ("atajos", "wiki_atajos"),
+PAGINAS_WIKI = (("primeros-pasos", "wiki_primeros_pasos"), ("flujo-de-trabajo", "wiki_flujo"),
                 ("problemas", "wiki_problemas"))
 # En la sesión en que se instala, los iconos van por ruta (ver ``icono``).
 _sesion = {"rutas": False}

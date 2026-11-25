@@ -11,6 +11,7 @@ from mantitools import adaptadores as ad
 from mantitools import estilo
 from mantitools import herramientas as hr
 from mantitools import iconos
+from mantitools import wiki
 from mantitools.i18n import t
 from mantitools.qt import QtCore, QtGui, QtWidgets, destruir, sigue_vivo
 
@@ -92,10 +93,6 @@ class Servicios(object):
     def informe(self):
         from mantitools import comprobar
         return comprobar.informe()
-
-    def wiki(self, ident):
-        from mantitools import documentacion
-        return documentacion.abrir(documentacion.pagina_de(ident))
 
     def guia(self, ident):
         from mantitools import carga
@@ -652,16 +649,21 @@ class VentanaCentro(QtWidgets.QWidget):
         capa.setContentsMargins(10, 10, 10, 10)
         capa.setSpacing(8)
         marco, c = estilo.tarjeta(12, 8)
+        c.addWidget(estilo.etiqueta(t("ayuda_wiki"), "seccion"))
+        c.addWidget(estilo.etiqueta(t("ayuda_wiki_texto"), "tenue", ajuste=True))
+        fila = QtWidgets.QHBoxLayout()
+        boton_wiki = QtWidgets.QPushButton(t("boton_wiki"))
+        estilo.primario(boton_wiki)
+        boton_wiki.clicked.connect(lambda _=False: self._wiki("index"))
+        fila.addWidget(boton_wiki)
+        fila.addStretch(1)
+        c.addLayout(fila)
+        capa.addWidget(marco)
+
+        marco, c = estilo.tarjeta(12, 8)
         c.addWidget(estilo.etiqueta(t("ayuda_primeros"), "seccion"))
         for n in (1, 2, 3):
             c.addWidget(estilo.paso(n, t("ayuda_paso_{}".format(n))))
-        fila = QtWidgets.QHBoxLayout()
-        self.boton_wiki = QtWidgets.QPushButton(t("boton_wiki"))
-        estilo.primario(self.boton_wiki)
-        self.boton_wiki.clicked.connect(lambda _=False: self._guia("mantitools"))
-        fila.addWidget(self.boton_wiki)
-        fila.addWidget(estilo.etiqueta(t("ayuda_wiki"), "tenue", ajuste=True), 1)
-        c.addLayout(fila)
         capa.addWidget(marco)
 
         marco, c = estilo.tarjeta(12, 6)
@@ -677,6 +679,9 @@ class VentanaCentro(QtWidgets.QWidget):
             boton = QtWidgets.QPushButton(t("boton_guia"))
             boton.clicked.connect(lambda _=False, i=ident: self._guia(i))
             rejilla.addWidget(boton, i, 3)
+            boton_wiki = QtWidgets.QPushButton(t("boton_wiki_pagina"))
+            boton_wiki.clicked.connect(lambda _=False, i=ident: self._wiki(wiki.pagina_de(i)))
+            rejilla.addWidget(boton_wiki, i, 4)
         rejilla.setColumnStretch(1, 1)
         c.addLayout(rejilla)
         capa.addWidget(marco)
@@ -705,14 +710,15 @@ class VentanaCentro(QtWidgets.QWidget):
         return zona
 
     def _guia(self, ident):
-        """La página de la herramienta en la wiki; si la wiki no está, su guía rápida."""
-        if self.servicios.wiki(ident):
-            return
         ruta = self.servicios.guia(ident)
         if ruta and os.path.isfile(ruta):
             ad.abrir_en_explorador(ruta)
         else:
             self.mensaje(t("guia_no_hay"), True)
+
+    def _wiki(self, pagina):
+        if wiki.abrir(pagina) is None:
+            self.mensaje(t("wiki_no_hay"), True)
 
     def _comprobar(self):
         bien, lineas = self.servicios.informe()

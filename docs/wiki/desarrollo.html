@@ -3,110 +3,60 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Para desarrollar · MantiTools</title>
-<link rel="icon" href="recursos/iconos/centro.svg">
-<link rel="stylesheet" href="recursos/estilo.css">
+<title>Para desarrollar · Wiki de MantiTools</title>
+<link rel="icon" href="img/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/wiki.css">
 </head>
 <body>
-<a class="saltar" href="#contenido">Ir al contenido</a>
-<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
-<nav class="lateral" aria-label="Páginas de la wiki">
-  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
-  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
-  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html" class="actual" aria-current="page">Para desarrollar</a></li></ul>
-</nav>
-<main id="contenido">
-<header class="titulo-pagina"><h1>Para desarrollar</h1><p class="resumen">Cómo está hecho el pack, cómo se añade una herramienta, cómo se regeneran los iconos, las capturas y esta wiki, y cómo se prueba.</p></header>
+<header class="barra">
+  <button class="menu-movil" type="button" aria-label="Menú">☰</button>
+  <a class="marca" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 3.6) scale(0.7)"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><path d="M16.5 13v7M13 16.5h7"/></g></g></svg><span>MantiTools <small>wiki</small></span></a>
+  <div class="buscador"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="M15.5 15.5L20 20"/></g></svg><input id="buscar" type="search" placeholder="Buscar en la wiki…" autocomplete="off">
+    <div id="resultados" hidden></div></div>
+  <span class="version">v1.1.0</span>
+</header>
 <div class="cuerpo">
+<nav class="lateral"><div class="grupo"><h4>Guía</h4><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 3.6) scale(0.7)"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><path d="M16.5 13v7M13 16.5h7"/></g></g></svg><span>Inicio</span></a><a href="instalacion.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/></g></svg><span>Instalación</span></a><a href="primeros-pasos.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M14.8 9.2l-1.6 4-4 1.6 1.6-4z"/></g></svg><span>Primeros pasos</span></a><a href="ventana-central.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 9h17"/><path d="M6.5 7h.01M8.5 7h.01"/></g></svg><span>Ventana central</span></a><a href="ajustes.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h9M18 7h1M5 12h3M12 12h7M5 17h11M19 17h0"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="17.5" cy="17" r="1.5"/></g></svg><span>Ajustes</span></a><a href="flujo-de-trabajo.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><path d="M8 6h4a4 4 0 0 1 4 4M16 14a4 4 0 0 1-4 4H8"/></g></svg><span>Flujo de trabajo</span></a></div><div class="grupo"><h4>Herramientas · Empezar</h4><a href="muro.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#cab372"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><rect x="6.5" y="7.5" width="5" height="4"/><rect x="13" y="9" width="4.5" height="6"/><path d="M6.5 15h4.5"/></g></g></svg><span>Muro</span></a></div><div class="grupo"><h4>Herramientas · Construir la escena</h4><a href="arboles.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca9c72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M12 21v-7"/><path d="M12 14l-3-3"/><path d="M12 15l3.5-3"/><circle cx="12" cy="8" r="5"/></g></g></svg><span>Árboles</span></a><a href="trepadora.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#72caaf"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M12 21c0-6 1-10 5-14"/><path d="M14 12c-3 0-5-1.5-5.5-4 2.6-.4 4.6.8 5.5 4z"/><path d="M15.5 8.5c2.4.2 4-.9 4.5-3-2.2-.4-3.9.6-4.5 3z"/><path d="M12.6 16.5c-2.6.4-4.6-.6-5.4-2.8 2.4-.5 4.4.5 5.4 2.8z"/></g></g></svg><span>Trepadora</span></a><a href="grasseditor.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#adca72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M4 20h16"/><path d="M7 20c0-5-1-8-3-11"/><path d="M11 20c0-6 0-10 1.5-14"/><path d="M15 20c.3-5 1.5-8 4-10"/><path d="M18.5 20c0-2.5.5-4 1.5-5"/></g></g></svg><span>GrassEditor</span></a></div><div class="grupo"><h4>Herramientas · Materiales, luz y render</h4><a href="materials.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca7c72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><circle cx="12" cy="12" r="8"/><path d="M7.5 9.5a5 5 0 0 1 4-3"/><path d="M4 13c3 2 13 2 16 0"/></g></g></svg><span>Materials</span></a><a href="lightmanager.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca9b72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M5.2 6.4l5.6-2.2 2 5.2-5.6 2.2z"/><path d="M12.8 6.2l5.7-1.4M13.6 8.3l6 .6M13.1 10.6l4.8 2.6"/><path d="M8.9 11l1.1 3.2M10 14.2v6M10 14.2l-3.4 5.8M10 14.2l3.4 5.8"/></g></g></svg><span>LightManager</span></a><a href="renderdesk.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#7296ca"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><rect x="3.5" y="4.5" width="17" height="12" rx="1.5"/><path d="M10.5 8l4 2.5-4 2.5z"/><path d="M8 20h8M12 16.5V20"/></g></g></svg><span>RenderDesk</span></a></div><div class="grupo"><h4>Herramientas · Siempre a mano</h4><a href="simplesave.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca729b"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4"/><circle cx="12" cy="15" r="3"/><path d="M12 13.5V15l1 .8"/></g></g></svg><span>SimpleSave</span></a><a href="radial.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#9172ca"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="4" r="1.3"/><circle cx="18.9" cy="8" r="1.3"/><circle cx="18.9" cy="16" r="1.3"/><circle cx="12" cy="20" r="1.3"/><circle cx="5.1" cy="16" r="1.3"/><circle cx="5.1" cy="8" r="1.3"/></g></g></svg><span>Radial</span></a></div><div class="grupo"><h4>Más</h4><a href="openpbr.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#5b5b5b"/><rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="#ca7c72"/><g fill="none" stroke="#ececec" stroke-width="1.43" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(3.6 2.8) scale(0.7)"><circle cx="12" cy="12" r="8"/><path d="M7.5 9.5a5 5 0 0 1 4-3"/><path d="M4 13c3 2 13 2 16 0"/></g></g></svg><span>Materiales OpenPBR</span></a><a href="profesor.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v4c3 2 7 2 10 0v-4"/><path d="M21 9v5"/></g></svg><span>Carpeta de clase</span></a><a href="problemas.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M9.8 9.6a2.3 2.3 0 0 1 4.4.9c0 1.6-2.2 2-2.2 3.3"/><path d="M12 16.8h.01"/></g></svg><span>Problemas y preguntas</span></a><a href="desarrollo.html" class="actual"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></g></svg><span>Para desarrollar</span></a></div></nav>
+<main>
 <article>
-<h2 id="cómo-está-hecho">Cómo está hecho</h2>
-<p>Cada herramienta sigue siendo su propio plugin, con su repositorio. El pack trae una copia de cada una en <code>incluidas/&lt;id&gt;</code>, con la versión elegida en <code>versiones.json</code>, y un plugin que las carga por ruta.</p>
-<pre><code>mantitools/
+<h1>Para desarrollar</h1>
+<p>Esta página es para quien mantiene MantiTools o quiere añadirle una herramienta. Para usarlo no hace falta nada de esto.</p>
+<h2 id="como-esta-organizado">Cómo está organizado<a class="ancla" href="#como-esta-organizado" aria-label="Enlace">#</a></h2>
+<p>El código de cada herramienta vive y se arregla <strong>en su propio repositorio</strong>. MantiTools trae una copia de cada una en <code>incluidas/&lt;id&gt;</code>, con la versión fijada en <code>versiones.json</code>, y añade lo común: el menú, el estante, la carga, la ventana central y los adaptadores de ajustes.</p>
+<div class="codigo"><button class="copiar" type="button">Copiar</button><pre><code class="text">mantitools/
 ├── instalar.py               ← se arrastra a Maya
 ├── plug-ins/mantitools_plugin.py
-├── scripts/mantitools/       ← menú, estante, carga, ventana central, ajustes, documentación
+├── scripts/mantitools/       ← menú, estante, carga, ventana central, adaptadores de ajustes, wiki
 ├── icons/                    ← iconos del estante (generados)
 ├── incluidas/&lt;id&gt;/           ← copia de cada herramienta (no se edita aquí)
 ├── plantillas/pack.py        ← contrato que lleva cada herramienta
 ├── versiones.json            ← repositorio, rama, versión y commit de cada una
-├── docs/wiki/                ← esta wiki (.md fuente y .html generado)
-├── docs/capturas/            ← capturas de la ventana central (generadas)
-├── docs/medios/              ← imágenes y GIF de cada herramienta
-├── herramientas/             ← sincronizar, generar iconos, capturas y wiki, prueba en Maya
-└── tests/</code></pre>
-<p>El código de cada herramienta se arregla <strong>en su propio repositorio</strong>, y se trae con <code>sincronizar.py</code>.</p>
-<h2 id="fichas">Fichas</h2>
-<p><code>scripts/mantitools/herramientas.py</code> tiene una ficha por herramienta: nombre, color, plugin, cómo se crea su menú y sus órdenes. El menú, el estante, las tarjetas, la comprobación y las tablas de esta wiki salen de las fichas. <code>GRUPOS</code> define los grupos del estante.</p>
-<h2 id="añadir-una-herramienta">Añadir una herramienta</h2>
-<ol type="1">
-<li>Su repositorio lleva <code>scripts/&lt;id&gt;/pack.py</code> (copia de <code>plantillas/pack.py</code>) y <code>scripts/&lt;id&gt;/estilo.py</code> (copia de <code>scripts/mantitools/estilo.py</code>). Las pruebas comprueban que las copias son idénticas.</li>
-<li>En MantiTools: ficha en <code>herramientas.py</code>, página en <code>adaptadores.py</code>, trazo del icono en <code>iconos.py</code>, textos en <code>i18n/es.json</code> y <code>i18n/en.json</code>, y su entrada en <code>versiones.json</code>.</li>
-<li><code>python herramientas/sincronizar.py &lt;id&gt;</code> la copia en <code>incluidas/</code>.</li>
-<li>Una página <code>docs/wiki/&lt;id&gt;.md</code> con <code>herramienta: &lt;id&gt;</code> en la cabecera.</li>
-<li>Regenera iconos, capturas y wiki (abajo).</li>
-</ol>
-<h2 id="regenerar">Regenerar</h2>
-<div class="tabla"><table>
-<thead>
-<tr class="header">
-<th>Qué</th>
-<th>Orden</th>
-<th>Necesita</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Traer versiones nuevas</td>
-<td><code>python herramientas/sincronizar.py</code> (o <code>--desde ~/clones</code>, o solo <code>radial muro</code>)</td>
-<td>git</td>
-</tr>
-<tr class="even">
-<td>Iconos del estante</td>
-<td><code>python herramientas/generar_iconos.py</code></td>
-<td>PySide6</td>
-</tr>
-<tr class="odd">
-<td>Capturas a doble resolución</td>
-<td><code>python herramientas/capturas_docs.py</code></td>
-<td>PySide6, Pillow</td>
-</tr>
-<tr class="even">
-<td>Esta wiki</td>
-<td><code>python herramientas/generar_wiki.py</code></td>
-<td>PySide6, pandoc</td>
-</tr>
-</tbody>
-</table></div>
-<h2 id="la-wiki">La wiki</h2>
-<p>Cada página es un <code>.md</code> en <code>docs/wiki/</code> con una cabecera:</p>
-<pre><code>---
-titulo: Muro
-corto: Muro                 ← nombre en la barra lateral
-herramienta: muro           ← solo en las páginas de herramientas
-resumen: Tablero de referencias…
----</code></pre>
-<ul>
-<li>Se escribe en Markdown de GitHub, que GitHub ya enseña bien. Los avisos <code>&gt; [!TIP]</code>, <code>&gt; [!NOTE]</code>, <code>&gt; [!IMPORTANT]</code> y <code>&gt; [!WARNING]</code> salen como recuadros.</li>
-<li>Los bloques <code>&lt;!-- auto:ordenes &lt;id&gt; --&gt;</code>, <code>&lt;!-- auto:ajustes &lt;id&gt; --&gt;</code>, <code>&lt;!-- auto:todas-ordenes --&gt;</code> y <code>&lt;!-- auto:herramientas --&gt;</code> se rellenan desde el código al generar. No se editan a mano.</li>
-<li><code>generar_wiki.py</code> escribe el <code>.html</code> de cada página (barra lateral, buscador, índice, anterior y siguiente), los iconos en <code>recursos/iconos/</code>, el esquema <code>recursos/flujo.svg</code> y el índice del buscador. Las páginas funcionan sin conexión y sin servidor.</li>
-<li>El orden de la barra lateral está en <code>navegacion()</code> del mismo script.</li>
-<li><code>scripts/mantitools/documentacion.py</code> abre las páginas desde Maya.</li>
-</ul>
-<h2 id="pruebas">Pruebas</h2>
-<ul>
-<li><strong>Sin Maya</strong> (necesitan PySide6): <code>python -m unittest discover -s tests</code>. Usan un Maya falso para comprobar el arranque, los submenús, el estante, cada ajuste contra el código real de cada herramienta, y que la wiki no tiene enlaces ni imágenes rotos.</li>
-<li><strong>En Maya</strong>: <code>mayapy herramientas/prueba_maya.py</code>, o desde el Script Editor con Maya abierto para revisar también el menú, el estante y la ventana.</li>
-</ul>
-
-<footer class="pie">
-  <div class="vecinas"><a class="anterior" href="problemas.html"><small>Anterior</small>Si algo no funciona</a></div>
-  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/desarrollo.md">Ver esta página en GitHub</a></p>
-</footer>
+├── docs/wiki/                ← esta wiki: páginas .md, su HTML generado, imágenes y recursos
+├── herramientas/             ← sincronizar, generar_iconos, generar_wiki, prueba_maya
+└── tests/</code></pre></div>
+<h3 id="modulos-del-paquete-mantitools">Módulos del paquete mantitools<a class="ancla" href="#modulos-del-paquete-mantitools" aria-label="Enlace">#</a></h3>
+<div class="tabla"><table><thead><tr><th>Módulo</th><th>Qué hace</th></tr></thead><tbody><tr><td><code>herramientas.py</code></td><td>Las <strong>fichas</strong>: nombre, color, plugin, menú, órdenes y grupo del estante de cada herramienta. Todo lo demás se construye a partir de ellas. No depende de Maya.</td></tr><tr><td><code>carga.py</code></td><td>Carga las herramientas activas desde <code>incluidas/</code>, aplica el idioma y la carpeta de clase.</td></tr><tr><td><code>menu.py</code></td><td>El menú <strong>MantiTools</strong>: un submenú por herramienta (lo crea cada una con su <code>pack.py</code>) y las órdenes del pack.</td></tr><tr><td><code>estante.py</code></td><td>El estante, con sus grupos y separadores, y el clic derecho de cada icono.</td></tr><tr><td><code>centro.py</code></td><td>La ventana central (Herramientas, Ajustes, Ayuda).</td></tr><tr><td><code>adaptadores.py</code></td><td>Una <strong>página de ajustes</strong> por herramienta: qué controles tiene, cómo se leen y escriben en las preferencias de la herramienta, y lo que fija la carpeta de clase.</td></tr><tr><td><code>clase.py</code></td><td>Lee la carpeta de clase y su <code>mantitools_clase.json</code>. No depende de Maya.</td></tr><tr><td><code>comprobar.py</code></td><td>El informe de <strong>Comprobar instalación</strong>.</td></tr><tr><td><code>acciones.py</code></td><td>Ejecuta las órdenes de las fichas y la conversión a OpenPBR.</td></tr><tr><td><code>iconos.py</code></td><td>Los dibujos de los iconos (SVG de línea 24×24) y su estilo.</td></tr><tr><td><code>estilo.py</code></td><td>El kit de estilo común de las ventanas (botones, colores, tipografía).</td></tr><tr><td><code>wiki.py</code></td><td>Abre esta wiki en el navegador.</td></tr><tr><td><code>painter.py</code></td><td>Instala el complemento de Substance Painter de Materials.</td></tr></tbody></table></div>
+<h2 id="tareas-habituales">Tareas habituales<a class="ancla" href="#tareas-habituales" aria-label="Enlace">#</a></h2>
+<div class="tabla"><table><thead><tr><th>Tarea</th><th>Orden</th></tr></thead><tbody><tr><td>Traer versiones nuevas de las herramientas</td><td><code>python herramientas/sincronizar.py</code> (o <code>--desde ~/clones</code> con clones locales, o solo <code>radial muro</code>)</td></tr><tr><td>Regenerar los iconos del estante</td><td><code>python herramientas/generar_iconos.py</code> (necesita PySide6)</td></tr><tr><td>Regenerar la wiki en HTML</td><td><code>python herramientas/generar_wiki.py</code></td></tr><tr><td>Pruebas sin Maya</td><td><code>python -m unittest discover -s tests</code> (necesitan PySide6)</td></tr><tr><td>Prueba dentro de Maya</td><td><code>mayapy herramientas/prueba_maya.py</code></td></tr></tbody></table></div>
+<p>Las pruebas sin Maya usan un Maya falso para comprobar el arranque, los submenús, el estante y cada ajuste contra el código real de cada herramienta. <code>prueba_maya.py</code> arranca Maya sin interfaz con una carpeta de preferencias temporal (no toca las tuyas); también se puede ejecutar desde el Script Editor con Maya abierto para revisar el menú, el estante y la ventana.</p>
+<h2 id="anadir-una-herramienta-al-pack">Añadir una herramienta al pack<a class="ancla" href="#anadir-una-herramienta-al-pack" aria-label="Enlace">#</a></h2>
+<ol><li>En el repositorio de la herramienta, copia <code>plantillas/pack.py</code> a <code>scripts/&lt;id&gt;/pack.py</code> y haz que su menú se cree con <code>pack.crear_menu()</code>: así va como submenú de MantiTools si el pack está cargado, o en la barra de Maya si no.</li><li>Copia <code>scripts/mantitools/estilo.py</code> a <code>scripts/&lt;id&gt;/estilo.py</code> si quieres el mismo aspecto.</li><li>En MantiTools, añade su entrada a <code>versiones.json</code> y ejecuta <code>herramientas/sincronizar.py &lt;id&gt;</code>.</li><li>Añade su <strong>ficha</strong> en <code>scripts/mantitools/herramientas.py</code> (nombre, color, plugin, menú, órdenes) y su sitio en <code>GRUPOS</code>.</li><li>Añade su dibujo en <code>iconos.py</code> y regenera los iconos.</li><li>Si tiene ajustes generales, escribe su página en <code>adaptadores.py</code>.</li><li>Añade los textos (<code>desc_&lt;id&gt;</code>, <code>accion_&lt;id&gt;_&lt;orden&gt;</code>…) en <code>scripts/mantitools/i18n/es.json</code> y <code>en.json</code>.</li><li>Escribe su página de la wiki en <code>docs/wiki/&lt;id&gt;.md</code> y regenera la wiki.</li><li>Pasa las pruebas.</li></ol>
+<div class="aviso importante"><span class="aviso-titulo">Importante</span><p>Las pruebas comprueban que las copias de <code>pack.py</code> y <code>estilo.py</code> de cada herramienta son idénticas a las del pack. Si cambias una, cámbiala en MantiTools y cópiala a todas.</p></div>
+<h2 id="la-wiki">La wiki<a class="ancla" href="#la-wiki" aria-label="Enlace">#</a></h2>
+<p>Las páginas están en <code>docs/wiki/*.md</code>, en un Markdown sencillo que se lee bien también en GitHub. <code>herramientas/generar_wiki.py</code> las pasa a HTML con la misma plantilla: barra lateral con los iconos del pack, índice de la página, buscador, anterior/siguiente y visor de imágenes. El HTML se guarda en el repositorio para que funcione sin conexión y sin instalar nada; la orden <strong>MantiTools → Documentación (wiki)</strong> abre <code>docs/wiki/index.html</code>.</p>
+<p>Lo que admite el Markdown de la wiki:</p>
+<ul><li>títulos <code>#</code> (uno por página), <code>##</code>, <code>###</code>,</li><li>párrafos con <strong>negrita</strong>, <em>cursiva</em>, <code>código</code> y enlaces (a otras páginas con <code>pagina.md</code> o <code>pagina.md#seccion</code>),</li><li>imágenes en su propia línea, con un pie opcional en cursiva justo debajo,</li><li>listas con viñetas o numeradas (un nivel de anidado), tablas y bloques de código,</li><li>avisos: un párrafo que empieza por <code>&gt; **Consejo:**</code>, <code>&gt; **Importante:**</code> o <code>&gt; **Nota:**</code>.</li></ul>
+<p>Las imágenes van en <code>docs/wiki/img/&lt;id&gt;/</code>. Después de cambiar un <code>.md</code>, regenera el HTML y súbelo con el mismo commit: la prueba <code>tests/test_wiki.py</code> avisa si el HTML se ha quedado viejo o si algún enlace o imagen no existe.</p>
+<h2 id="ver-tambien">Ver también<a class="ancla" href="#ver-tambien" aria-label="Enlace">#</a></h2>
+<ul><li><a href="instalacion.html">Instalación</a></li><li>El README de cada herramienta, en su repositorio de GitHub.</li></ul>
+<nav class="pasos"><a class="ant" href="problemas.html"><small>Anterior</small>Problemas y preguntas</a></nav>
 </article>
-<aside class="indice"><h4>En esta página</h4><ul><li><a href="#cómo-está-hecho">Cómo está hecho</a></li><li><a href="#fichas">Fichas</a></li><li><a href="#añadir-una-herramienta">Añadir una herramienta</a></li><li><a href="#regenerar">Regenerar</a></li><li><a href="#la-wiki">La wiki</a></li><li><a href="#pruebas">Pruebas</a></li></ul></aside>
-</div>
+<footer>MantiTools 1.1.0 · Wiki generada desde <code>docs/wiki/desarrollo.md</code> · Licencia MIT</footer>
 </main>
-<script src="recursos/buscador.js"></script>
+<aside class="indice"><h4>En esta página</h4><ul><li class="n2"><a href="#como-esta-organizado">Cómo está organizado</a></li><li class="n3"><a href="#modulos-del-paquete-mantitools">Módulos del paquete mantitools</a></li><li class="n2"><a href="#tareas-habituales">Tareas habituales</a></li><li class="n2"><a href="#anadir-una-herramienta-al-pack">Añadir una herramienta al pack</a></li><li class="n2"><a href="#la-wiki">La wiki</a></li><li class="n2"><a href="#ver-tambien">Ver también</a></li></ul></aside>
+</div>
+<div id="visor" hidden><img alt=""></div>
+<script src="recursos/indice.js"></script>
 <script src="recursos/wiki.js"></script>
 </body>
 </html>

@@ -1,68 +1,56 @@
----
-titulo: MantiTools
-corto: Portada
-resumen: Nueve herramientas para Autodesk Maya en un solo pack, con un menú, un estante y una ventana central. Esta wiki explica cómo se instala, cómo se usa cada herramienta y cómo encajan en un proyecto.
----
+# Wiki de MantiTools
 
-![Hecho con MantiTools: hiedra de Trepadora sobre una ruina, un jardín de Árboles, RenderDesk junto al visor de Arnold y el fantasma de Muro sobre el visor](../medios/mantitools/portada.jpg)
+MantiTools junta en un solo pack nueve herramientas de clase para **Autodesk Maya 2026 y 2027**: un menú, un estante con un icono por herramienta y una ventana central con todos los ajustes. Esta wiki es su manual completo: cómo se instala, cómo se trabaja una escena de principio a fin y qué hace cada botón de cada herramienta.
 
-![El estante MantiTools: Muro · Árboles, Trepadora, GrassEditor · Materials, LightManager, RenderDesk · SimpleSave, Radial · MantiTools y Wiki](../capturas/estante.png)
+![Las herramientas de MantiTools: Trepadora, Árboles, Muro, RenderDesk, Radial y Materials](img/mantitools/portada.jpg)
 
-## Qué es MantiTools
-
-MantiTools reúne en Maya 2026 y 2027 las herramientas que hacen falta para llevar una escena de la idea al render:
-referencias, vegetación, materiales, luces, render, versiones y un menú rápido. Cada herramienta sigue siendo un
-plugin propio, pero las instalas de una vez, comparten aspecto y se configuran desde un único sitio.
-
-- **Un menú**, *MantiTools*, con un submenú por herramienta.
-- **Un estante** con un icono por herramienta, ordenado como se trabaja, y un icono para esta wiki.
-- **Una ventana central** con las tarjetas de las herramientas, todos los ajustes y la ayuda.
-
-Funciona en Windows y macOS, con la interfaz en español o en inglés. Es software libre (licencia MIT).
-
-![La ventana central: una tarjeta por herramienta](../capturas/centro_herramientas.png)
+> **Consejo:** Pulsa la tecla `/` en cualquier página para buscar en toda la wiki. Funciona sin conexión: es la misma que abre **MantiTools → Documentación (wiki)** dentro de Maya.
 
 ## Las herramientas
 
-<!-- auto:herramientas -->
-| | Herramienta | Grupo | Para qué sirve |
+Están en el orden del estante, que es el orden en el que se trabaja una escena: primero las referencias, luego se construye el entorno, después el aspecto (materiales, luz y render) y, siempre a mano, guardar y el menú rápido.
+
+| | Herramienta | Para qué sirve | Grupo del estante |
 |---|---|---|---|
-| ![](recursos/iconos/muro.svg) | [**Muro**](muro.md) | Empezar el proyecto | Tablero de referencias y notas dentro de Maya, con fantasma sobre el visor. |
-| ![](recursos/iconos/arboles.svg) | [**Árboles**](arboles.md) | Construir | Editor modular de árboles y biblioteca para plantar un jardín. |
-| ![](recursos/iconos/trepadora.svg) | [**Trepadora**](trepadora.md) | Construir | Hiedra y enredaderas que crecen sobre cualquier malla, con hojas instanciadas. |
-| ![](recursos/iconos/grasseditor.svg) | [**GrassEditor**](grasseditor.md) | Construir | Hierba por capas, con pincel, tipos y control de rendimiento. |
-| ![](recursos/iconos/materials.svg) | [**Materials**](materials.md) | Look y render | Biblioteca de materiales OpenPBR con ida y vuelta a Substance Painter. |
-| ![](recursos/iconos/lightmanager.svg) | [**LightManager**](lightmanager.md) | Look y render | Luces de Arnold en pasos y Kelvin: esquemas de estudio, interiores y exteriores por zonas, sol por hora y comprobaciones. |
-| ![](recursos/iconos/renderdesk.svg) | [**RenderDesk**](renderdesk.md) | Look y render | Panel de render de Arnold junto al visor: presets que se combinan, historial de pruebas con A/B y render final en segundo plano. |
-| ![](recursos/iconos/simplesave.svg) | [**SimpleSave**](simplesave.md) | Siempre a mano | Versiones con nota y miniatura, autoguardado configurable y recuperación. |
-| ![](recursos/iconos/radial.svg) | [**Radial**](radial.md) | Siempre a mano | Menú radial o pill con doble Tab, configurable y con buscador de órdenes. |
-<!-- /auto -->
+| ![Muro](img/iconos/muro.svg) | [Muro](muro.md) | Tablero de referencias y notas dentro de Maya, con fantasma sobre el visor. | Empezar |
+| ![Árboles](img/iconos/arboles.svg) | [Árboles](arboles.md) | Editor modular de árboles y biblioteca para plantar un jardín. | Construir |
+| ![Trepadora](img/iconos/trepadora.svg) | [Trepadora](trepadora.md) | Hiedra y enredaderas que crecen sobre cualquier malla, con hojas instanciadas. | Construir |
+| ![GrassEditor](img/iconos/grasseditor.svg) | [GrassEditor](grasseditor.md) | Hierba por capas, con pincel, tipos y control de rendimiento. | Construir |
+| ![Materials](img/iconos/materials.svg) | [Materials](materials.md) | Biblioteca de materiales OpenPBR con ida y vuelta a Substance Painter. | Materiales, luz y render |
+| ![LightManager](img/iconos/lightmanager.svg) | [LightManager](lightmanager.md) | Luces de Arnold en pasos y Kelvin: estudio, interiores, exteriores y sol por hora. | Materiales, luz y render |
+| ![RenderDesk](img/iconos/renderdesk.svg) | [RenderDesk](renderdesk.md) | Panel de render de Arnold: presets que se combinan, historial A/B y render final en segundo plano. | Materiales, luz y render |
+| ![SimpleSave](img/iconos/simplesave.svg) | [SimpleSave](simplesave.md) | Versiones con nota y miniatura, autoguardado y recuperación. | Siempre a mano |
+| ![Radial](img/iconos/radial.svg) | [Radial](radial.md) | Menú radial o pill con doble Tab, configurable y con buscador de órdenes. | Siempre a mano |
 
-## Cómo encajan
+![El estante MantiTools, con sus grupos separados](img/mantitools/estante_grupos.png)
 
-El estante sigue el orden en que se trabaja una escena. Cada grupo está separado por una raya:
-
-![Los cuatro grupos del estante, de izquierda a derecha](recursos/flujo.svg)
-
-1. **Empezar el proyecto**: reúne referencias y notas en [Muro](muro.md).
-2. **Construir**: modela la vegetación con [Árboles](arboles.md), [Trepadora](trepadora.md) y
-   [GrassEditor](grasseditor.md).
-3. **Look y render**: materiales con [Materials](materials.md), luces con [LightManager](lightmanager.md) y
-   render con [RenderDesk](renderdesk.md).
-4. **Siempre a mano**: guarda versiones con [SimpleSave](simplesave.md) y lanza órdenes con [Radial](radial.md).
-
-En [El flujo de trabajo](flujo.md) se ve un proyecto completo, paso a paso.
+*El estante MantiTools. La raya de color bajo cada icono es el color de la herramienta; los dos últimos son del pack: el de cuadros abre la ventana central y el del libro, esta wiki.*
 
 ## Por dónde empezar
 
-| Si quieres… | Lee |
-|---|---|
-| Instalarlo por primera vez | [Instalar y actualizar](instalar.md) |
-| Hacer algo en diez minutos | [Primeros pasos](primeros-pasos.md) |
-| Saber qué hace cada botón del pack | [El menú, el estante y la ventana central](interfaz.md) |
-| Compartir ajustes con un grupo | [La carpeta compartida](carpeta-compartida.md) |
-| Resolver un problema | [Si algo no funciona](problemas.md) |
-| Tener todos los atajos a la vista | [Atajos y órdenes](atajos.md) |
+1. **[Instalación](instalacion.md):** arrastra `instalar.py` al visor de Maya. Dos minutos.
+2. **[Primeros pasos](primeros-pasos.md):** el menú, el estante y la ventana central en cinco minutos.
+3. **[Flujo de trabajo](flujo-de-trabajo.md):** una escena completa, de la referencia al render final, usando todas las herramientas.
+4. La página de la herramienta que vayas a usar. Cada una tiene un tutorial paso a paso, la explicación de todos sus controles, sus ajustes y sus problemas frecuentes.
 
-> [!TIP]
-> En la wiki, pulsa <kbd>/</kbd> para buscar. Haz clic en cualquier imagen o GIF para verla en grande.
+## Qué tiene de especial el pack
+
+- **Un solo instalador.** Un archivo `.mod` da a Maya todas las herramientas. Si ya tenías alguna instalada por separado, se aparta sin borrar nada.
+- **Todo en el mismo sitio.** Un menú con un submenú por herramienta, un estante ordenado por fases de trabajo y una ventana con los ajustes de todas.
+- **Mismo aspecto en todas.** Comparten botones, colores y tipografía, y los materiales que crean (Trepadora, Árboles, Materials) son **openPBRSurface**, el material estándar de Maya 2026 y 2027. Más en [Materiales OpenPBR](openpbr.md).
+- **Pensado para clase.** Una [carpeta de clase](profesor.md) permite al profesor compartir materiales y botones, desactivar herramientas y fijar ajustes para todo el grupo.
+- **Español e inglés.** El idioma se cambia para todas a la vez en **Ajustes → General**.
+- **Libre.** Licencia MIT. El código de cada herramienta está en su propio repositorio de GitHub.
+
+## Requisitos
+
+| | |
+|---|---|
+| Maya | 2026 o 2027 (Windows o macOS) |
+| Arnold (MtoA) | El que trae Maya. Lo necesitan LightManager, RenderDesk y el render de Trepadora, Árboles, GrassEditor y Materials. |
+| Substance 3D Painter | Opcional, solo para la ida y vuelta de [Materials](materials.md#ida-y-vuelta-con-substance-painter). |
+| Navegador | Cualquiera, para leer esta wiki. |
+
+## Si algo falla
+
+Empieza por **MantiTools → Comprobar instalación**: revisa cada herramienta y prepara un informe para copiar y pegar. Las dudas más comunes (el aviso de seguridad de Maya, «Arnold renderer not loaded», un icono que falta…) están en [Problemas y preguntas](problemas.md).
