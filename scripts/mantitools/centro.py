@@ -11,6 +11,7 @@ from mantitools import adaptadores as ad
 from mantitools import estilo
 from mantitools import herramientas as hr
 from mantitools import iconos
+from mantitools import wiki
 from mantitools.i18n import t
 from mantitools.qt import QtCore, QtGui, QtWidgets, destruir, sigue_vivo
 
@@ -648,6 +649,18 @@ class VentanaCentro(QtWidgets.QWidget):
         capa.setContentsMargins(10, 10, 10, 10)
         capa.setSpacing(8)
         marco, c = estilo.tarjeta(12, 8)
+        c.addWidget(estilo.etiqueta(t("ayuda_wiki"), "seccion"))
+        c.addWidget(estilo.etiqueta(t("ayuda_wiki_texto"), "tenue", ajuste=True))
+        fila = QtWidgets.QHBoxLayout()
+        boton_wiki = QtWidgets.QPushButton(t("boton_wiki"))
+        estilo.primario(boton_wiki)
+        boton_wiki.clicked.connect(lambda _=False: self._wiki("index"))
+        fila.addWidget(boton_wiki)
+        fila.addStretch(1)
+        c.addLayout(fila)
+        capa.addWidget(marco)
+
+        marco, c = estilo.tarjeta(12, 8)
         c.addWidget(estilo.etiqueta(t("ayuda_primeros"), "seccion"))
         for n in (1, 2, 3):
             c.addWidget(estilo.paso(n, t("ayuda_paso_{}".format(n))))
@@ -666,6 +679,9 @@ class VentanaCentro(QtWidgets.QWidget):
             boton = QtWidgets.QPushButton(t("boton_guia"))
             boton.clicked.connect(lambda _=False, i=ident: self._guia(i))
             rejilla.addWidget(boton, i, 3)
+            boton_wiki = QtWidgets.QPushButton(t("boton_wiki_pagina"))
+            boton_wiki.clicked.connect(lambda _=False, i=ident: self._wiki(wiki.pagina_de(i)))
+            rejilla.addWidget(boton_wiki, i, 4)
         rejilla.setColumnStretch(1, 1)
         c.addLayout(rejilla)
         capa.addWidget(marco)
@@ -699,6 +715,10 @@ class VentanaCentro(QtWidgets.QWidget):
             ad.abrir_en_explorador(ruta)
         else:
             self.mensaje(t("guia_no_hay"), True)
+
+    def _wiki(self, pagina):
+        if wiki.abrir(pagina) is None:
+            self.mensaje(t("wiki_no_hay"), True)
 
     def _comprobar(self):
         bien, lineas = self.servicios.informe()
