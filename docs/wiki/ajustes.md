@@ -179,7 +179,7 @@ Las claves que el profesor puede fijar en `mantitools_clase.json` son las mismas
 | **Autoguardado activado** | Casilla |  |  |
 | **Cada** | Número | 1 – 120 min |  |
 | **Copias que guarda** | Número | 1 – 50 |  |
-| **No guardar mientras se reproduce o renderiza** | Casilla |  |  |
+| **No guardar mientras se reproduce la animación** | Casilla |  |  |
 
 **Versiones**
 

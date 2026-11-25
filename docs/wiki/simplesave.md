@@ -270,7 +270,7 @@ En **MantiTools → Ajustes… → SimpleSave** tienes lo principal:
 - **Autoguardado activado**: enciende o apaga las copias automáticas.
 - **Cada**: cada cuántos minutos (de 1 a 120; 5 por defecto). Entre 5 y 10 está bien: menos puede interrumpir en escenas pesadas.
 - **Copias que guarda**: cuántas copias automáticas se quedan (de 1 a 50; 5 por defecto).
-- **No guardar mientras se reproduce o renderiza**: no hace copias mientras se reproduce la animación.
+- **No guardar mientras se reproduce la animación**: no hace copias durante el playback.
 
 **Versiones**
 

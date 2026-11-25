@@ -100,7 +100,7 @@
  "aj_minutos": "Cada",
  "aj_motor": "Motor de juego",
  "aj_opacidad_fantasma": "Opacidad del fantasma",
- "aj_pausa_reproduccion": "No guardar mientras se reproduce o renderiza",
+ "aj_pausa_reproduccion": "No guardar mientras se reproduce la animación",
  "aj_plantilla": "Plantilla de nombre",
  "aj_plantilla_ayuda": "Por ejemplo {escena} o {asignatura}_{apellido}_{escena}. La versión se añade sola.",
  "aj_radial_vivo_ayuda": "Radial conserva su propia ventana para ajustar el tamaño viendo el menú.",

@@ -109,7 +109,7 @@ Estas son todas las claves de `fijar`, sacadas de la página de Ajustes de cada 
 | SimpleSave (`simplesave`) | `autoguardado` | Autoguardado activado | `true` / `false` |
 | SimpleSave (`simplesave`) | `minutos` | Cada | número 1 – 120 |
 | SimpleSave (`simplesave`) | `copias` | Copias que guarda | número 1 – 50 |
-| SimpleSave (`simplesave`) | `pausa_reproduccion` | No guardar mientras se reproduce o renderiza | `true` / `false` |
+| SimpleSave (`simplesave`) | `pausa_reproduccion` | No guardar mientras se reproduce la animación | `true` / `false` |
 | SimpleSave (`simplesave`) | `plantilla` | Plantilla de nombre | texto |
 | SimpleSave (`simplesave`) | `formato` | Formato | `"ma"`, `"mb"` |
 | SimpleSave (`simplesave`) | `miniaturas` | Guardar miniatura con cada versión | `true` / `false` |
