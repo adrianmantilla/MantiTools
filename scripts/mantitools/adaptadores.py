@@ -470,8 +470,54 @@ class PaginaLightManager(Pagina):
                 pass
 
 
+# --- RenderDesk ----------------------------------------------------------------------------------
+
+class PaginaRenderDesk(Pagina):
+    """Las preferencias de RenderDesk son optionVar (``renderDesk_<clave>``); se leen por sus servicios."""
+    ident = "renderdesk"
+    DEFECTOS = {"nivel": "sencillo", "nucleos": "menos2"}
+
+    def secciones(self):
+        return [
+            (t("sec_rd_panel"), [
+                Control("opciones", "nivel", t("aj_rd_nivel"),
+                        [("sencillo", t("aj_rd_nivel_sencillo")), ("detalle", t("aj_rd_nivel_detalle")),
+                         ("experto", t("aj_rd_nivel_experto"))], ayuda=t("aj_rd_nivel_ayuda")),
+            ]),
+            (t("sec_rd_final"), [
+                Control("opciones", "nucleos", t("aj_rd_nucleos"),
+                        [("menos2", t("aj_rd_nucleos_menos2")), ("todos", t("aj_rd_nucleos_todos")),
+                         ("mitad", t("aj_rd_nucleos_mitad"))], ayuda=t("aj_rd_nucleos_ayuda")),
+                Control("info", "historial", t("aj_rd_historial")),
+            ]),
+        ]
+
+    def _m(self):
+        return self._modulo("renderdesk.interfaz_maya")
+
+    def leer(self, clave):
+        if clave == "historial":
+            return t("aj_rd_historial_ruta")
+        return self._m().servicios().preferencia(clave, self.DEFECTOS[clave])
+
+    def escribir(self, clave, valor):
+        m = self._m()
+        m.servicios().guardar_preferencia(clave, valor)
+        panel = m.ventana()
+        if panel is None:
+            return
+        try:
+            if clave == "nivel":
+                panel.poner_nivel(valor, guardar=False)
+            elif clave == "nucleos":
+                combo = panel.pestana_salida.combo_nucleos
+                combo.setCurrentIndex(max(0, combo.findData(valor)))
+        except Exception:
+            pass
+
+
 PAGINAS = {p.ident: p for p in (PaginaTrepadora, PaginaArboles, PaginaRadial, PaginaMuro, PaginaMaterials,
-                               PaginaLightManager, PaginaGrassEditor, PaginaSimpleSave)}
+                               PaginaLightManager, PaginaRenderDesk, PaginaGrassEditor, PaginaSimpleSave)}
 
 
 def pagina(ident, clase=None):

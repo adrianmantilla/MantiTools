@@ -36,6 +36,7 @@ MODS_SUELTOS = {
     "grasseditor": ("grasseditor.mod", "pradera.mod"),
     "simplesave": ("simplesave.mod",),
     "lightmanager": ("lightmanager.mod",),
+    "renderdesk": ("renderdesk.mod", "renderpresets.mod"),
 }
 PLUGINS_ANTIGUOS = ("muestrario_plugin", "pradera_plugin")
 
@@ -60,7 +61,8 @@ def incluidas(base=None):
     """[(id, carpeta)] de las herramientas que trae el pack, en orden."""
     base = base or raiz()
     carpeta = os.path.join(base, "incluidas")
-    orden = ("trepadora", "arboles", "radial", "muro", "materials", "lightmanager", "grasseditor", "simplesave")
+    orden = ("trepadora", "arboles", "radial", "muro", "materials", "lightmanager", "renderdesk", "grasseditor",
+             "simplesave")
     return [(i, os.path.join(carpeta, i)) for i in orden
             if os.path.isdir(os.path.join(carpeta, i, "scripts", i))]
 

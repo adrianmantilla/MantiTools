@@ -29,6 +29,7 @@ siguen ahí.
 | 🟡 tablero | Muro | Abrir el tablero | nuevo, importar, capturar visor, fantasma |
 | 🔴 esfera | Materials | Abrir Materials | asignar, cuentagotas, enviar a Painter |
 | 🟠 foco | LightManager | Abrir el panel de luces | tres puntos, comprobar la iluminación, quitar solos |
+| 🖥️ pantalla | RenderDesk | Abrir RenderDesk junto al visor de Arnold | modo render, probar, instantánea |
 | 🟩 hierba | GrassEditor | Abrir GrassEditor | nueva capa, capa con pincel, jardín de ejemplo, analizar |
 | 🩷 disquete | SimpleSave | Guardar versión | ver versiones, recuperar autoguardado, comparar |
 | 🔵 cuadros | MantiTools | Abrir la ventana central | ajustes, ayuda, comprobar |

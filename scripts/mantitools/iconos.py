@@ -26,6 +26,8 @@ TRAZOS = {
     "lightmanager": '<path d="M5.2 6.4l5.6-2.2 2 5.2-5.6 2.2z"/>'
                     '<path d="M12.8 6.2l5.7-1.4M13.6 8.3l6 .6M13.1 10.6l4.8 2.6"/>'
                     '<path d="M8.9 11l1.1 3.2M10 14.2v6M10 14.2l-3.4 5.8M10 14.2l3.4 5.8"/>',
+    "renderdesk": '<rect x="3.5" y="4.5" width="17" height="12" rx="1.5"/><path d="M10.5 8l4 2.5-4 2.5z"/>'
+                  '<path d="M8 20h8M12 16.5V20"/>',
     "grasseditor": '<path d="M4 20h16"/><path d="M7 20c0-5-1-8-3-11"/><path d="M11 20c0-6 0-10 1.5-14"/>'
                    '<path d="M15 20c.3-5 1.5-8 4-10"/><path d="M18.5 20c0-2.5.5-4 1.5-5"/>',
     "simplesave": '<path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4"/><circle cx="12" cy="15" r="3"/>'
