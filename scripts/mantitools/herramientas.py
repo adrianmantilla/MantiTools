@@ -58,6 +58,17 @@ def _ordenes(modulo, **llamadas):
 
 
 FICHAS = [
+    Ficha("muro", "Muro", "#e8c04f", "muro", "muro_plugin", "MuroMenu",
+          "muro.interfaz_maya:_crear_menu",
+          _ordenes("muro.interfaz_maya", abrir="mostrar()", nuevo="nuevo()", importar="importar()",
+                   capturar="capturar()", fantasma="fantasma()"),
+          "abrir", "adrianmantilla/muro"),
+    Ficha("arboles", "Árboles", "#b07a48", "arboles", "arboles_plugin", "ArbolesMenu",
+          "arboles.interfaz_maya:crear_menu",
+          _ordenes("arboles.interfaz_maya", editor="_editor()", biblioteca="_plantar()",
+                   ejemplo="_arbol_ejemplo()", materiales="_crear_materiales()",
+                   openpbr="convertir_a_openpbr()", comprobar="comprobar()"),
+          "editor", "adrianmantilla/arboles"),
     Ficha("trepadora", "Trepadora", "#3fae8c", "trepadora", "trepadora_plugin", "trepadoraMenu",
           "trepadora.menu:crear",
           _ordenes("trepadora.menu", abrir="abrir()", escena_sencilla="escena_de_prueba('sencilla')",
@@ -65,22 +76,11 @@ FICHAS = [
                    exportar_ligeras="exportar_seleccion(ligeras=True)",
                    openpbr="convertir_a_openpbr()"),
           "abrir", "adrianmantilla/trepadora"),
-    Ficha("arboles", "Árboles", "#b07a48", "arboles", "arboles_plugin", "ArbolesMenu",
-          "arboles.interfaz_maya:crear_menu",
-          _ordenes("arboles.interfaz_maya", editor="_editor()", biblioteca="_plantar()",
-                   ejemplo="_arbol_ejemplo()", materiales="_crear_materiales()",
-                   openpbr="convertir_a_openpbr()", comprobar="comprobar()"),
-          "editor", "adrianmantilla/arboles"),
-    Ficha("radial", "Radial", "#a58bd6", "radial", "radial_plugin", "RadialMenu",
-          "radial.interfaz_maya:crear_menu",
-          _ordenes("radial.interfaz_maya", alternar="alternar()", configurar="abrir_configurador()",
-                   ajustes="abrir_ajustes()", centrar="volver_a_centrar()"),
-          "alternar", "adrianmantilla/radial"),
-    Ficha("muro", "Muro", "#e8c04f", "muro", "muro_plugin", "MuroMenu",
-          "muro.interfaz_maya:_crear_menu",
-          _ordenes("muro.interfaz_maya", abrir="mostrar()", nuevo="nuevo()", importar="importar()",
-                   capturar="capturar()", fantasma="fantasma()"),
-          "abrir", "adrianmantilla/muro"),
+    Ficha("grasseditor", "GrassEditor", "#a8cf5a", "grasseditor", "grasseditor_plugin", "GrassEditorMenu",
+          "grasseditor.interfaz_maya:crear_menu",
+          _ordenes("grasseditor.interfaz_maya", ventana="_ventana()", nueva_capa="_nueva_capa()",
+                   nueva_pincel="_nueva_capa('pincel')", ejemplo="_ejemplo()", analizar="_analizar()"),
+          "ventana", "adrianmantilla/grasseditor"),
     Ficha("materials", "Materials", "#e0685a", "materials", "materials_plugin", "MaterialsMenu",
           "materials.interfaz_maya:_crear_menu",
           _ordenes("materials.interfaz_maya", abrir="mostrar()", asignar="asignar()",
@@ -96,19 +96,35 @@ FICHAS = [
           _ordenes("renderdesk.interfaz_maya", abrir="mostrar()", modo_render="alternar_modo_render()",
                    probar="probar()", instantanea="instantanea()"),
           "abrir", "adrianmantilla/renderdesk"),
-    Ficha("grasseditor", "GrassEditor", "#a8cf5a", "grasseditor", "grasseditor_plugin", "GrassEditorMenu",
-          "grasseditor.interfaz_maya:crear_menu",
-          _ordenes("grasseditor.interfaz_maya", ventana="_ventana()", nueva_capa="_nueva_capa()",
-                   nueva_pincel="_nueva_capa('pincel')", ejemplo="_ejemplo()", analizar="_analizar()"),
-          "ventana", "adrianmantilla/grasseditor"),
     Ficha("simplesave", "SimpleSave", "#e88fb8", "simplesave", "simplesave_plugin", "SimpleSaveMenu",
           "simplesave.interfaz_maya:_crear_menu",
           _ordenes("simplesave.interfaz_maya", guardar="guardar_version()", versiones="mostrar()",
                    recuperar="recuperar()", comparar="comparar()"),
           "guardar", "adrianmantilla/simplesave"),
+    Ficha("radial", "Radial", "#a58bd6", "radial", "radial_plugin", "RadialMenu",
+          "radial.interfaz_maya:crear_menu",
+          _ordenes("radial.interfaz_maya", alternar="alternar()", configurar="abrir_configurador()",
+                   ajustes="abrir_ajustes()", centrar="volver_a_centrar()"),
+          "alternar", "adrianmantilla/radial"),
 ]
 
 ORDEN = tuple(f.id for f in FICHAS)
+
+# Grupos del estante, en el orden en que se trabaja una escena; entre grupo y grupo va un
+# separador. El menú, las tarjetas y Ajustes siguen el mismo orden (el de FICHAS).
+GRUPOS = (
+    ("empezar", ("muro",)),
+    ("construir", ("arboles", "trepadora", "grasseditor")),
+    ("look", ("materials", "lightmanager", "renderdesk")),
+    ("a_mano", ("simplesave", "radial")),
+)
+
+
+def grupo(ident):
+    for nombre, ids in GRUPOS:
+        if ident in ids:
+            return nombre
+    return None
 ACENTO = "#4a9bd1"
 
 

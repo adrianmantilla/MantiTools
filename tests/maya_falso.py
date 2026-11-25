@@ -105,8 +105,17 @@ class Cmds(types.ModuleType):
             return list(self.estantes.get(nombre, []))
         return nombre
 
+    def separator(self, *a, **k):
+        padre = k.get("parent")
+        nombre = "separador{}".format(sum(len(v) for v in self.estantes.values()))
+        if padre:
+            self.estantes.setdefault(padre, []).append(nombre)
+        return nombre
+
     def shelfButton(self, boton=None, **k):
         if k.get("query"):
+            if boton not in self.botones:
+                raise RuntimeError("no es un botón: {}".format(boton))
             datos = self.botones.get(boton, {})
             return datos.get("label") if k.get("label") else datos.get("image", "")
         padre = k["parent"]

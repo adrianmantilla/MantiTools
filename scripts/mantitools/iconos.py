@@ -4,13 +4,23 @@ Con ellos se dibujan las tarjetas de la ventana central y se generan los PNG del
 estante (``herramientas/generar_iconos.py``).
 """
 
-# Estilo de los iconos (propuesta A2, 24-nov-2026): dibujo de línea fina blanca sobre un
-# cuadrado negro, igual en todas las herramientas; se distinguen por el dibujo, no por el color.
-FONDO = "#161616"
-TRAZO = "#ffffff"
+# Estilo de los iconos (25-nov-2026): dibujo de línea fina clara sobre el gris de los botones
+# de Maya, con una marca pequeña del color de cada herramienta bajo el dibujo.
+FONDO = "#5b5b5b"
+TRAZO = "#ececec"
 GROSOR_ESTANTE = 0.85
 GROSOR_TARJETA = 1.0
-FONDO_TARJETA = "#202020"
+FONDO_TARJETA = "#333333"
+
+
+def tono_marca(color):
+    """El color de la herramienta, apagado para que conviva con el gris de Maya."""
+    import colorsys
+    r, g, b = (int(color.lstrip("#")[i:i + 2], 16) / 255.0 for i in (0, 2, 4))
+    h, _l, _s = colorsys.rgb_to_hls(r, g, b)
+    r, g, b = colorsys.hls_to_rgb(h, 0.62, 0.45)
+    return "#{:02x}{:02x}{:02x}".format(*(int(round(v * 255)) for v in (r, g, b)))
+
 
 TRAZOS = {
     "trepadora": '<path d="M12 21c0-6 1-10 5-14"/><path d="M14 12c-3 0-5-1.5-5.5-4 2.6-.4 4.6.8 5.5 4z"/>'
@@ -37,13 +47,16 @@ TRAZOS = {
 }
 
 
-def svg(ident, color=TRAZO, grosor=GROSOR_TARJETA, fondo=None, radio=5):
-    """El icono de ``ident`` como texto SVG. Con ``fondo``, sobre un cuadrado redondeado de ese color."""
+def svg(ident, color=TRAZO, grosor=GROSOR_TARJETA, fondo=None, radio=5, marca=None):
+    """El icono de ``ident`` como texto SVG. Con ``fondo``, sobre un cuadrado redondeado de ese color;
+    con ``marca``, una raya corta de ese color al pie."""
     base = ""
     if fondo:
         base = '<rect x="0" y="0" width="24" height="24" rx="{}" fill="{}" stroke="none"/>'.format(radio, fondo)
+        if marca:
+            base += '<rect x="7" y="20.6" width="10" height="1.5" rx=".75" fill="{}" stroke="none"/>'.format(marca)
         # El dibujo, un poco más pequeño para que respire dentro del cuadrado.
-        trazos = '<g transform="translate(3.6 3.6) scale(0.7)">{}</g>'.format(TRAZOS[ident])
+        trazos = '<g transform="translate(3.6 {}) scale(0.7)">{}</g>'.format(2.8 if marca else 3.6, TRAZOS[ident])
         grosor = grosor / 0.7
     else:
         trazos = TRAZOS[ident]
@@ -52,12 +65,12 @@ def svg(ident, color=TRAZO, grosor=GROSOR_TARJETA, fondo=None, radio=5):
             '</svg>').format(base, color, grosor, trazos)
 
 
-def pixmap(ident, lado, color=TRAZO, fondo=None, grosor=GROSOR_TARJETA):
+def pixmap(ident, lado, color=TRAZO, fondo=None, grosor=GROSOR_TARJETA, marca=None):
     """QPixmap del icono (necesita QtSvg). None si no se puede dibujar."""
     from mantitools.qt import QtCore, QtGui, QtSvg
     if QtSvg is None:
         return None
-    render = QtSvg.QSvgRenderer(QtCore.QByteArray(svg(ident, color, grosor, fondo).encode("utf-8")))
+    render = QtSvg.QSvgRenderer(QtCore.QByteArray(svg(ident, color, grosor, fondo, marca=marca).encode("utf-8")))
     mapa = QtGui.QPixmap(lado, lado)
     mapa.fill(QtCore.Qt.transparent)
     pintor = QtGui.QPainter(mapa)

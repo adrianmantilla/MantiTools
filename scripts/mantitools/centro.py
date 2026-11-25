@@ -127,11 +127,11 @@ class TarjetaHerramienta(QtWidgets.QFrame):
         mini.setStyleSheet("background: {}; border-top-left-radius: 8px; border-top-right-radius: 8px;"
                            .format(iconos.FONDO_TARJETA))
         fila_mini = QtWidgets.QHBoxLayout(mini)
-        fila_mini.addWidget(_icono(ficha.id, 40, color="#f2f2f2"))
+        fila_mini.addWidget(_icono(ficha.id, 40, color="#e6e6e6"))
         capa.addWidget(mini)
         franja = QtWidgets.QFrame()
         estilo.rol(franja, "franja")
-        franja.setStyleSheet("background: #303030;")
+        franja.setStyleSheet("background: {};".format(iconos.tono_marca(ficha.color)))
         capa.addWidget(franja)
         info = QtWidgets.QVBoxLayout()
         info.setContentsMargins(10, 8, 10, 10)
@@ -596,7 +596,8 @@ class VentanaCentro(QtWidgets.QWidget):
         return panel
 
     def _anadir_pagina(self, ident, texto, icono, fabrica):
-        mapa = iconos.pixmap(icono, 32, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE)
+        mapa = iconos.pixmap(icono, 32, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE,
+                             marca=hr.ACENTO if icono == "centro" else iconos.tono_marca(hr.ficha(icono).color))
         elemento = QtWidgets.QListWidgetItem(QtGui.QIcon(mapa) if mapa is not None else QtGui.QIcon(), texto)
         elemento.setData(Qt.UserRole, ident)
         self.lista.addItem(elemento)

@@ -19,9 +19,12 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 TAMANOS = (("", 32), ("_150", 48), ("_200", 64))
 
 
-def identificadores():
-    from mantitools import herramientas as hr
-    return [f.id for f in hr.FICHAS] + ["centro"]
+def marcas():
+    """{icono: color de su marca}: el de cada herramienta, apagado; el azul del pack para la central."""
+    from mantitools import herramientas as hr, iconos
+    datos = {f.id: iconos.tono_marca(f.color) for f in hr.FICHAS}
+    datos["centro"] = hr.ACENTO
+    return datos
 
 
 def generar(carpeta=None):
@@ -32,9 +35,9 @@ def generar(carpeta=None):
     if not os.path.isdir(carpeta):
         os.makedirs(carpeta)
     escritos = []
-    for ident in identificadores():
+    for ident, marca in marcas().items():
         for sufijo, lado in TAMANOS:
-            mapa = iconos.pixmap(ident, lado, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE)
+            mapa = iconos.pixmap(ident, lado, fondo=iconos.FONDO, grosor=iconos.GROSOR_ESTANTE, marca=marca)
             ruta = os.path.join(carpeta, "mantitools_{}{}.png".format(ident, sufijo))
             if mapa is None or not mapa.save(ruta):
                 raise SystemExit("No se pudo escribir {}".format(ruta))
