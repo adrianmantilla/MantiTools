@@ -37,9 +37,9 @@
   },
   "renderdesk": {
     "repositorio": "adrianmantilla/renderdesk",
-    "rama": "claude/project-thread-zy0smd",
+    "rama": "main",
     "version": "0.3.0",
-    "commit": "1c15459"
+    "commit": "6445ac1"
   },
   "grasseditor": {
     "repositorio": "adrianmantilla/GrassEditor",
