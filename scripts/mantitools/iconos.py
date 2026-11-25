@@ -42,6 +42,8 @@ TRAZOS = {
                    '<path d="M15 20c.3-5 1.5-8 4-10"/><path d="M18.5 20c0-2.5.5-4 1.5-5"/>',
     "simplesave": '<path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4"/><circle cx="12" cy="15" r="3"/>'
                   '<path d="M12 13.5V15l1 .8"/>',
+    "wiki": '<path d="M12 7c-2.2-1.7-5-2.1-8-1.6v12.8c3-.5 5.8-.1 8 1.6 2.2-1.7 5-2.1 8-1.6V5.4c-3-.5-5.8-.1-8 1.6z"/>'
+            '<path d="M12 7v12.8"/><path d="M6.5 9.2c1.3-.1 2.5.1 3.5.6M6.5 12.2c1.3-.1 2.5.1 3.5.6"/>',
     "centro": '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/>'
               '<rect x="4" y="13" width="7" height="7" rx="1.5"/><path d="M16.5 13v7M13 16.5h7"/>',
 }

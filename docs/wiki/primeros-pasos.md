@@ -15,7 +15,7 @@ Un icono por herramienta, en cuatro grupos separados por una raya fina. El orden
 | **Materiales, luz y render** | Materials, LightManager, RenderDesk | Dar el aspecto final y renderizar. |
 | **Siempre a mano** | SimpleSave, Radial | En cualquier momento: guardar versiones y lanzar órdenes. |
 
-El último icono, separado, abre la **ventana central**.
+Al final, separados del resto, van dos iconos del pack: **MantiTools** abre la **ventana central** y **Wiki** abre esta documentación en el navegador.
 
 ### Clic izquierdo y clic derecho
 
@@ -33,7 +33,8 @@ El último icono, separado, abre la **ventana central**.
 | RenderDesk | Abrir RenderDesk | Probar / parar, Instantánea, Modo render |
 | SimpleSave | Guardar versión | Ver versiones, Recuperar autoguardado, Comparar versiones |
 | Radial | Mostrar u ocultar | Volver a centrar, Configurar botones, Ajustes de tamaño en vivo |
-| MantiTools | Ventana central | Ajustes, Ayuda |
+| MantiTools | Ventana central | Ajustes, Ayuda, Comprobar instalación |
+| Wiki | Esta wiki, en el navegador | Primeros pasos, Flujo de trabajo, Problemas y preguntas |
 
 > **Consejo:** Si borras el estante sin querer o le faltan iconos, **MantiTools → Recrear estante** lo vuelve a hacer.
 
@@ -55,7 +56,7 @@ En la barra de menús de Maya aparece **MantiTools**. Arriba hay un submenú por
 
 ![La ventana central, pestaña Herramientas](img/mantitools/centro_herramientas.png)
 
-Se abre con el último icono del estante o desde el menú. Tiene tres pestañas:
+Se abre con el icono MantiTools del estante (el penúltimo) o desde el menú. Tiene tres pestañas:
 
 - **Herramientas:** una tarjeta por herramienta, con su botón principal y el menú «···» con el resto de órdenes.
 - **Ajustes:** todas las opciones de todas las herramientas en un solo sitio.

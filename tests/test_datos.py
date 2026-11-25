@@ -96,7 +96,7 @@ class Textos(unittest.TestCase):
 
 class Iconos(unittest.TestCase):
     def test_hay_trazo_y_png_para_cada_icono(self):
-        for ident in list(hr.ORDEN) + ["centro"]:
+        for ident in list(hr.ORDEN) + ["centro", "wiki"]:
             self.assertIn(ident, iconos.TRAZOS)
             for sufijo in ("", "_150", "_200"):
                 ruta = os.path.join(RAIZ, "icons", "mantitools_{}{}.png".format(ident, sufijo))

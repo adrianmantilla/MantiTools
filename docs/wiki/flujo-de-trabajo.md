@@ -6,7 +6,7 @@ Este tutorial recorre una escena completa con MantiTools, en el mismo orden que 
 
 *El tipo de escena que vamos a montar: Trepadora sobre una ruina, con árboles y hierba alrededor.*
 
-> **Consejo:** Ten abierta la ventana central (último icono del estante) acoplada a un lado: así tienes a mano todas las herramientas y sus ajustes mientras trabajas.
+> **Consejo:** Ten abierta la ventana central (penúltimo icono del estante) acoplada a un lado: así tienes a mano todas las herramientas y sus ajustes mientras trabajas.
 
 ## 0. Guardar desde el principio
 

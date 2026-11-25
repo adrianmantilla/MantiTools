@@ -1,4 +1,4 @@
-"""El estante «MantiTools»: un icono por herramienta activa y otro para la ventana central.
+"""El estante «MantiTools»: un icono por herramienta activa, otro para la ventana central y otro para la wiki.
 
 Clic: la orden principal de la herramienta. Clic derecho: sus órdenes secundarias.
 Se guarda al momento (Maya solo guarda los estantes al salir bien).
@@ -14,6 +14,10 @@ from mantitools.i18n import t
 
 ESTANTE = "MantiTools"
 CODIGO_CENTRO = "import mantitools.centro as _c\n_c.mostrar()"
+CODIGO_WIKI = "import mantitools.wiki as _w\n_w.abrir({!r})"
+# Páginas de la wiki en el clic derecho de su icono: (clave de i18n del título, página).
+PAGINAS_WIKI = (("wiki_primeros_pasos", "primeros-pasos"), ("wiki_flujo", "flujo-de-trabajo"),
+                ("wiki_problemas", "problemas"))
 # En la sesión en que se instala, los iconos van por ruta (ver ``icono``).
 _sesion = {"rutas": False}
 
@@ -47,6 +51,9 @@ def botones(ruta_completa=False):
                    (t("menu_comprobar"), "import mantitools.comprobar as _c\n_c.mostrar()")]
     lista.append(("MantiTools", t("estante_centro"), icono("mantitools_centro.png", ruta_completa), CODIGO_CENTRO,
                   menu_centro))
+    menu_wiki = [(t(clave), CODIGO_WIKI.format(pagina)) for clave, pagina in PAGINAS_WIKI]
+    lista.append(("Wiki", t("estante_wiki"), icono("mantitools_wiki.png", ruta_completa), CODIGO_WIKI.format("index"),
+                  menu_wiki))
     return lista
 
 
@@ -99,7 +106,7 @@ def crear(forzar=False, seleccionar=False, ruta_completa=False):
             cmds.deleteUI(boton)
     else:
         mel.eval('addNewShelfTab "{}"'.format(ESTANTE))
-    grupos = {f.nombre: hr.grupo(f.id) for f in hr.FICHAS}
+    grupos = {f.nombre: hr.grupo(f.id) for f in hr.FICHAS}   # MantiTools y Wiki van juntos, al final
     anterior = None
     for etiqueta, ayuda, imagen, orden, menu in botones(ruta_completa):
         actual = grupos.get(etiqueta, "centro")

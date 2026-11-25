@@ -184,6 +184,7 @@
  "destino_render": "Render (Arnold)",
  "estante_centro": "MantiTools: tools, settings and help",
  "estante_recreado": "MantiTools shelf rebuilt.",
+ "estante_wiki": "MantiTools wiki: the full documentation, in your browser",
  "estilo_cartoon": "Cartoon (flat colors)",
  "estilo_estilizado": "Stylized (painted)",
  "estilo_realista": "Realistic",
@@ -264,5 +265,8 @@
  "tarjeta_fallo": "Could not load. See Help › Check installation.",
  "tarjeta_mas": "More commands",
  "tarjeta_profesor": "Turned off by the teacher (class folder).",
- "wiki_no_hay": "Can't find the wiki (docs/wiki/index.html). Download MantiTools again."
+ "wiki_flujo": "Workflow",
+ "wiki_no_hay": "Can't find the wiki (docs/wiki/index.html). Download MantiTools again.",
+ "wiki_primeros_pasos": "First steps",
+ "wiki_problemas": "Problems and questions"
 }

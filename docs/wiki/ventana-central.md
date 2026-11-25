@@ -2,7 +2,7 @@
 
 La ventana central reúne todo el pack en un solo panel de Maya: abrir cualquier herramienta, configurar todas y encontrar ayuda. Es un panel acoplable, así que puedes dejarlo flotando o pegarlo a un lado de la interfaz como cualquier otra ventana de Maya.
 
-**Cómo se abre:** el último icono del estante MantiTools, o **MantiTools → Herramientas / Ajustes / Ayuda** (cada entrada la abre en su pestaña).
+**Cómo se abre:** el icono MantiTools del estante (el penúltimo, junto al de la wiki), o **MantiTools → Herramientas / Ajustes / Ayuda** (cada entrada la abre en su pestaña).
 
 ![La ventana central de MantiTools, pestaña Herramientas](img/mantitools/centro_herramientas.png)
 

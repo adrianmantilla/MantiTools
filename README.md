@@ -76,7 +76,8 @@ Todos los detalles en la wiki: [Instalación](docs/wiki/instalacion.md).
 
 - **Estante:** clic en un icono abre la herramienta; con clic derecho salen sus órdenes rápidas
   (por ejemplo, en SimpleSave: guardar versión, recuperar…). Está ordenado por fases: empezar,
-  construir, materiales/luz/render y siempre a mano. El último icono abre la ventana central.
+  construir, materiales/luz/render y siempre a mano. Al final, los iconos de la ventana central y
+  de la wiki.
 - **Menú MantiTools:** un submenú por herramienta, con las mismas entradas que tenía cada una, y
   abajo las órdenes del pack: ventana central, **Documentación (wiki)**, comprobar instalación,
   recrear estante y convertir materiales a OpenPBR.

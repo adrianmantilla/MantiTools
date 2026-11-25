@@ -20,10 +20,11 @@ TAMANOS = (("", 32), ("_150", 48), ("_200", 64))
 
 
 def marcas():
-    """{icono: color de su marca}: el de cada herramienta, apagado; el azul del pack para la central."""
+    """{icono: color de su marca}: el de cada herramienta, apagado; el azul del pack para la central y la wiki."""
     from mantitools import herramientas as hr, iconos
     datos = {f.id: iconos.tono_marca(f.color) for f in hr.FICHAS}
     datos["centro"] = hr.ACENTO
+    datos["wiki"] = hr.ACENTO
     return datos
 
 

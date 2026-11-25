@@ -24,7 +24,7 @@ Están en el orden del estante, que es el orden en el que se trabaja una escena:
 
 ![El estante MantiTools, con sus grupos separados](img/mantitools/estante_grupos.png)
 
-*El estante MantiTools. La raya de color bajo cada icono es el color de la herramienta; el último icono abre la ventana central.*
+*El estante MantiTools. La raya de color bajo cada icono es el color de la herramienta; los dos últimos abren la ventana central y esta wiki.*
 
 ## Por dónde empezar
 
