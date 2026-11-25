@@ -108,7 +108,7 @@ class Centro(unittest.TestCase):
             self.assertEqual(self.v.pestanas.currentIndex(), i)
 
     def test_boton_principal_ejecuta(self):
-        tarjeta = self.v.tarjetas[2]
+        tarjeta = self.v.tarjetas[hr.ORDEN.index("radial")]
         tarjeta.boton_abrir.click()
         self.assertEqual(self.servicios.ejecutadas, [("radial", hr.ficha("radial").principal)])
 

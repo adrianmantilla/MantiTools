@@ -71,10 +71,13 @@ def _desfasado(ruta_completa=False):
     actuales = []
     for boton in cmds.shelfLayout(ESTANTE, query=True, childArray=True) or []:
         try:
-            actuales.append(cmds.shelfButton(boton, query=True, label=True))
-        except RuntimeError:
+            etiqueta = cmds.shelfButton(boton, query=True, label=True)
+        except RuntimeError:   # un separador
             continue
-    return actuales != [b[0] for b in botones(ruta_completa)]
+        if etiqueta:
+            actuales.append(etiqueta)
+    hay_separadores = len(cmds.shelfLayout(ESTANTE, query=True, childArray=True) or []) > len(actuales)
+    return actuales != [b[0] for b in botones(ruta_completa)] or not hay_separadores
 
 
 def crear(forzar=False, seleccionar=False, ruta_completa=False):
@@ -96,7 +99,13 @@ def crear(forzar=False, seleccionar=False, ruta_completa=False):
             cmds.deleteUI(boton)
     else:
         mel.eval('addNewShelfTab "{}"'.format(ESTANTE))
+    grupos = {f.nombre: hr.grupo(f.id) for f in hr.FICHAS}
+    anterior = None
     for etiqueta, ayuda, imagen, orden, menu in botones(ruta_completa):
+        actual = grupos.get(etiqueta, "centro")
+        if anterior is not None and actual != anterior:
+            cmds.separator(parent=ESTANTE, style="shelf", horizontal=False)
+        anterior = actual
         opciones = {}
         if menu:
             opciones["menuItem"] = [(texto, codigo) for texto, codigo in menu]
