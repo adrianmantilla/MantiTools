@@ -14,6 +14,11 @@ from mantitools.i18n import t
 
 ESTANTE = "MantiTools"
 CODIGO_CENTRO = "import mantitools.centro as _c\n_c.mostrar()"
+CODIGO_WIKI = "import mantitools.documentacion as _d\n_d.abrir()"
+CODIGO_WIKI_PAGINA = "import mantitools.documentacion as _d\n_d.abrir('{}')"
+# Clic derecho en el icono de la wiki: las páginas que más se buscan.
+PAGINAS_WIKI = (("primeros-pasos", "wiki_primeros_pasos"), ("atajos", "wiki_atajos"),
+                ("problemas", "wiki_problemas"))
 # En la sesión en que se instala, los iconos van por ruta (ver ``icono``).
 _sesion = {"rutas": False}
 
@@ -47,6 +52,8 @@ def botones(ruta_completa=False):
                    (t("menu_comprobar"), "import mantitools.comprobar as _c\n_c.mostrar()")]
     lista.append(("MantiTools", t("estante_centro"), icono("mantitools_centro.png", ruta_completa), CODIGO_CENTRO,
                   menu_centro))
+    lista.append(("Wiki", t("estante_wiki"), icono("mantitools_wiki.png", ruta_completa), CODIGO_WIKI,
+                  [(t(pagina_texto), CODIGO_WIKI_PAGINA.format(pagina)) for pagina, pagina_texto in PAGINAS_WIKI]))
     return lista
 
 

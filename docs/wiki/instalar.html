@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instalar y actualizar · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html" class="actual" aria-current="page">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="titulo-pagina"><h1>Instalar y actualizar</h1><p class="resumen">Una carpeta fija, un archivo que se arrastra a Maya y listo. Aquí también se explica cómo actualizar, reinstalar y desinstalar sin perder nada.</p></header>
+<div class="cuerpo">
+<article>
+<h2 id="antes-de-empezar">Antes de empezar</h2>
+<div class="tabla"><table>
+<tbody>
+<tr class="odd">
+<td>Maya</td>
+<td>2026 o 2027</td>
+</tr>
+<tr class="even">
+<td>Sistema</td>
+<td>Windows o macOS</td>
+</tr>
+<tr class="odd">
+<td>Render</td>
+<td>Arnold (MtoA), el que trae Maya. Sin Arnold todo funciona, pero los materiales de render no se ven</td>
+</tr>
+<tr class="even">
+<td>Dependencias</td>
+<td>Ninguna: usa el Python de Maya</td>
+</tr>
+<tr class="odd">
+<td>Espacio</td>
+<td>Unos 250 MB, casi todo texturas de Trepadora y Árboles</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="instalar">Instalar</h2>
+<ol type="1">
+<li><strong>Guarda la carpeta <code>MantiTools</code> en un sitio fijo</strong>, por ejemplo <code>Documentos/maya/MantiTools</code>. Maya la leerá desde ahí cada vez que arranque, así que no la muevas después.</li>
+<li><strong>Abre Maya</strong> 2026 o 2027.</li>
+<li><strong>Arrastra el archivo <code>instalar.py</code></strong> desde el Finder o el Explorador hasta el visor de Maya.</li>
+<li>Se instala solo. Pulsa <strong>Aceptar</strong> en el aviso que sale al terminar.</li>
+</ol>
+<p>Al terminar verás:</p>
+<ul>
+<li>el menú <strong>MantiTools</strong> en la barra de Maya;</li>
+<li>el estante <strong>MantiTools</strong>, con un icono por herramienta y el de esta wiki;</li>
+<li>la ventana central de MantiTools.</li>
+</ul>
+<figure><img loading="lazy" src="../capturas/estante.png" alt="El estante MantiTools recién instalado" /><figcaption>El estante MantiTools recién instalado</figcaption></figure>
+<div class="aviso importante"><p class="aviso-titulo">Importante</p><p>Maya pregunta <strong>«Untrusted Plugin Loading»</strong> porque los plugins de MantiTools no están firmados. Pulsa <strong>Allow</strong>. Para que no vuelva a preguntar, añade la carpeta <code>plug-ins</code> de MantiTools en <strong>Windows › Settings/Preferences › Preferences › Security</strong> como ruta de confianza.</p></div>
+<h2 id="qué-hace-el-instalador">Qué hace el instalador</h2>
+<ul>
+<li>Escribe un archivo <code>mantitools.mod</code> en la carpeta de módulos de tu usuario de Maya. Apunta a la carpeta de MantiTools y lleva un bloque por herramienta. No copia nada: todo se lee desde tu carpeta.</li>
+<li>Carga el plugin y lo marca para que se cargue solo cada vez que abres Maya.</li>
+<li>Copia el complemento de Materials para Substance 3D Painter en la carpeta de complementos de Painter, si Painter está instalado. En Painter se activa una vez en <strong>Python › materials_painter</strong>.</li>
+<li>Crea el estante y el menú, y abre la ventana central.</li>
+</ul>
+<h3 id="si-ya-tenías-alguna-herramienta-suelta">Si ya tenías alguna herramienta suelta</h3>
+<p>Si antes instalaste Radial, Materials, Muro u otra herramienta por separado, el instalador <strong>la aparta sin borrarla</strong>: saca su <code>.mod</code> de la carpeta de módulos a <code>mantitools_apartadas</code> y te avisa. Sus ajustes, bibliotecas, radiales y tableros siguen valiendo, porque MantiTools lee las mismas preferencias.</p>
+<p>Al desinstalar MantiTools, las herramientas apartadas vuelven a su sitio tal cual estaban.</p>
+<h2 id="actualizar">Actualizar</h2>
+<ol type="1">
+<li>Sustituye la carpeta <code>MantiTools</code> por la versión nueva, en el mismo sitio.</li>
+<li>Cierra Maya y vuelve a abrirlo.</li>
+</ol>
+<p>Si la carpeta nueva está en otro sitio, arrastra otra vez <code>instalar.py</code> y elige <strong>Reinstalar</strong>. El estante se rehace solo al arrancar si le faltan o le sobran iconos.</p>
+<div class="aviso nota"><p class="aviso-titulo">Nota</p><p>La versión de cada herramienta está en <strong>Ayuda › Guías y versiones</strong> de la ventana central, y la de MantiTools en el menú, abajo del todo.</p></div>
+<h2 id="reinstalar-o-desinstalar">Reinstalar o desinstalar</h2>
+<p>Arrastra otra vez <code>instalar.py</code> al visor. Como ya está instalado, Maya pregunta qué hacer:</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Opción</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Reinstalar</strong></td>
+<td>Vuelve a escribir el <code>.mod</code>, el estante y el menú. Útil si moviste la carpeta.</td>
+</tr>
+<tr class="even">
+<td><strong>Desinstalar</strong></td>
+<td>Quita el <code>.mod</code>, el estante y el menú, y devuelve las herramientas sueltas que se apartaron. No borra tu carpeta ni tus ajustes.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="comprobar-que-todo-está-bien">Comprobar que todo está bien</h2>
+<p>En el menú <strong>MantiTools › Comprobar instalación</strong> (o en <strong>Ayuda</strong> de la ventana central) se revisa cada herramienta: si está cargada, de qué carpeta viene y si queda algún <code>.mod</code> suelto activo. Las líneas con <strong>!</strong> dicen qué falla. Más en <a href="problemas.html">Si algo no funciona</a>.</p>
+<figure><img loading="lazy" src="../capturas/centro_ayuda.png" alt="La pestaña Ayuda, con el botón de la documentación y las versiones" /><figcaption>La pestaña Ayuda, con el botón de la documentación y las versiones</figcaption></figure>
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="index.html"><small>Anterior</small>MantiTools</a><a class="siguiente" href="primeros-pasos.html"><small>Siguiente</small>Primeros pasos</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/instalar.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#antes-de-empezar">Antes de empezar</a></li><li><a href="#instalar">Instalar</a></li><li><a href="#qué-hace-el-instalador">Qué hace el instalador</a></li><li><a href="#actualizar">Actualizar</a></li><li><a href="#reinstalar-o-desinstalar">Reinstalar o desinstalar</a></li><li><a href="#comprobar-que-todo-está-bien">Comprobar que todo está bien</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

@@ -24,6 +24,7 @@ def marcas():
     from mantitools import herramientas as hr, iconos
     datos = {f.id: iconos.tono_marca(f.color) for f in hr.FICHAS}
     datos["centro"] = hr.ACENTO
+    datos["wiki"] = hr.ACENTO
     return datos
 
 

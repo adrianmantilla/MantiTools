@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Materials · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html" class="actual" aria-current="page"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="portada-herramienta" style="--marca:#ca7c72"><img class="icono-grande" src="recursos/iconos/materials.svg" alt=""><div><p class="miga">Look y render</p><h1>Materials</h1><p class="resumen">Biblioteca de materiales OpenPBR con ida y vuelta a Substance Painter.</p><p class="chips"><span>Estante: icono Materials</span><span>Menú MantiTools › Materials</span><span>Versión 1.0.0</span><a href="https://github.com/adrianmantilla/materials">Código</a></p></div></header>
+<div class="cuerpo">
+<article>
+<figure><img loading="lazy" src="../medios/materials/materials.png" alt="La ventana de Materials" /><figcaption>La ventana de Materials</figcaption></figure>
+<h2 id="para-qué-sirve">Para qué sirve</h2>
+<p>Materials pone materiales a tus modelos sin perderte en el Hypershade: eliges una receta en segundos, la ajustas con ocho controles que se entienden y, si quieres pintar texturas, mandas el objeto a Substance 3D Painter y las texturas vuelven ya conectadas. Los materiales son nodos <code>openPBRSurface</code> normales, que se pueden seguir tocando a mano.</p>
+<h2 id="1-elegir-destino">1. Elegir destino</h2>
+<p>Clic en el icono <strong>Materials</strong>. Arriba elige:</p>
+<ul>
+<li><strong>Render (Arnold)</strong> si vas a renderizar en Maya.</li>
+<li><strong>Videojuego</strong> si el modelo va a Unreal, Unity o un motor web. Elige también el motor.</li>
+</ul>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Render (Arnold)</th>
+<th>Videojuego</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Controles</td>
+<td>Los ocho</td>
+<td>Color, Rugosidad, Metal, Transparencia (alfa) y Emisión</td>
+</tr>
+<tr class="even">
+<td>Transparencia</td>
+<td>Transmisión real con refracción</td>
+<td>Alfa, como en los motores</td>
+</tr>
+<tr class="odd">
+<td>Painter exporta</td>
+<td>Mapas sueltos, normal OpenGL</td>
+<td>Unreal: ORM y normal DirectX · Unity: BaseMap y MaskMap · glTF: ORM</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2-elegir-una-receta">2. Elegir una receta</h2>
+<p>En <strong>Biblioteca</strong> hay 286 recetas con valores reales, en 13 familias: metales, plásticos y gomas, maderas, piedra y cerámica, construcción, terreno, vidrio y líquidos, telas, piel y orgánicos, comida, pinturas y lacas, luces y pantallas, y arcilla. Busca por familia o escribe (oro, vidrio, piel, hormigón…).</p>
+<ul>
+<li><strong>Clic</strong>: la ves en la esfera.</li>
+<li><strong>Doble clic</strong>: se crea el material y se pone a lo seleccionado (objetos o caras).</li>
+</ul>
+<h2 id="3-ajustarla">3. Ajustarla</h2>
+<p>En <strong>Material</strong> mueve los ocho controles. Los cambios se ven al momento en el visor y en el render interactivo.</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Control</th>
+<th>Piensa en…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Color</td>
+<td>El color base, sin luz ni sombras</td>
+</tr>
+<tr class="even">
+<td>Rugosidad</td>
+<td>0 espejo, 1 mate. Es el que más cambia un material</td>
+</tr>
+<tr class="odd">
+<td>Metal</td>
+<td>0 o 1. Nada de 0,5 salvo con textura</td>
+</tr>
+<tr class="even">
+<td>Transparencia</td>
+<td>Vidrio, agua. En videojuego es alfa</td>
+</tr>
+<tr class="odd">
+<td>Subsuperficie</td>
+<td>Piel, cera, mármol, leche</td>
+</tr>
+<tr class="even">
+<td>Barniz</td>
+<td>Laca, pintura de coche, esmalte</td>
+</tr>
+<tr class="odd">
+<td>Pelusa</td>
+<td>Terciopelo, lana</td>
+</tr>
+<tr class="even">
+<td>Emisión</td>
+<td>Neones, pantallas</td>
+</tr>
+</tbody>
+</table></div>
+<p>Lee los avisos debajo de la esfera: dicen si algo no es realista y por qué. Para editar el material de otro objeto, selecciónalo y pulsa <strong>Cuentagotas</strong> (también en el clic derecho del icono).</p>
+<h2 id="4-texturas">4. Texturas</h2>
+<ul>
+<li><strong>Desde Painter</strong>: selecciona el objeto (con UVs) y <strong>Enviar a Painter</strong>. En Painter, en el panel <em>Materials</em>, pulsa <strong>Abrir</strong>, pinta y pulsa <strong>Exportar a Maya</strong>. Las texturas aparecen solas en Maya cada vez que exportas.</li>
+<li><strong>De internet o de otra carpeta</strong>: pestaña <strong>Texturas</strong>, elige la carpeta, <strong>Analizar</strong> y <strong>Conectar</strong>. Reconoce los nombres de Painter, Poly Haven, Quixel, Unreal y Unity, con UDIM y el espacio de color correcto.</li>
+</ul>
+<div class="aviso nota"><p class="aviso-titulo">Nota</p><p>El complemento de Painter lo instala MantiTools. En Painter, actívalo una vez en <strong>Python › materials_painter</strong>.</p></div>
+<h2 id="5-antes-de-entregar">5. Antes de entregar</h2>
+<ul>
+<li><strong>Texturas › Copiar al proyecto</strong>: así las texturas viajan con la escena.</li>
+<li><strong>Escena</strong>: borra los materiales sin usar, pon el prefijo <code>M_</code> a los tuyos y convierte Standard Surface, aiStandardSurface o Lambert a OpenPBR.</li>
+<li>Si al abrir en otro ordenador salen texturas rosas: <strong>Texturas › Reparar rutas</strong>.</li>
+</ul>
+<h2 id="recetas-propias-y-compartidas">Recetas propias y compartidas</h2>
+<p><strong>Guardar receta</strong> las deja en <em>Mis recetas</em>. Si usas una <a href="carpeta-compartida.html">carpeta compartida</a>, sus recetas (<code>.json</code> en <code>materials/</code>) salen en la biblioteca para todo el grupo.</p>
+<h2 id="atajos">Atajos</h2>
+<p>En el Editor de atajos de Maya (<em>Hotkey Editor</em>), categoría <em>Custom Scripts › Materials</em>: <code>MaterialsAbrir</code>, <code>MaterialsAsignar</code>, <code>MaterialsCuentagotas</code> y <code>MaterialsEnviarPainter</code>.</p>
+<h2 id="en-el-estante">En el estante</h2>
+<!-- auto:ordenes materials -->
+
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Cómo</th>
+<th>Orden</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clic</strong> en el icono</td>
+<td>Abrir Materials</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Asignar a la selección</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Cuentagotas</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Enviar a Painter</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<h2 id="ajustes-en-mantitools">Ajustes en MantiTools</h2>
+<figure><img loading="lazy" src="../capturas/ajustes_materials.png" alt="Ajustes de Materials en la ventana central" /><figcaption>Ajustes de Materials en la ventana central</figcaption></figure>
+<!-- auto:ajustes materials -->
+
+<p><strong>Destino</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Destino por defecto</td>
+<td>Render (Arnold), Videojuego</td>
+<td></td>
+<td><code>destino</code></td>
+</tr>
+<tr class="even">
+<td>Motor de juego</td>
+<td>Unreal Engine, Unity, glTF / Godot / web</td>
+<td></td>
+<td><code>motor_juego</code></td>
+</tr>
+<tr class="odd">
+<td>Resolución en Painter</td>
+<td>512, 1024, 2048, 4096</td>
+<td></td>
+<td><code>resolucion</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Substance Painter</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Programa de Painter</td>
+<td>Un archivo</td>
+<td>Vacío: se busca solo en la carpeta de programas.</td>
+<td><code>ruta_painter</code></td>
+</tr>
+<tr class="even">
+<td>Recargar las texturas al exportar desde Painter</td>
+<td>Sí / no</td>
+<td></td>
+<td><code>sincronizar</code></td>
+</tr>
+<tr class="odd">
+<td>Abrir Painter al enviar</td>
+<td>Sí / no</td>
+<td></td>
+<td><code>abrir_painter</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Complemento de Painter</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carpeta de complementos</td>
+<td>Una carpeta</td>
+<td>Donde Painter busca sus complementos de Python. Cámbiala solo si tu carpeta Documentos está en otro sitio (OneDrive, red…). En Painter: Python → Plugins Folder.</td>
+<td><code>carpeta_complemento</code></td>
+</tr>
+<tr class="even">
+<td>Copiar el complemento ahí</td>
+<td>Botón</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="grasseditor.html"><small>Anterior</small>GrassEditor</a><a class="siguiente" href="lightmanager.html"><small>Siguiente</small>LightManager</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/materials.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#para-qué-sirve">Para qué sirve</a></li><li><a href="#1-elegir-destino">1. Elegir destino</a></li><li><a href="#2-elegir-una-receta">2. Elegir una receta</a></li><li><a href="#3-ajustarla">3. Ajustarla</a></li><li><a href="#4-texturas">4. Texturas</a></li><li><a href="#5-antes-de-entregar">5. Antes de entregar</a></li><li><a href="#recetas-propias-y-compartidas">Recetas propias y compartidas</a></li><li><a href="#atajos">Atajos</a></li><li><a href="#en-el-estante">En el estante</a></li><li><a href="#ajustes-en-mantitools">Ajustes en MantiTools</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

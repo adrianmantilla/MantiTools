@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LightManager · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html" class="actual" aria-current="page"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="portada-herramienta" style="--marca:#ca9b72"><img class="icono-grande" src="recursos/iconos/lightmanager.svg" alt=""><div><p class="miga">Look y render</p><h1>LightManager</h1><p class="resumen">Luces de Arnold en pasos y Kelvin: esquemas de estudio, interiores y exteriores por zonas, sol por hora y comprobaciones.</p><p class="chips"><span>Estante: icono LightManager</span><span>Menú MantiTools › LightManager</span><span>Versión 1.0.0</span><a href="https://github.com/adrianmantilla/lightmanager">Código</a></p></div></header>
+<div class="cuerpo">
+<article>
+<img src="../medios/lightmanager/panel.png" alt="Panel de LightManager en modo Estudio: órbita con tres luces, lista por papel y ficha de la luz clave" width="300" align="right">
+
+<h2 id="para-qué-sirve">Para qué sirve</h2>
+<p>LightManager es un panel acoplable con todas las luces de la escena, agrupadas por papel o por zona. Se encienden, se ponen en solo y se ajustan como se habla de luz en fotografía: la potencia en <strong>pasos</strong> (un paso más es el doble de luz) y el color en <strong>Kelvin</strong>. Tiene dos modos que comparten lista, ficha, escenarios y comprobaciones:</p>
+<ul>
+<li><strong>Estudio</strong>: luces alrededor de un objeto, con esquemas (tres puntos, producto, Rembrandt…), una vista de órbita desde arriba y «Apuntar» con un clic en el visor.</li>
+<li><strong>Escena</strong>: interiores y exteriores por zonas, portales en las ventanas, lámparas, luces pegadas a superficies y un sol físico por hora, fecha y lugar.</li>
+</ul>
+<br clear="right">
+
+<h2 id="estudio-iluminar-un-objeto">Estudio: iluminar un objeto</h2>
+<ol type="1">
+<li>Selecciona el objeto y clic en el icono <strong>LightManager</strong> (o clic derecho › <strong>Tres puntos en lo seleccionado</strong>).</li>
+<li>En <strong>Esquemas › Estudio</strong>, pulsa <em>Aplicar</em> en <strong>Tres puntos</strong>. Aparecen la clave, el relleno y la contra mirando al objeto desde el lado de la cámara de render.</li>
+<li>Haz una prueba de render (en <a href="renderdesk.html">RenderDesk</a>, <strong>Probar</strong>).</li>
+<li>Elige una luz en la lista y ajústala en la ficha:
+<ul>
+<li><strong>Potencia</strong> en pasos: <code>2×</code> dobla la luz y <code>½×</code> la reduce a la mitad.</li>
+<li><strong>Color</strong> en Kelvin: unos 3200 K es luz de bombilla; 5600 K, luz de día.</li>
+<li>Arrastra su punto en la <strong>órbita</strong> para girarla alrededor del objeto. La rueda la sube o la baja.</li>
+</ul></li>
+<li>Para colocar un brillo exacto, elige la luz, pulsa <strong>Apuntar › Reflejo</strong> y haz clic donde quieres el brillo.</li>
+</ol>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Apuntar</th>
+<th>Qué hace el clic en el visor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Luz</strong></td>
+<td>Pone la luz de frente a ese punto</td>
+</tr>
+<tr class="even">
+<td><strong>Reflejo</strong></td>
+<td>Hace que su brillo caiga ahí, visto desde la cámara</td>
+</tr>
+<tr class="odd">
+<td><strong>Sombra</strong></td>
+<td>Hace que la sombra del objeto caiga donde haces clic</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="escena-interiores-y-exteriores">Escena: interiores y exteriores</h2>
+<ol type="1">
+<li>Pulsa <strong>Escena</strong> arriba del panel. La vista pasa a ser la escena desde arriba.</li>
+<li><strong>Zonas ▾ › Una zona por grupo del Outliner</strong> si tienes la casa organizada por habitaciones; si no, selecciona el suelo de una habitación y usa <em>Zona con los objetos seleccionados</em>.</li>
+<li>Selecciona los cristales de las ventanas y pulsa <strong>Ventanas → portales</strong>.</li>
+<li>En <strong>Cielo</strong>, elige el lugar, la fecha y la hora del sol. Mueve la hora para ver cómo cambia la luz.</li>
+<li>Selecciona las lámparas y pulsa <strong>Lámparas</strong>. Para downlights de techo, <strong>Colocar ▾ › Downlight de techo</strong> y clic en el techo. <strong>Repetir</strong> hace una fila de luces gemelas que cambian juntas.</li>
+<li>Prueba los esquemas de <strong>Interior</strong> (día, atardecer, noche): ajustan el sol, el cielo y las lámparas a la vez.</li>
+</ol>
+<h3 id="el-cielo">El cielo</h3>
+<p>Biblioteca de HDRI con miniaturas (tu carpeta y un pack de 8 HDRI libres de Poly Haven que se descarga con un botón), giro, potencia, <em>Sol desde el HDRI</em> y cielo físico. El sol sabe a qué hora sale y se pone en cada lugar, y puede encender las lámparas al anochecer.</p>
+<h2 id="guardar-y-comparar">Guardar y comparar</h2>
+<ul>
+<li><strong>Escenarios › Guardar como está</strong> guarda una foto de las luces dentro de la escena.</li>
+<li>Elige un escenario y <strong>mantén pulsado Comparar</strong> para verlo; al soltar vuelves a como estabas.</li>
+<li><strong>Esquemas › Guardar las luces como esquema</strong> lo guarda en <em>Mis esquemas</em> para otras escenas.</li>
+</ul>
+<h2 id="enlaces-y-grupos-de-luz">Enlaces y grupos de luz</h2>
+<p>La pestaña <strong>Enlaces</strong> es una matriz luz × objeto: ilumina y hace sombra, ilumina sin sombra, o no le afecta. Los <strong>grupos de luz</strong> crean sus AOV <code>RGBA_&lt;grupo&gt;</code>, para ajustar cada grupo por separado en el render o en composición.</p>
+<h2 id="antes-de-renderizar-comprobar">Antes de renderizar: Comprobar</h2>
+<p>Clic derecho en el icono › <strong>Comprobar la iluminación</strong>. Lo rojo hay que arreglarlo (render negro, solo olvidado…); lo ámbar conviene mirarlo. Casi todo tiene un botón que lo arregla: sombras negras, luces que no se notan, áreas estiradas, HDRI sin <code>.tx</code>, portales sin cielo, bombillas tapadas por su pantalla, muestras altas…</p>
+<div class="aviso consejo"><p class="aviso-titulo">Consejo</p><p>Si pusiste luces en solo y no recuerdas cuáles, clic derecho en el icono › <strong>Quitar todos los solos</strong>.</p></div>
+<h2 id="trucos">Trucos</h2>
+<ul>
+<li>Las luces que crea LightManager se llaman <code>LM_&lt;nombre&gt;</code> y van al grupo <code>LM_luces</code>; las zonas, a <code>LM_zonas</code>.</li>
+<li>Puedes mover las luces con las herramientas de Maya: el panel lo recoge al volver a él.</li>
+<li>Todo se deshace con un solo <kbd>Ctrl</kbd>+<kbd>Z</kbd> por acción.</li>
+<li>En el Editor de atajos (<em>Custom Scripts › LightManager</em>) puedes poner atajos a «Apuntar», «Tres puntos» o «Quitar todos los solos». Con <a href="radial.html">Radial</a> aparecen solas en el buscador.</li>
+</ul>
+<h2 id="en-el-estante">En el estante</h2>
+<!-- auto:ordenes lightmanager -->
+
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Cómo</th>
+<th>Orden</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clic</strong> en el icono</td>
+<td>Panel de luces</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Tres puntos en lo seleccionado</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Comprobar la iluminación</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Quitar todos los solos</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<h2 id="ajustes-en-mantitools">Ajustes en MantiTools</h2>
+<figure><img loading="lazy" src="../capturas/ajustes_lightmanager.png" alt="Ajustes de LightManager en la ventana central" /><figcaption>Ajustes de LightManager en la ventana central</figcaption></figure>
+<!-- auto:ajustes lightmanager -->
+
+<p><strong>Panel</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Modo al abrir</td>
+<td>Según la escena, Estudio, Escena</td>
+<td>«Según la escena» propone Escena si hay zonas, portales, sol o muchas lámparas. Cada escena recuerda el último modo usado.</td>
+<td><code>modo</code></td>
+</tr>
+<tr class="even">
+<td>Agrupar en Estudio</td>
+<td>Por papel, Por zona, Por tipo, Por grupo de luz</td>
+<td></td>
+<td><code>agrupar_estudio</code></td>
+</tr>
+<tr class="odd">
+<td>Agrupar en Escena</td>
+<td>Por papel, Por zona, Por tipo, Por grupo de luz</td>
+<td></td>
+<td><code>agrupar_escena</code></td>
+</tr>
+<tr class="even">
+<td>Ver los valores de Arnold en la ficha</td>
+<td>Sí / no</td>
+<td></td>
+<td><code>ver_arnold</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Bibliotecas</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carpeta de HDRI</td>
+<td>Una carpeta</td>
+<td>Vacía: dentro de las preferencias de LightManager.</td>
+<td><code>carpeta_hdri</code></td>
+</tr>
+<tr class="even">
+<td>Carpeta de Mis esquemas</td>
+<td>Una carpeta</td>
+<td>Vacía: dentro de las preferencias de LightManager.</td>
+<td><code>carpeta_esquemas</code></td>
+</tr>
+<tr class="odd">
+<td>Carpeta de perfiles IES</td>
+<td>Una carpeta</td>
+<td></td>
+<td><code>carpeta_ies</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Sol y escena</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lugar del sol</td>
+<td>Madrid, Barcelona, Sevilla, Valencia, Bilbao, Santiago de Compostela, Las Palmas de Gran Canaria, Lisboa, Londres, París, Roma, Berlín, Oslo, Reikiavik, Nueva York, Los Ángeles, Ciudad de México, Bogotá, Lima, Buenos Aires, Santiago de Chile, El Cairo, Dubái, Tokio, Sídney</td>
+<td></td>
+<td><code>ciudad</code></td>
+</tr>
+<tr class="even">
+<td>Norte de la escena</td>
+<td>-180 a 180 °</td>
+<td>Grados que hay que girar la escena para que su norte quede hacia −Z.</td>
+<td><code>norte</code></td>
+</tr>
+<tr class="odd">
+<td>Encender las lámparas al anochecer</td>
+<td>Sí / no</td>
+<td></td>
+<td><code>practicas_auto</code></td>
+</tr>
+<tr class="even">
+<td>Copias al repetir</td>
+<td>1 a 50</td>
+<td></td>
+<td><code>repetir_cantidad</code></td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="materials.html"><small>Anterior</small>Materials</a><a class="siguiente" href="renderdesk.html"><small>Siguiente</small>RenderDesk</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/lightmanager.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#para-qué-sirve">Para qué sirve</a></li><li><a href="#estudio-iluminar-un-objeto">Estudio: iluminar un objeto</a></li><li><a href="#escena-interiores-y-exteriores">Escena: interiores y exteriores</a></li><li><a href="#guardar-y-comparar">Guardar y comparar</a></li><li><a href="#enlaces-y-grupos-de-luz">Enlaces y grupos de luz</a></li><li><a href="#antes-de-renderizar-comprobar">Antes de renderizar: Comprobar</a></li><li><a href="#trucos">Trucos</a></li><li><a href="#en-el-estante">En el estante</a></li><li><a href="#ajustes-en-mantitools">Ajustes en MantiTools</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

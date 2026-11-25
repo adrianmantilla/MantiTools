@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Materiales OpenPBR · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html" class="actual" aria-current="page">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="titulo-pagina"><h1>Materiales OpenPBR</h1><p class="resumen">Trepadora, Árboles y Materials crean el mismo tipo de material, openPBRSurface. Cómo convertir escenas hechas con versiones anteriores.</p></header>
+<div class="cuerpo">
+<article>
+<h2 id="qué-es-openpbr">Qué es OpenPBR</h2>
+<p><strong>OpenPBR</strong> es un modelo de material abierto que Maya y Arnold traen como <code>openPBRSurface</code>. Sustituye a <code>aiStandardSurface</code> y <code>standardSurface</code> con parámetros parecidos (color base, rugosidad, metal, transmisión, subsuperficie, barniz, pelusa, emisión), y se entiende igual en otros programas.</p>
+<p>En MantiTools:</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Material que crea</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="materials.html">Materials</a></td>
+<td><code>openPBRSurface</code> para todas sus recetas</td>
+</tr>
+<tr class="even">
+<td><a href="trepadora.html">Trepadora</a></td>
+<td><code>openPBRSurface</code> para tallos y hojas, con color por hoja y luz a contraluz</td>
+</tr>
+<tr class="odd">
+<td><a href="arboles.html">Árboles</a></td>
+<td><code>openPBRSurface</code> para corteza y hojas de cada especie</td>
+</tr>
+</tbody>
+</table></div>
+<p>Así todos los objetos de la escena responden igual a la luz y se pueden retocar con Materials.</p>
+<h2 id="convertir-escenas-antiguas">Convertir escenas antiguas</h2>
+<p>Las escenas hechas con versiones anteriores de Trepadora y Árboles usan <code>aiStandardSurface</code>. Para pasarlas:</p>
+<ol type="1">
+<li>Abre la escena.</li>
+<li>Menú <strong>MantiTools › Convertir materiales a OpenPBR</strong>.</li>
+<li>Un aviso dice cuántos materiales se han convertido.</li>
+</ol>
+<p>La conversión cambia solo los materiales de Trepadora y de Árboles: conserva texturas, colores y conexiones, y el material nuevo se llama igual que el viejo. Se puede deshacer con <kbd>Ctrl</kbd>+<kbd>Z</kbd>. También está en el submenú de cada herramienta y en el clic derecho de sus iconos.</p>
+<p>Para convertir otros materiales (Standard Surface, aiStandardSurface o Lambert), usa la pestaña <strong>Escena</strong> de <a href="materials.html">Materials</a>.</p>
+<div class="aviso nota"><p class="aviso-titulo">Nota</p><p>En pruebas con Arnold, los árboles convertidos se ven prácticamente iguales. En Trepadora, el brillo de las hojas a contraluz es algo más suave que con el material antiguo.</p></div>
+<h2 id="equivalencias">Equivalencias</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>aiStandardSurface</th>
+<th>openPBRSurface</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>base</td>
+<td>baseWeight</td>
+</tr>
+<tr class="even">
+<td>baseColor</td>
+<td>baseColor</td>
+</tr>
+<tr class="odd">
+<td>metalness</td>
+<td>baseMetalness</td>
+</tr>
+<tr class="even">
+<td>specular</td>
+<td>specularWeight</td>
+</tr>
+<tr class="odd">
+<td>specularRoughness</td>
+<td>specularRoughness</td>
+</tr>
+<tr class="even">
+<td>transmission</td>
+<td>transmissionWeight</td>
+</tr>
+<tr class="odd">
+<td>subsurface</td>
+<td>subsurfaceWeight</td>
+</tr>
+<tr class="even">
+<td>coat</td>
+<td>coatWeight</td>
+</tr>
+<tr class="odd">
+<td>sheen</td>
+<td>fuzzWeight</td>
+</tr>
+<tr class="even">
+<td>emission</td>
+<td>emissionLuminance</td>
+</tr>
+<tr class="odd">
+<td>thinWalled</td>
+<td>geometryThinWalled</td>
+</tr>
+</tbody>
+</table></div>
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="carpeta-compartida.html"><small>Anterior</small>La carpeta compartida</a><a class="siguiente" href="muro.html"><small>Siguiente</small>Muro</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/openpbr.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#qué-es-openpbr">Qué es OpenPBR</a></li><li><a href="#convertir-escenas-antiguas">Convertir escenas antiguas</a></li><li><a href="#equivalencias">Equivalencias</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

@@ -93,6 +93,10 @@ class Servicios(object):
         from mantitools import comprobar
         return comprobar.informe()
 
+    def wiki(self, ident):
+        from mantitools import documentacion
+        return documentacion.abrir(documentacion.pagina_de(ident))
+
     def guia(self, ident):
         from mantitools import carga
         if ident == "mantitools":
@@ -651,6 +655,13 @@ class VentanaCentro(QtWidgets.QWidget):
         c.addWidget(estilo.etiqueta(t("ayuda_primeros"), "seccion"))
         for n in (1, 2, 3):
             c.addWidget(estilo.paso(n, t("ayuda_paso_{}".format(n))))
+        fila = QtWidgets.QHBoxLayout()
+        self.boton_wiki = QtWidgets.QPushButton(t("boton_wiki"))
+        estilo.primario(self.boton_wiki)
+        self.boton_wiki.clicked.connect(lambda _=False: self._guia("mantitools"))
+        fila.addWidget(self.boton_wiki)
+        fila.addWidget(estilo.etiqueta(t("ayuda_wiki"), "tenue", ajuste=True), 1)
+        c.addLayout(fila)
         capa.addWidget(marco)
 
         marco, c = estilo.tarjeta(12, 6)
@@ -694,6 +705,9 @@ class VentanaCentro(QtWidgets.QWidget):
         return zona
 
     def _guia(self, ident):
+        """La página de la herramienta en la wiki; si la wiki no está, su guía rápida."""
+        if self.servicios.wiki(ident):
+            return
         ruta = self.servicios.guia(ident)
         if ruta and os.path.isfile(ruta):
             ad.abrir_en_explorador(ruta)

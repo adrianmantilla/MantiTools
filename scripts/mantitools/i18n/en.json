@@ -144,6 +144,7 @@
  "ayuda_primeros": "First steps",
  "ayuda_problemas": "If something doesn't work",
  "ayuda_problemas_texto": "Check the installation and copy the report to paste it into an email to your teacher.",
+ "ayuda_wiki": "The wiki explains every tool step by step, with pictures (in Spanish). It opens in your browser.",
  "bloqueada_ayuda": "Set by the teacher in the class folder.",
  "boton_abrir_carpeta": "Open folder",
  "boton_aceptar": "OK",
@@ -156,6 +157,7 @@
  "boton_radial_configurar": "Configure buttons…",
  "boton_radial_vivo": "Live size settings…",
  "boton_reinstalar": "Reinstall",
+ "boton_wiki": "Open the documentation",
  "clase_cambiada": "Class folder changed.",
  "clase_no_existe": "I can't find that folder. Is the classroom drive connected?",
  "clase_resumen": "Class folder read: {fijadas} settings set by the teacher and {desactivadas} tools turned off.",
@@ -180,6 +182,7 @@
  "destino_render": "Render (Arnold)",
  "estante_centro": "MantiTools: tools, settings and help",
  "estante_recreado": "MantiTools shelf rebuilt.",
+ "estante_wiki": "Wiki: the MantiTools documentation, in your browser",
  "estilo_cartoon": "Cartoon (flat colors)",
  "estilo_estilizado": "Stylized (painted)",
  "estilo_realista": "Realistic",
@@ -214,6 +217,8 @@
  "menu_openpbr": "Convert materials to OpenPBR",
  "menu_openpbr_ayuda": "For scenes made with earlier versions: switches Trepadora and Árboles materials to openPBRSurface. Textures stay the same.",
  "menu_recrear_estante": "Rebuild shelf",
+ "menu_wiki": "Documentation (wiki)",
+ "menu_wiki_ayuda": "Opens the full MantiTools documentation, with a page per tool, in your browser. Works offline.",
  "openpbr_hecho": "Converted to OpenPBR: {n} materials.",
  "openpbr_nada": "There were no old materials to convert: the scene already uses OpenPBR.",
  "pagina_general": "General",
@@ -257,5 +262,9 @@
  "tarjeta_desactivada": "Turned off. Turn it on to use it.",
  "tarjeta_fallo": "Could not load. See Help › Check installation.",
  "tarjeta_mas": "More commands",
- "tarjeta_profesor": "Turned off by the teacher (class folder)."
+ "tarjeta_profesor": "Turned off by the teacher (class folder).",
+ "wiki_atajos": "Shortcuts and commands",
+ "wiki_no_hay": "MantiTools documentation not found (docs/wiki). Download the pack again.",
+ "wiki_primeros_pasos": "First steps",
+ "wiki_problemas": "Troubleshooting"
 }

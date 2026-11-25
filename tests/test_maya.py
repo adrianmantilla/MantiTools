@@ -61,15 +61,15 @@ class Arranque(unittest.TestCase):
         for ficha in hr.FICHAS:
             self.assertEqual(elementos.count(ficha.menu), 1, ficha.id)
 
-    def test_estante_un_boton_por_herramienta_y_el_centro(self):
+    def test_estante_un_boton_por_herramienta_el_centro_y_la_wiki(self):
         from mantitools import estante
         from mantitools import herramientas as hr
         estante.crear(forzar=True)
         botones = [k for nombre, k in [(c[0], c[1]) for c in cmds.llamadas if c[0] == "shelfButton"]]
-        ultimos = botones[-(len(hr.FICHAS) + 1):]
-        self.assertEqual([b["label"] for b in ultimos], [f.nombre for f in hr.FICHAS] + ["MantiTools"])
+        ultimos = botones[-(len(hr.FICHAS) + 2):]
+        self.assertEqual([b["label"] for b in ultimos], [f.nombre for f in hr.FICHAS] + ["MantiTools", "Wiki"])
         hijos = cmds.estantes[estante.ESTANTE]
-        self.assertEqual(len([h for h in hijos if h in cmds.botones]), len(hr.FICHAS) + 1)
+        self.assertEqual(len([h for h in hijos if h in cmds.botones]), len(hr.FICHAS) + 2)
         # Un separador entre grupos: muro | árboles… | materials… | simplesave, radial | MantiTools
         self.assertEqual(len([h for h in hijos if h.startswith("separador")]), len(hr.GRUPOS))
         for b in ultimos:
@@ -84,7 +84,7 @@ class Arranque(unittest.TestCase):
         estante.crear()
         etiquetas = [cmds.shelfButton(b, query=True, label=True) for b in cmds.estantes[estante.ESTANTE]
                      if b in cmds.botones]
-        self.assertEqual(etiquetas, [f.nombre for f in hr.FICHAS] + ["MantiTools"])
+        self.assertEqual(etiquetas, [f.nombre for f in hr.FICHAS] + ["MantiTools", "Wiki"])
 
     def test_estante_al_dia_no_se_toca(self):
         from mantitools import estante
@@ -101,7 +101,7 @@ class Arranque(unittest.TestCase):
         botones = estante.botones(ruta_completa=True)
         for _, _, imagen, _, _ in botones:
             self.assertTrue(os.path.isfile(imagen), imagen)
-        self.assertEqual([b[2] for b in estante.botones()][-1], "mantitools_centro.png")
+        self.assertEqual([b[2] for b in estante.botones()][-2:], ["mantitools_centro.png", "mantitools_wiki.png"])
 
     def test_desactivar_quita_submenu_y_boton(self):
         from mantitools import estante, menu
@@ -111,7 +111,7 @@ class Arranque(unittest.TestCase):
             self.assertFalse(self.carga.cargada("muro"))
             self.assertNotIn("MuroMenu", cmds.menus[menu.MENU])
             self.assertEqual(len([h for h in cmds.estantes[estante.ESTANTE] if h in cmds.botones]),
-                             len(hr.FICHAS))
+                             len(hr.FICHAS) + 1)   # 8 herramientas + MantiTools + Wiki
         finally:
             self.carga.cambiar_activa("muro", True)
         self.assertIn("MuroMenu", cmds.menus[menu.MENU])

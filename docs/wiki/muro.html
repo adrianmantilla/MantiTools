@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muro · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html" class="actual" aria-current="page"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="portada-herramienta" style="--marca:#cab372"><img class="icono-grande" src="recursos/iconos/muro.svg" alt=""><div><p class="miga">Empezar el proyecto</p><h1>Muro</h1><p class="resumen">Tablero de referencias y notas dentro de Maya, con fantasma sobre el visor.</p><p class="chips"><span>Estante: icono Muro</span><span>Menú MantiTools › Muro</span><span>Versión 1.0.0</span><a href="https://github.com/adrianmantilla/muro">Código</a></p></div></header>
+<div class="cuerpo">
+<article>
+<figure><img loading="lazy" src="../medios/muro/muro.gif" alt="Muro en Maya 2027: un tablero con referencias, marcos, notas y un marcador" /><figcaption>Muro en Maya 2027: un tablero con referencias, marcos, notas y un marcador</figcaption></figure>
+<h2 id="para-qué-sirve">Para qué sirve</h2>
+<p>Muro es un tablero infinito para tus imágenes de referencia y tus notas, dentro de Maya. Cada escena tiene el suyo y se abre con ella, así que las referencias viajan con el proyecto. Puedes ponerlo transparente encima del visor mientras modelas, sacar planos de imagen a escala o tomar colores para tus materiales.</p>
+<h2 id="abrirlo">Abrirlo</h2>
+<p>Clic en el icono <strong>Muro</strong> del estante, o <strong>MantiTools › Muro › Abrir tablero</strong>. La primera vez crea un tablero llamado «referencias» dentro del proyecto, en <code>sourceimages/muro</code>. Si guardas la escena, la próxima vez que la abras se abrirá también su tablero.</p>
+<h2 id="meter-referencias">Meter referencias</h2>
+<ul>
+<li><strong>Arrastra</strong> imágenes desde tu carpeta o desde el navegador hasta el tablero.</li>
+<li><strong>Pega</strong> con <kbd>Ctrl</kbd>+<kbd>V</kbd> (<kbd>⌘</kbd>+<kbd>V</kbd> en Mac) con el ratón encima del tablero.</li>
+<li><strong>Captura el visor</strong> con el botón de la cámara (o clic derecho en el icono › <strong>Capturar visor</strong>).</li>
+</ul>
+<p>Las imágenes se copian dentro del proyecto: aunque borres el original, el tablero las conserva.</p>
+<h2 id="moverse-y-ordenar">Moverse y ordenar</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Quiero…</th>
+<th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Acercar o alejar</td>
+<td>Rueda del ratón; en trackpad, pellizcar</td>
+</tr>
+<tr class="even">
+<td>Desplazarme</td>
+<td><kbd>Alt</kbd> + botón central, <kbd>Espacio</kbd> + arrastrar o dos dedos en trackpad</td>
+</tr>
+<tr class="odd">
+<td>Encuadrar lo seleccionado / verlo todo</td>
+<td><kbd>F</kbd> / <kbd>A</kbd></td>
+</tr>
+<tr class="even">
+<td>Mover, escalar, girar</td>
+<td>Arrastrar; la esquina blanca escala y el punto de arriba gira</td>
+</tr>
+<tr class="odd">
+<td>Agrupar en un marco con título</td>
+<td><kbd>Ctrl</kbd>+<kbd>G</kbd></td>
+</tr>
+<tr class="even">
+<td>Ver qué puedo hacer con algo</td>
+<td>Clic derecho sobre ello</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="anotar">Anotar</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Tecla</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nota</td>
+<td><kbd>N</kbd></td>
+<td>Doble clic para escribir. <code>**negrita**</code> y <code>*cursiva*</code> funcionan</td>
+</tr>
+<tr class="even">
+<td>Lista de tareas</td>
+<td><kbd>L</kbd></td>
+<td>Clic en una línea para tacharla</td>
+</tr>
+<tr class="odd">
+<td>Marcador</td>
+<td>Clic derecho › <strong>Marcador aquí</strong></td>
+<td>Un número en un punto de la imagen, con su nota</td>
+</tr>
+<tr class="even">
+<td>Flecha</td>
+<td><kbd>W</kbd></td>
+<td>De un elemento a otro</td>
+</tr>
+<tr class="odd">
+<td>Lápiz</td>
+<td><kbd>P</kbd></td>
+<td>Dibujo libre. <kbd>Esc</kbd> para dejar la herramienta</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="ver-mejor">Ver mejor</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Tecla</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><kbd>G</kbd></td>
+<td>Gris: para comparar valores sin el color</td>
+</tr>
+<tr class="even">
+<td><kbd>H</kbd></td>
+<td>Voltear: con la imagen volteada se notan los fallos de proporción</td>
+</tr>
+<tr class="odd">
+<td><kbd>C</kbd></td>
+<td>Recortar: arrastra un rectángulo sobre la imagen</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="llevarlo-a-maya">Llevarlo a Maya</h2>
+<ul>
+<li><strong>Plano de imagen a escala</strong>: clic derecho en una imagen › <strong>Plano de imagen</strong>. Marca A en la cabeza y B en los pies, escribe la altura real y elige la cámara (front, side o top). El plano aparece a escala con los pies en el suelo, en la capa «muro_referencias».</li>
+<li><strong>Cuentagotas</strong> (<kbd>I</kbd>): clic en un color de la imagen. Si tienes un objeto seleccionado en Maya, su material toma ese color. Los colores quedan abajo a la izquierda.</li>
+<li><strong>Fantasma</strong>: el tablero se queda transparente encima del visor y puedes seguir modelando. Vuelve a pulsar el fantasma de la pastilla para salir. Su opacidad se ajusta en la ventana central.</li>
+</ul>
+<figure><img loading="lazy" src="../medios/muro/fantasma.jpg" alt="Modo fantasma: el render de referencia, transparente sobre el visor de Maya" /><figcaption>Modo fantasma: el render de referencia, transparente sobre el visor de Maya</figcaption></figure>
+<h2 id="compartir">Compartir</h2>
+<p>En el menú del tablero (☰):</p>
+<ul>
+<li><strong>Exportar tablero (.zip)</strong>: un archivo con todo, para entregar o compartir.</li>
+<li><strong>Importar tablero (.zip)</strong>: abre uno que te pasen (también en el clic derecho del icono).</li>
+<li><strong>Exportar imagen PNG</strong>: una imagen del tablero entero, o de un marco desde su clic derecho.</li>
+</ul>
+<div class="aviso consejo"><p class="aviso-titulo">Consejo</p><p><kbd>Ctrl</kbd>+<kbd>Z</kbd> deshace solo dentro del tablero, sin tocar tu escena.</p></div>
+<h2 id="en-el-estante">En el estante</h2>
+<!-- auto:ordenes muro -->
+
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Cómo</th>
+<th>Orden</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clic</strong> en el icono</td>
+<td>Abrir el tablero</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Nuevo tablero</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Importar tablero</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Capturar visor</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Fantasma</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<h2 id="ajustes-en-mantitools">Ajustes en MantiTools</h2>
+<figure><img loading="lazy" src="../capturas/ajustes_muro.png" alt="Ajustes de Muro en la ventana central" /><figcaption>Ajustes de Muro en la ventana central</figcaption></figure>
+<!-- auto:ajustes muro -->
+
+<p><strong>Tablero</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Abrir el tablero con la escena</td>
+<td>Sí / no</td>
+<td>Al abrir una escena, se abre el tablero que tenía.</td>
+<td><code>abrir_con_escena</code></td>
+</tr>
+<tr class="even">
+<td>Opacidad del fantasma</td>
+<td>5 a 100 %</td>
+<td></td>
+<td><code>opacidad_fantasma</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Plano de referencia</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unidad</td>
+<td>m, cm, mm, ft, in</td>
+<td></td>
+<td><code>unidad_altura</code></td>
+</tr>
+<tr class="even">
+<td>Altura por defecto</td>
+<td>0,01 a 10000</td>
+<td></td>
+<td><code>altura_plano</code></td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="openpbr.html"><small>Anterior</small>Materiales OpenPBR</a><a class="siguiente" href="arboles.html"><small>Siguiente</small>Árboles</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/muro.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#para-qué-sirve">Para qué sirve</a></li><li><a href="#abrirlo">Abrirlo</a></li><li><a href="#meter-referencias">Meter referencias</a></li><li><a href="#moverse-y-ordenar">Moverse y ordenar</a></li><li><a href="#anotar">Anotar</a></li><li><a href="#ver-mejor">Ver mejor</a></li><li><a href="#llevarlo-a-maya">Llevarlo a Maya</a></li><li><a href="#compartir">Compartir</a></li><li><a href="#en-el-estante">En el estante</a></li><li><a href="#ajustes-en-mantitools">Ajustes en MantiTools</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

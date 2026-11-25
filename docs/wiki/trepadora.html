@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trepadora · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html" class="actual" aria-current="page"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="portada-herramienta" style="--marca:#72caaf"><img class="icono-grande" src="recursos/iconos/trepadora.svg" alt=""><div><p class="miga">Construir</p><h1>Trepadora</h1><p class="resumen">Hiedra y enredaderas que crecen sobre cualquier malla, con hojas instanciadas.</p><p class="chips"><span>Estante: icono Trepadora</span><span>Menú MantiTools › Trepadora</span><span>Versión 0.1.0</span><a href="https://github.com/adrianmantilla/trepadora">Código</a></p></div></header>
+<div class="cuerpo">
+<article>
+<figure><img loading="lazy" src="../medios/trepadora/crecimiento.gif" alt="Trepadora creciendo sobre una ruina en el visor de Maya 2027: de unas pocas ramas a unas 8.000 hojas" /><figcaption>Trepadora creciendo sobre una ruina en el visor de Maya 2027: de unas pocas ramas a unas 8.000 hojas</figcaption></figure>
+<h2 id="para-qué-sirve">Para qué sirve</h2>
+<p>Eliges las mallas por las que trepa (un muro, una columna, una ruina entera), dices dónde nace y Trepadora hace crecer la planta: tallos con grosor, raíces adhesivas, rabillos y miles de hojas, lista para renderizar con Arnold o para exportar a un motor de juego. Mismos ajustes y misma semilla dan siempre la misma planta.</p>
+<figure><img loading="lazy" src="../medios/trepadora/hero.jpg" alt="La misma ruina renderizada con Arnold" /><figcaption>La misma ruina renderizada con Arnold</figcaption></figure>
+<h2 id="la-ventana-en-cuatro-pasos">La ventana en cuatro pasos</h2>
+<img src="../medios/trepadora/ventana.png" alt="La ventana de Trepadora" width="280" align="right">
+
+<p>Clic en el icono <strong>Trepadora</strong>. La ventana se puede acoplar y recuerda dónde la dejaste. Los pasos se activan en orden:</p>
+<ol type="1">
+<li><strong>Superficie.</strong> Selecciona las mallas por las que trepa y pulsa <strong>Usar selección</strong>. Si entre lo seleccionado hay localizadores, se usan como puntos de nacimiento.</li>
+<li><strong>Origen</strong> (opcional). <strong>Clic en el visor</strong> sobre la superficie donde nace cada planta. Sin orígenes, nace en el centro de la base.</li>
+<li><strong>Aspecto.</strong> Tipo de tallo, forma de hoja, tamaño, densidad de hojas y grosor del tallo. Pulsa <strong>Crecer</strong> para ver la forma como líneas, que es rápido. <strong>Crecer más</strong> la hace más grande sin empezar de cero.</li>
+<li><strong>Crear malla.</strong> Crea los tallos, las hojas y los materiales. Todo se deshace con un solo <kbd>Ctrl</kbd>+<kbd>Z</kbd>; <kbd>Esc</kbd> detiene el crecimiento y conserva lo crecido.</li>
+</ol>
+<br clear="right">
+
+<figure><img loading="lazy" src="../medios/trepadora/flujo.gif" alt="Los cuatro pasos en Maya: superficie, origen, Crecer (líneas), Crecer más y Crear malla" /><figcaption>Los cuatro pasos en Maya: superficie, origen, Crecer (líneas), Crecer más y Crear malla</figcaption></figure>
+<p>El pie de la ventana dice cuántas hojas saldrán y si la carga es baja, media o alta.</p>
+<h2 id="control-artístico">Control artístico</h2>
+<h3 id="zonas-prohibidas">Zonas prohibidas</h3>
+<p>Pon una caja delante de una ventana o una puerta, selecciónala y pulsa <strong>Usar selección</strong> en esa fila. La planta la rodea y no crece por dentro. Después puedes ocultarla con <kbd>H</kbd>: la planta la sigue esquivando.</p>
+<figure><img loading="lazy" src="../medios/trepadora/zonas.gif" alt="Zona prohibida: antes, la caja, la planta rodeándola y la ventana libre" /><figcaption>Zona prohibida: antes, la caja, la planta rodeándola y la ventana libre</figcaption></figure>
+<h3 id="curva-guía">Curva guía</h3>
+<p>Dibuja una curva sobre la pared (<em>Create › Curve Tools › EP Curve Tool</em>), selecciónala y pulsa <strong>Usar selección</strong> en esa fila. La planta crece a lo largo de ella; cuánto la sigue lo dice <strong>Seguir la guía</strong> en los ajustes avanzados.</p>
+<figure><img loading="lazy" src="../medios/trepadora/guia.gif" alt="Curva guía: la curva, la vista previa y la malla" /><figcaption>Curva guía: la curva, la vista previa y la malla</figcaption></figure>
+<h3 id="recortar-ramas">Recortar ramas</h3>
+<p>Activa <strong>Recortar ramas</strong> y haz clic sobre una línea de la vista previa: la rama se corta por ahí, con todo lo que brota más allá. <kbd>Q</kbd> o el mismo botón para terminar.</p>
+<figure><img loading="lazy" src="../medios/trepadora/recortar.gif" alt="Recortar ramas: el corte en la vista previa y la malla antes y después" /><figcaption>Recortar ramas: el corte en la vista previa y la malla antes y después</figcaption></figure>
+<h2 id="preajustes">Preajustes</h2>
+<p>El desplegable de arriba trae cinco: <strong>Hiedra de fachada</strong>, <strong>Enredadera colgante</strong>, <strong>Musgo trepador</strong>, <strong>Hoja de corazón</strong> y <strong>Ramas secas</strong>. Con el botón <strong>…</strong> guardas los tuyos y los importas o exportas como <code>.json</code>.</p>
+<figure><img loading="lazy" src="../medios/trepadora/preajustes.jpg" alt="Los cinco preajustes sobre el mismo muro" /><figcaption>Los cinco preajustes sobre el mismo muro</figcaption></figure>
+<h2 id="materiales-y-texturas">Materiales y texturas</h2>
+<p>Con Arnold cargado, cada pieza lleva un material <strong>OpenPBR</strong> que toma el color de cada hoja y le suma nervios, relieve, brillo y la luz que deja pasar la hoja a contraluz. Las texturas vienen incluidas en cuatro tamaños:</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Resolución</th>
+<th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>512</td>
+<td>Juegos y escenas con muchas plantas</td>
+</tr>
+<tr class="even">
+<td>1K</td>
+<td>Trabajo diario (por defecto)</td>
+</tr>
+<tr class="odd">
+<td>2K</td>
+<td>Renders</td>
+</tr>
+<tr class="even">
+<td>4K</td>
+<td>Renders de cerca</td>
+</tr>
+</tbody>
+</table></div>
+<figure><img loading="lazy" src="../medios/trepadora/contraluz.jpg" alt="De cerca y a contraluz: la luz atraviesa las hojas y enseña los nervios" /><figcaption>De cerca y a contraluz: la luz atraviesa las hojas y enseña los nervios</figcaption></figure>
+<p>Las escenas de versiones anteriores usaban aiStandardSurface: <strong>MantiTools › Convertir materiales a OpenPBR</strong> las pasa al material nuevo. Ver <a href="openpbr.html">OpenPBR</a>.</p>
+<h2 id="exportar">Exportar</h2>
+<p>Clic derecho en el icono › <strong>Exportar planta</strong> guarda la planta seleccionada:</p>
+<ul>
+<li><strong>FBX</strong> para Unity o Unreal, con materiales.</li>
+<li><strong>Alembic</strong> para otros programas de 3D.</li>
+</ul>
+<p>Al lado se crea la carpeta <code>&lt;nombre&gt;_texturas</code> con las texturas. <strong>Exportar con hojas ligeras</strong> cambia cada hoja por una tarjeta de seis vértices: pesa unas doce veces menos y la silueta la da la transparencia del PNG.</p>
+<h2 id="consejos">Consejos</h2>
+<ul>
+<li><strong>La escena recuerda</strong>: superficie, zonas, orígenes, curva y ajustes se guardan en la escena.</li>
+<li>Para repetir una planta, selecciónala y usa <strong>… › Copiar los ajustes de la planta seleccionada</strong>.</li>
+<li>Clic derecho en el icono › <strong>Escena de prueba sencilla</strong> o <strong>ruina</strong> para practicar.</li>
+<li>Si la planta deja de crecer, ya llenó su espacio o sus ramas llegaron al largo máximo: <strong>Crecer más</strong> o añade otra malla.</li>
+</ul>
+<h2 id="en-el-estante">En el estante</h2>
+<!-- auto:ordenes trepadora -->
+
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Cómo</th>
+<th>Orden</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clic</strong> en el icono</td>
+<td>Abrir Trepadora</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Escena de prueba sencilla</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Escena de prueba: ruina</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Exportar planta</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Exportar con hojas ligeras</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Convertir materiales a OpenPBR</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<h2 id="ajustes-en-mantitools">Ajustes en MantiTools</h2>
+<figure><img loading="lazy" src="../capturas/ajustes_trepadora.png" alt="Ajustes de Trepadora en la ventana central" /><figcaption>Ajustes de Trepadora en la ventana central</figcaption></figure>
+<!-- auto:ajustes trepadora -->
+
+<p><strong>Texturas</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Resolución de texturas</td>
+<td>512 (aula, rápido), 1K (recomendada), 2K, 4K (render final)</td>
+<td>La que usan las plantas nuevas y la exportación.</td>
+<td><code>resolucion</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Preajustes</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Abrir carpeta</td>
+<td>Botón</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="arboles.html"><small>Anterior</small>Árboles</a><a class="siguiente" href="grasseditor.html"><small>Siguiente</small>GrassEditor</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/trepadora.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#para-qué-sirve">Para qué sirve</a></li><li><a href="#la-ventana-en-cuatro-pasos">La ventana en cuatro pasos</a></li><li><a href="#control-artístico">Control artístico</a></li><li><a href="#preajustes">Preajustes</a></li><li><a href="#materiales-y-texturas">Materiales y texturas</a></li><li><a href="#exportar">Exportar</a></li><li><a href="#consejos">Consejos</a></li><li><a href="#en-el-estante">En el estante</a></li><li><a href="#ajustes-en-mantitools">Ajustes en MantiTools</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

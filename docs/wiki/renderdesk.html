@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RenderDesk · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html" class="actual" aria-current="page"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="portada-herramienta" style="--marca:#7296ca"><img class="icono-grande" src="recursos/iconos/renderdesk.svg" alt=""><div><p class="miga">Look y render</p><h1>RenderDesk</h1><p class="resumen">Panel de render de Arnold junto al visor: presets que se combinan, historial de pruebas con A/B y render final en segundo plano.</p><p class="chips"><span>Estante: icono RenderDesk</span><span>Menú MantiTools › RenderDesk</span><span>Versión 0.3.0</span><a href="https://github.com/adrianmantilla/renderdesk">Código</a></p></div></header>
+<div class="cuerpo">
+<article>
+<figure><img loading="lazy" src="../medios/renderdesk/fase1_panel_y_visor.jpg" alt="El panel de RenderDesk acoplado al visor de Arnold" /><figcaption>El panel de RenderDesk acoplado al visor de Arnold</figcaption></figure>
+<h2 id="para-qué-sirve">Para qué sirve</h2>
+<p>RenderDesk junta en un solo panel, acoplado al visor de Arnold, todo lo que hace falta para renderizar: la cámara y el tamaño de prueba, los ajustes de calidad y unos presets que se combinan. Está ordenado como se trabaja: preparar, probar, afinar y renderizar.</p>
+<h2 id="abrirlo">Abrirlo</h2>
+<p>Clic en el icono <strong>RenderDesk</strong> abre el panel junto al visor de Arnold (<em>Arnold RenderView</em>). Con clic derecho:</p>
+<ul>
+<li><strong>Modo render</strong>: un espacio de trabajo con el visor de Maya, el de Arnold y el panel a la vez. Vuelve a pulsarlo para regresar a tu espacio de trabajo.</li>
+<li><strong>Probar / parar</strong>: arranca o para el render interactivo.</li>
+<li><strong>Instantánea</strong>: guarda la prueba que se ve en el historial.</li>
+</ul>
+<figure><img loading="lazy" src="../medios/renderdesk/fase1_modo_render.jpg" alt="El modo render: visor de Maya, visor de Arnold y panel" /><figcaption>El modo render: visor de Maya, visor de Arnold y panel</figcaption></figure>
+<h2 id="presets-que-se-combinan">Presets que se combinan</h2>
+<p>En vez de un preset cerrado, se elige una pieza de cada fila y RenderDesk las suma:</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Pieza</th>
+<th>Opciones</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Calidad</strong></td>
+<td>Borrador (rápido, para colocar luces y cámara) · Revisión (para juzgar materiales y luz) · Final (la imagen que se entrega)</td>
+</tr>
+<tr class="even">
+<td><strong>Tipo de escena</strong></td>
+<td>Producto · Interior · Exterior</td>
+</tr>
+<tr class="odd">
+<td><strong>Extras</strong></td>
+<td>Vidrio y líquidos · Piel, cera y mármol (SSS) · Hojas y hierba con recorte · Niebla y volúmenes · Desenfoque de movimiento</td>
+</tr>
+<tr class="even">
+<td><strong>Salida</strong></td>
+<td>Imagen fija · Secuencia · Giro 360°</td>
+</tr>
+</tbody>
+</table></div>
+<p>Antes de aplicar, RenderDesk guarda una copia de los ajustes que había: <strong>Restaurar lo que tenía</strong> vuelve a ellos.</p>
+<div class="aviso consejo"><p class="aviso-titulo">Consejo</p><p>Para escenas con hiedra de <a href="trepadora.html">Trepadora</a> o hierba de <a href="grasseditor.html">GrassEditor</a>, añade el extra <strong>Hojas y hierba con recorte</strong>.</p></div>
+<h2 id="calidad-en-tres-niveles">Calidad en tres niveles</h2>
+<p>La pestaña <strong>Calidad</strong> enseña los mismos valores con tres niveles de detalle:</p>
+<ul>
+<li><strong>Sencillo</strong>: qué quieres y qué hay en la escena, sin números.</li>
+<li><strong>Detalle</strong>: los mismos valores con deslizadores de nombre claro.</li>
+<li><strong>Experto</strong>: los atributos de Arnold tal cual, con su valor de fábrica al lado.</li>
+</ul>
+<p>El nivel con el que se abre se elige en Ajustes.</p>
+<h2 id="probar-y-comparar">Probar y comparar</h2>
+<ol type="1">
+<li>Pulsa <strong>Probar</strong> en la barra del panel. Puedes limitar la prueba a una región.</li>
+<li>Cuando te guste, <strong>Instantánea</strong>: la prueba se guarda en <code>&lt;proyecto&gt;/renderDesk/historial/&lt;escena&gt;/</code>, con la imagen y todos sus ajustes.</li>
+<li>La <strong>tira del historial</strong> muestra cada prueba con su número y su tiempo («#3 · 41 s»).</li>
+<li><strong>Comparar</strong>: con una prueba elegida, se compara con lo que se ve ahora; con dos, entre sí. Sale una vista A/B con un corte que se arrastra.</li>
+<li><strong>Recuperar ajustes</strong> vuelve a poner el preset, la cámara y el tamaño de esa prueba.</li>
+</ol>
+<figure><img loading="lazy" src="../medios/renderdesk/fase2_panel.png" alt="Panel con historial, progreso del render final y pestaña Salida" /><figcaption>Panel con historial, progreso del render final y pestaña Salida</figcaption></figure>
+<h2 id="salida">Salida</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Parte</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Qué renderizar</td>
+<td>Imagen fija, Secuencia o Giro 360° (secuencia y giro fijan el ruido para que no parpadee)</td>
+</tr>
+<tr class="even">
+<td>Crear cámara que gira</td>
+<td>Una cámara que da una vuelta alrededor de lo seleccionado, a la distancia justa</td>
+</tr>
+<tr class="odd">
+<td>Formato</td>
+<td>PNG o EXR</td>
+</tr>
+<tr class="even">
+<td>Nombre</td>
+<td>Escena y cámara, solo escena o solo cámara, con un ejemplo de ruta</td>
+</tr>
+<tr class="odd">
+<td>Pasadas (AOV)</td>
+<td>Ninguna, Básicas o Composición (con albedo, Z, normales y Cryptomatte)</td>
+</tr>
+<tr class="even">
+<td>Núcleos</td>
+<td>Todos menos 2 (para seguir trabajando), todos o la mitad</td>
+</tr>
+<tr class="odd">
+<td>Final estimado</td>
+<td>Cuánto tardará, calculado con tu última prueba</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="render-final-en-segundo-plano">Render final en segundo plano</h2>
+<p>En <strong>Salida › Render final</strong>, RenderDesk guarda una copia de la escena tal como está y la renderiza con Arnold en otro proceso, sin bloquear Maya: puedes seguir trabajando mientras tanto. Una tarjeta enseña el progreso («Fotograma 48 de 120 · 60 % · quedan unos 44 s»). Al terminar avisa en el visor y ofrece <strong>Abrir carpeta</strong>. <strong>Cancelar</strong> lo para.</p>
+<h2 id="en-el-estante">En el estante</h2>
+<!-- auto:ordenes renderdesk -->
+
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Cómo</th>
+<th>Orden</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clic</strong> en el icono</td>
+<td>Abrir RenderDesk</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Modo render</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Probar / parar</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Instantánea</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<h2 id="ajustes-en-mantitools">Ajustes en MantiTools</h2>
+<figure><img loading="lazy" src="../capturas/ajustes_renderdesk.png" alt="Ajustes de RenderDesk en la ventana central" /><figcaption>Ajustes de RenderDesk en la ventana central</figcaption></figure>
+<!-- auto:ajustes renderdesk -->
+
+<p><strong>Panel</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nivel de la pestaña Calidad</td>
+<td>Sencillo, Detalle, Experto</td>
+<td>Con qué nivel se abre la pestaña Calidad. Los tres cambian los mismos valores.</td>
+<td><code>nivel</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Render final</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Núcleos del render en segundo plano</td>
+<td>Todos menos 2 (para seguir trabajando), Todos, La mitad</td>
+<td>Dejando dos núcleos libres, Maya sigue respondiendo mientras renderiza.</td>
+<td><code>nucleos</code></td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="lightmanager.html"><small>Anterior</small>LightManager</a><a class="siguiente" href="simplesave.html"><small>Siguiente</small>SimpleSave</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/renderdesk.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#para-qué-sirve">Para qué sirve</a></li><li><a href="#abrirlo">Abrirlo</a></li><li><a href="#presets-que-se-combinan">Presets que se combinan</a></li><li><a href="#calidad-en-tres-niveles">Calidad en tres niveles</a></li><li><a href="#probar-y-comparar">Probar y comparar</a></li><li><a href="#salida">Salida</a></li><li><a href="#render-final-en-segundo-plano">Render final en segundo plano</a></li><li><a href="#en-el-estante">En el estante</a></li><li><a href="#ajustes-en-mantitools">Ajustes en MantiTools</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

@@ -1,8 +1,9 @@
 # MantiTools: guía rápida
 
 MantiTools junta en Maya todas las herramientas de clase. Esta guía explica cómo
-instalarlo y dónde está cada cosa. Cada herramienta tiene además su propia guía
-en **Ayuda → Guías y versiones**.
+instalarlo y dónde está cada cosa. La documentación completa, con una página por
+herramienta, está en la **wiki**: el icono del libro del estante, o
+**MantiTools → Documentación (wiki)**.
 
 ## 1. Instalar (una vez)
 
@@ -33,6 +34,7 @@ siguen ahí.
 | 🟩 hierba | GrassEditor | Abrir GrassEditor | nueva capa, capa con pincel, jardín de ejemplo, analizar |
 | 🩷 disquete | SimpleSave | Guardar versión | ver versiones, recuperar autoguardado, comparar |
 | 🔵 cuadros | MantiTools | Abrir la ventana central | ajustes, ayuda, comprobar |
+| 🔵 libro | Wiki | Abrir la documentación en el navegador | primeros pasos, atajos, si algo no funciona |
 
 ## 3. La ventana central
 
@@ -41,8 +43,8 @@ siguen ahí.
 - **Ajustes:** a la izquierda, la lista de herramientas; a la derecha, sus
   opciones. Los cambios se guardan solos. Un 🔒 significa que lo ha fijado tu
   profesor.
-- **Ayuda:** los primeros pasos, la guía de cada herramienta y el botón
-  **Comprobar instalación**.
+- **Ayuda:** los primeros pasos, el botón **Abrir la documentación**, la página
+  de cada herramienta en la wiki y el botón **Comprobar instalación**.
 
 En **Ajustes → General** puedes:
 

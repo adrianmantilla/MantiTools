@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MantiTools · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html" class="actual" aria-current="page">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="portada"><h1>MantiTools</h1><p class="resumen">Nueve herramientas para Autodesk Maya en un solo pack, con un menú, un estante y una ventana central. Esta wiki explica cómo se instala, cómo se usa cada herramienta y cómo encajan en un proyecto.</p></header>
+<div class="cuerpo">
+<article>
+<figure><img loading="lazy" src="../medios/mantitools/portada.jpg" alt="Hecho con MantiTools: hiedra de Trepadora sobre una ruina, un jardín de Árboles, RenderDesk junto al visor de Arnold y el fantasma de Muro sobre el visor" /><figcaption>Hecho con MantiTools: hiedra de Trepadora sobre una ruina, un jardín de Árboles, RenderDesk junto al visor de Arnold y el fantasma de Muro sobre el visor</figcaption></figure>
+<figure><img loading="lazy" src="../capturas/estante.png" alt="El estante MantiTools: Muro · Árboles, Trepadora, GrassEditor · Materials, LightManager, RenderDesk · SimpleSave, Radial · MantiTools y Wiki" /><figcaption>El estante MantiTools: Muro · Árboles, Trepadora, GrassEditor · Materials, LightManager, RenderDesk · SimpleSave, Radial · MantiTools y Wiki</figcaption></figure>
+<h2 id="qué-es-mantitools">Qué es MantiTools</h2>
+<p>MantiTools reúne en Maya 2026 y 2027 las herramientas que hacen falta para llevar una escena de la idea al render: referencias, vegetación, materiales, luces, render, versiones y un menú rápido. Cada herramienta sigue siendo un plugin propio, pero las instalas de una vez, comparten aspecto y se configuran desde un único sitio.</p>
+<ul>
+<li><strong>Un menú</strong>, <em>MantiTools</em>, con un submenú por herramienta.</li>
+<li><strong>Un estante</strong> con un icono por herramienta, ordenado como se trabaja, y un icono para esta wiki.</li>
+<li><strong>Una ventana central</strong> con las tarjetas de las herramientas, todos los ajustes y la ayuda.</li>
+</ul>
+<p>Funciona en Windows y macOS, con la interfaz en español o en inglés. Es software libre (licencia MIT).</p>
+<figure><img loading="lazy" src="../capturas/centro_herramientas.png" alt="La ventana central: una tarjeta por herramienta" /><figcaption>La ventana central: una tarjeta por herramienta</figcaption></figure>
+<h2 id="las-herramientas">Las herramientas</h2>
+<div class="herramientas"><div class="grupo-tarjetas"><h3>Empezar el proyecto</h3><div class="tarjetas"><a class="tarjeta" href="muro.html" style="--marca:#cab372"><img src="recursos/iconos/muro.svg" alt=""><span><strong>Muro</strong><small>Tablero de referencias y notas dentro de Maya, con fantasma sobre el visor.</small></span></a></div></div><div class="grupo-tarjetas"><h3>Construir</h3><div class="tarjetas"><a class="tarjeta" href="arboles.html" style="--marca:#ca9c72"><img src="recursos/iconos/arboles.svg" alt=""><span><strong>Árboles</strong><small>Editor modular de árboles y biblioteca para plantar un jardín.</small></span></a><a class="tarjeta" href="trepadora.html" style="--marca:#72caaf"><img src="recursos/iconos/trepadora.svg" alt=""><span><strong>Trepadora</strong><small>Hiedra y enredaderas que crecen sobre cualquier malla, con hojas instanciadas.</small></span></a><a class="tarjeta" href="grasseditor.html" style="--marca:#adca72"><img src="recursos/iconos/grasseditor.svg" alt=""><span><strong>GrassEditor</strong><small>Hierba por capas, con pincel, tipos y control de rendimiento.</small></span></a></div></div><div class="grupo-tarjetas"><h3>Look y render</h3><div class="tarjetas"><a class="tarjeta" href="materials.html" style="--marca:#ca7c72"><img src="recursos/iconos/materials.svg" alt=""><span><strong>Materials</strong><small>Biblioteca de materiales OpenPBR con ida y vuelta a Substance Painter.</small></span></a><a class="tarjeta" href="lightmanager.html" style="--marca:#ca9b72"><img src="recursos/iconos/lightmanager.svg" alt=""><span><strong>LightManager</strong><small>Luces de Arnold en pasos y Kelvin: esquemas de estudio, interiores y exteriores por zonas, sol por hora y comprobaciones.</small></span></a><a class="tarjeta" href="renderdesk.html" style="--marca:#7296ca"><img src="recursos/iconos/renderdesk.svg" alt=""><span><strong>RenderDesk</strong><small>Panel de render de Arnold junto al visor: presets que se combinan, historial de pruebas con A/B y render final en segundo plano.</small></span></a></div></div><div class="grupo-tarjetas"><h3>Siempre a mano</h3><div class="tarjetas"><a class="tarjeta" href="simplesave.html" style="--marca:#ca729b"><img src="recursos/iconos/simplesave.svg" alt=""><span><strong>SimpleSave</strong><small>Versiones con nota y miniatura, autoguardado configurable y recuperación.</small></span></a><a class="tarjeta" href="radial.html" style="--marca:#9172ca"><img src="recursos/iconos/radial.svg" alt=""><span><strong>Radial</strong><small>Menú radial o pill con doble Tab, configurable y con buscador de órdenes.</small></span></a></div></div></div>
+<h2 id="cómo-encajan">Cómo encajan</h2>
+<p>El estante sigue el orden en que se trabaja una escena. Cada grupo está separado por una raya:</p>
+<figure><img loading="lazy" src="recursos/flujo.svg" alt="Los cuatro grupos del estante, de izquierda a derecha" /><figcaption>Los cuatro grupos del estante, de izquierda a derecha</figcaption></figure>
+<ol type="1">
+<li><strong>Empezar el proyecto</strong>: reúne referencias y notas en <a href="muro.html">Muro</a>.</li>
+<li><strong>Construir</strong>: modela la vegetación con <a href="arboles.html">Árboles</a>, <a href="trepadora.html">Trepadora</a> y <a href="grasseditor.html">GrassEditor</a>.</li>
+<li><strong>Look y render</strong>: materiales con <a href="materials.html">Materials</a>, luces con <a href="lightmanager.html">LightManager</a> y render con <a href="renderdesk.html">RenderDesk</a>.</li>
+<li><strong>Siempre a mano</strong>: guarda versiones con <a href="simplesave.html">SimpleSave</a> y lanza órdenes con <a href="radial.html">Radial</a>.</li>
+</ol>
+<p>En <a href="flujo.html">El flujo de trabajo</a> se ve un proyecto completo, paso a paso.</p>
+<h2 id="por-dónde-empezar">Por dónde empezar</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Si quieres…</th>
+<th>Lee</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Instalarlo por primera vez</td>
+<td><a href="instalar.html">Instalar y actualizar</a></td>
+</tr>
+<tr class="even">
+<td>Hacer algo en diez minutos</td>
+<td><a href="primeros-pasos.html">Primeros pasos</a></td>
+</tr>
+<tr class="odd">
+<td>Saber qué hace cada botón del pack</td>
+<td><a href="interfaz.html">El menú, el estante y la ventana central</a></td>
+</tr>
+<tr class="even">
+<td>Compartir ajustes con un grupo</td>
+<td><a href="carpeta-compartida.html">La carpeta compartida</a></td>
+</tr>
+<tr class="odd">
+<td>Resolver un problema</td>
+<td><a href="problemas.html">Si algo no funciona</a></td>
+</tr>
+<tr class="even">
+<td>Tener todos los atajos a la vista</td>
+<td><a href="atajos.html">Atajos y órdenes</a></td>
+</tr>
+</tbody>
+</table></div>
+<div class="aviso consejo"><p class="aviso-titulo">Consejo</p><p>En la wiki, pulsa <kbd>/</kbd> para buscar. Haz clic en cualquier imagen o GIF para verla en grande.</p></div>
+
+<footer class="pie">
+  <div class="vecinas"><a class="siguiente" href="instalar.html"><small>Siguiente</small>Instalar y actualizar</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/index.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#qué-es-mantitools">Qué es MantiTools</a></li><li><a href="#las-herramientas">Las herramientas</a></li><li><a href="#cómo-encajan">Cómo encajan</a></li><li><a href="#por-dónde-empezar">Por dónde empezar</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

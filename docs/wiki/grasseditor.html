@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GrassEditor · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html" class="actual" aria-current="page"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="portada-herramienta" style="--marca:#adca72"><img class="icono-grande" src="recursos/iconos/grasseditor.svg" alt=""><div><p class="miga">Construir</p><h1>GrassEditor</h1><p class="resumen">Hierba por capas, con pincel, tipos y control de rendimiento.</p><p class="chips"><span>Estante: icono GrassEditor</span><span>Menú MantiTools › GrassEditor</span><span>Versión 1.0.0</span><a href="https://github.com/adrianmantilla/grasseditor">Código</a></p></div></header>
+<div class="cuerpo">
+<article>
+<figure><img loading="lazy" src="../capturas/ajustes_grasseditor.png" alt="Ajustes de GrassEditor en la ventana central" /><figcaption>Ajustes de GrassEditor en la ventana central</figcaption></figure>
+<h2 id="para-qué-sirve">Para qué sirve</h2>
+<p>GrassEditor cubre el suelo de hierba sin que Maya se vuelva lento. Tú dices dónde crece (pintando, con curvas o con reglas de pendiente y altura) y qué tipos de hierba lleva. GrassEditor reparte las matas como instancias, enseña en el visor solo una parte y, al renderizar con Arnold, calcula únicamente la hierba que ve la cámara, con menos detalle a lo lejos.</p>
+<h2 id="tu-primera-pradera-en-tres-pasos">Tu primera pradera en tres pasos</h2>
+<ol type="1">
+<li>Selecciona el suelo (o solo algunas caras).</li>
+<li>Clic derecho en el icono › <strong>Nueva capa</strong>. Sale hierba silvestre en todo el suelo.</li>
+<li>Clic en el icono para abrir GrassEditor y cambia la mezcla en la pestaña <strong>2 · Hierba</strong>.</li>
+</ol>
+<p>¿Quieres pintar dónde crece? <strong>Nueva capa con pincel</strong>: la capa empieza vacía y el pincel queda activo. Pinta en el visor sobre el suelo.</p>
+<div class="aviso consejo"><p class="aviso-titulo">Consejo</p><p>Clic derecho en el icono › <strong>Jardín de ejemplo</strong> crea un jardín con una loma, un camino y un parterre, en tres capas. Es la forma más rápida de ver qué hace cada ajuste.</p></div>
+<h2 id="las-cuatro-pestañas">Las cuatro pestañas</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Pestaña</th>
+<th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1 · Zonas</strong></td>
+<td>Dónde crece: pincel (<kbd>Ctrl</kbd> borra), todo el suelo o vacío, pendiente máxima, alturas, curvas (parterre, hueco, camino) y objetos de los que se aparta</td>
+</tr>
+<tr class="even">
+<td><strong>2 · Hierba</strong></td>
+<td>Qué crece: la mezcla de tipos y su parte, la densidad, la semilla y el editor de mata</td>
+</tr>
+<tr class="odd">
+<td><strong>3 · Rendimiento</strong></td>
+<td>Cuánto pesa: visor ligero, cámara de render, recorte, detalle por distancia, aclarado, cifras y semáforo</td>
+</tr>
+<tr class="even">
+<td><strong>4 · Acabado</strong></td>
+<td>Material (Hierba simple o clay), convertir y exportar</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="los-ocho-tipos-de-hierba">Los ocho tipos de hierba</h2>
+<p>Césped de jardín, hierba silvestre, hierba seca, trébol, espigas, juncos, flores silvestres (margaritas y amapolas) y mata ornamental, cada uno con su altura real. Se mezclan por porcentajes dentro de una capa. Cada tipo da seis variantes y tres niveles de detalle; el color va en los vértices, sin texturas.</p>
+<h2 id="quiero">Quiero…</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Quiero…</th>
+<th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Césped solo dentro de un parterre</td>
+<td>Dibuja una curva cerrada, selecciónala y pulsa <strong>Parterre (solo dentro)</strong></td>
+</tr>
+<tr class="even">
+<td>Un camino sin hierba</td>
+<td>Dibuja una curva abierta, ponle <strong>Ancho</strong> y pulsa <strong>Camino</strong></td>
+</tr>
+<tr class="odd">
+<td>Que no crezca en las paredes de la loma</td>
+<td>Baja la <strong>Pendiente máxima</strong> (30–40°)</td>
+</tr>
+<tr class="even">
+<td>Que no atraviese piedras ni troncos</td>
+<td><strong>Buscar Árboles y Cantera</strong>, o selecciona objetos y <strong>Añadir selección</strong></td>
+</tr>
+<tr class="odd">
+<td>Flores salpicadas en el prado</td>
+<td>En <strong>2 · Hierba</strong>, <strong>+ Tipo</strong> › Flores silvestres al 10 %</td>
+</tr>
+<tr class="even">
+<td>Otro reparto con los mismos ajustes</td>
+<td><strong>Otra</strong> (semilla)</td>
+</tr>
+<tr class="odd">
+<td>Mis propias matas</td>
+<td>Ajusta el tipo en el <strong>Editor de mata</strong> y <strong>Guardar como nuevo…</strong></td>
+</tr>
+<tr class="even">
+<td>Ver cómo saldrá en el render</td>
+<td><strong>Vista de render</strong> (puede ir lento)</td>
+</tr>
+<tr class="odd">
+<td>Que la escena abra rápido</td>
+<td><strong>Hornear</strong> la capa</td>
+</tr>
+<tr class="even">
+<td>Deshacer</td>
+<td><kbd>Ctrl</kbd>+<kbd>Z</kbd>. Cada trazo del pincel es un paso</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="el-semáforo">El semáforo</h2>
+<p>Abajo de la ventana hay un punto de color con las cifras de toda la escena:</p>
+<ul>
+<li><strong>Verde</strong>: la escena va sobrada.</li>
+<li><strong>Ámbar</strong>: se renderiza, pero cada cuadro tarda.</li>
+<li><strong>Rojo</strong>: demasiada hierba para el ordenador.</li>
+</ul>
+<p>Clic derecho en el icono › <strong>Analizar rendimiento</strong> dice qué capa y qué tipo pesan más y qué hacer. Lo primero casi siempre es activar el <strong>recorte por cámara</strong> y el <strong>detalle por distancia</strong> en la pestaña Rendimiento, y elegir la <strong>cámara</strong> con la que vas a renderizar.</p>
+<h2 id="si-algo-va-mal">Si algo va mal</h2>
+<ul>
+<li><strong>No sale hierba</strong>: comprueba que la capa está <strong>Activa</strong>, que la zona no está vacía y que la pendiente máxima no es muy baja.</li>
+<li><strong>El visor va lento</strong>: baja <strong>Mostrar</strong> al 5 % o pon <strong>Como: Cajas</strong>.</li>
+<li><strong>En el render falta hierba en los bordes</strong>: sube el <strong>Margen</strong> del recorte.</li>
+</ul>
+<h2 id="en-el-estante">En el estante</h2>
+<!-- auto:ordenes grasseditor -->
+
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Cómo</th>
+<th>Orden</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clic</strong> en el icono</td>
+<td>Abrir GrassEditor</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Nueva capa</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Nueva capa con pincel</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Jardín de ejemplo</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Analizar rendimiento</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<h2 id="ajustes-en-mantitools">Ajustes en MantiTools</h2>
+<!-- auto:ajustes grasseditor -->
+
+<p><strong>Render</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pasar la hierba a calidad de render al renderizar</td>
+<td>Sí / no</td>
+<td>Se aplica a las escenas nuevas y a las capas que crees a partir de ahora.</td>
+<td><code>render_automatico</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Capa nueva</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tipo de hierba</td>
+<td>Césped de jardín, Hierba silvestre, Hierba seca, Trébol, Espigas, Juncos, Flores silvestres, Mata ornamental</td>
+<td></td>
+<td><code>tipo_inicial</code></td>
+</tr>
+<tr class="even">
+<td>Densidad</td>
+<td>10 a 300 %</td>
+<td></td>
+<td><code>densidad_inicial</code></td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="trepadora.html"><small>Anterior</small>Trepadora</a><a class="siguiente" href="materials.html"><small>Siguiente</small>Materials</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/grasseditor.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#para-qué-sirve">Para qué sirve</a></li><li><a href="#tu-primera-pradera-en-tres-pasos">Tu primera pradera en tres pasos</a></li><li><a href="#las-cuatro-pestañas">Las cuatro pestañas</a></li><li><a href="#los-ocho-tipos-de-hierba">Los ocho tipos de hierba</a></li><li><a href="#quiero">Quiero…</a></li><li><a href="#el-semáforo">El semáforo</a></li><li><a href="#si-algo-va-mal">Si algo va mal</a></li><li><a href="#en-el-estante">En el estante</a></li><li><a href="#ajustes-en-mantitools">Ajustes en MantiTools</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

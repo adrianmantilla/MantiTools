@@ -50,6 +50,7 @@ def construir():
     cmds.menuItem(label=t("menu_centro"), command=lambda *_: _centro("herramientas"))
     cmds.menuItem(label=t("menu_ajustes"), command=lambda *_: _centro("ajustes"))
     cmds.menuItem(label=t("menu_ayuda"), command=lambda *_: _centro("ayuda"))
+    cmds.menuItem(label=t("menu_wiki"), annotation=t("menu_wiki_ayuda"), command=lambda *_: _wiki())
     cmds.menuItem(divider=True)
     cmds.menuItem(label=t("menu_comprobar"), command=lambda *_: _comprobar())
     cmds.menuItem(label=t("menu_recrear_estante"), command=lambda *_: _recrear_estante())
@@ -81,6 +82,12 @@ def quitar():
 def _centro(pestana):
     from mantitools import centro
     centro.mostrar(pestana)
+
+
+def _wiki():
+    from mantitools import documentacion
+    if not documentacion.abrir():
+        cmds.warning(t("wiki_no_hay"))
 
 
 def _comprobar():

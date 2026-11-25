@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Árboles · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html" class="actual" aria-current="page"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="portada-herramienta" style="--marca:#ca9c72"><img class="icono-grande" src="recursos/iconos/arboles.svg" alt=""><div><p class="miga">Construir</p><h1>Árboles</h1><p class="resumen">Editor modular de árboles y biblioteca para plantar un jardín.</p><p class="chips"><span>Estante: icono Árboles</span><span>Menú MantiTools › Árboles</span><span>Versión 0.10.0</span><a href="https://github.com/adrianmantilla/arboles">Código</a></p></div></header>
+<div class="cuerpo">
+<article>
+<figure><img loading="lazy" src="../medios/arboles/hero.jpg" alt="Un jardín hecho con Árboles, renderizado con Arnold" /><figcaption>Un jardín hecho con Árboles, renderizado con Arnold</figcaption></figure>
+<h2 id="para-qué-sirve">Para qué sirve</h2>
+<p>Con Árboles montas un árbol a mano, rama a rama y con deslizadores que se entienden, lo guardas en tu biblioteca y lo plantas en la escena tantas veces como quieras. Las copias plantadas siguen ligadas a su original: si cambias el original, cambian todas. Un jardín de 50 árboles cabe sin problema.</p>
+<h2 id="tu-primer-árbol-en-cinco-minutos">Tu primer árbol en cinco minutos</h2>
+<ol type="1">
+<li>Clic en el icono <strong>Árboles</strong> (o <strong>MantiTools › Árboles › Editor de árboles…</strong>).</li>
+<li>En <strong>Empezar desde</strong> elige una plantilla y su <strong>frondosidad</strong> (clara, normal o frondosa), y pulsa <strong>Empezar</strong>.</li>
+<li>Haz clic en una rama de la lista o en el visor y mueve los deslizadores. Todo cambia al momento.</li>
+<li>Ponle un nombre y pulsa <strong>Guardar</strong>. Se guarda con una miniatura.</li>
+</ol>
+<figure><img loading="lazy" src="../medios/arboles/editor.png" alt="El editor de árboles con el roble de serie en el visor de Maya" /><figcaption>El editor de árboles con el roble de serie en el visor de Maya</figcaption></figure>
+<h3 id="las-19-especies-de-serie">Las 19 especies de serie</h3>
+<p>Roble, encina, alcornoque, haya, castaño, plátano de sombra, arce, arce en otoño, chopo, abedul, sauce llorón, olivo, almendro en flor, pino piñonero, abeto, ciprés, palmera, árbol seco y arbusto. «Solo tronco» es para empezar de cero.</p>
+<figure><img loading="lazy" src="../medios/arboles/especies.jpg" alt="Las 19 especies de serie" /><figcaption>Las 19 especies de serie</figcaption></figure>
+<h2 id="editar">Editar</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Quiero…</th>
+<th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Añadir una rama donde yo diga</td>
+<td><strong>Rama con un clic</strong> y clic en el tronco o en una rama. <kbd>Esc</kbd> para terminar</td>
+</tr>
+<tr class="even">
+<td>Cambiar varias ramas a la vez</td>
+<td>Selecciónalas y mueve el deslizador: cada una cambia desde su valor</td>
+</tr>
+<tr class="odd">
+<td>Repartir ramas alrededor del tronco</td>
+<td>Selecciona una y pulsa <strong>Repetir alrededor</strong></td>
+</tr>
+<tr class="even">
+<td>Doblar una rama a mano</td>
+<td>Activa <strong>Tiradores de la curva</strong> y mueve los puntos amarillos. <strong>Enderezar</strong> lo deshace</td>
+</tr>
+<tr class="odd">
+<td>Copiar el aspecto de una rama a otras</td>
+<td><strong>Copiar ajustes</strong> en una, selecciona las otras y <strong>Pegar ajustes</strong></td>
+</tr>
+<tr class="even">
+<td>Reutilizar una rama en otro árbol</td>
+<td><strong>Ramas favoritas</strong></td>
+</tr>
+<tr class="odd">
+<td>Partir el tronco en dos o tres (en Y)</td>
+<td>Selecciona el tronco y, en <strong>Avanzado</strong>, sube <strong>Horquilla</strong>. <strong>Brazos</strong> y <strong>Abertura</strong> dan el resto</td>
+</tr>
+<tr class="even">
+<td>Ver la escala</td>
+<td><strong>Figura humana (1,75 m)</strong></td>
+</tr>
+<tr class="odd">
+<td>Deshacer</td>
+<td><kbd>Ctrl</kbd>+<kbd>Z</kbd> (<kbd>⌘</kbd>+<kbd>Z</kbd> en Mac), en todo</td>
+</tr>
+</tbody>
+</table></div>
+<p>Si dejas el ratón quieto sobre un deslizador, sale una frase y un dibujo de qué hace, de menos a más.</p>
+<div class="aviso consejo"><p class="aviso-titulo">Consejo</p><p>El deslizador estrella es <strong>Peso</strong>: dobla la rama hacia abajo por su peso. Con él pasas de un roble a un sauce.</p></div>
+<figure><img loading="lazy" src="../medios/arboles/peso.gif" alt="El deslizador Peso dobla las ramas del roble en tiempo real" /><figcaption>El deslizador Peso dobla las ramas del roble en tiempo real</figcaption></figure>
+<h3 id="hojas">Hojas</h3>
+<p>En cada rama eliges el tipo de <strong>Hojas</strong>, su <strong>Densidad</strong>, su <strong>Tamaño</strong>, la <strong>Zona con hojas</strong> (solo la punta o toda la rama) y cuánto miran <strong>Hacia el cielo</strong>.</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th>Se parece a</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hoja ancha</td>
+<td>haya</td>
+</tr>
+<tr class="even">
+<td>Hoja lobulada</td>
+<td>roble</td>
+</tr>
+<tr class="odd">
+<td>Hoja pequeña</td>
+<td>encina, alcornoque</td>
+</tr>
+<tr class="even">
+<td>Hoja palmeada</td>
+<td>arce, plátano de sombra</td>
+</tr>
+<tr class="odd">
+<td>Hoja larga dentada</td>
+<td>castaño</td>
+</tr>
+<tr class="even">
+<td>Hoja fina</td>
+<td>sauce, olivo</td>
+</tr>
+<tr class="odd">
+<td>Hoja redonda</td>
+<td>abedul, chopo</td>
+</tr>
+<tr class="even">
+<td>Plumosa</td>
+<td>acacia, fresno, mimosa</td>
+</tr>
+<tr class="odd">
+<td>Foliolos en pluma</td>
+<td>palmera</td>
+</tr>
+<tr class="even">
+<td>Flores</td>
+<td>almendro, cerezo</td>
+</tr>
+<tr class="odd">
+<td>Escamas</td>
+<td>ciprés, tuya</td>
+</tr>
+<tr class="even">
+<td>Agujas (largas en borla, cortas en escobilla)</td>
+<td>pino, pino piñonero, abeto</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="el-semáforo">El semáforo</h3>
+<p>Abajo, en el editor, hay un contador de triángulos con un color. <strong>Verde</strong>: cabe sin problema en un jardín de 50 árboles. <strong>Amarillo</strong>: pesado; planta menos o usa calidad baja. <strong>Rojo</strong>: quita ramas u hojas.</p>
+<h2 id="plantar-un-jardín">Plantar un jardín</h2>
+<ol type="1">
+<li>Clic derecho en el icono › <strong>Biblioteca para plantar</strong> (o el botón <strong>Plantar…</strong> del editor).</li>
+<li>¿Biblioteca vacía? Pulsa <strong>Ejemplos</strong> y tendrás los árboles de serie.</li>
+<li>Elige un árbol, la <strong>calidad</strong> (baja, media o alta) y pulsa <strong>Plantar con clic</strong>.</li>
+<li>Cada clic en el visor planta un árbol sobre el suelo, con un giro al azar. <kbd>Esc</kbd> para terminar.</li>
+</ol>
+<figure><img loading="lazy" src="../medios/arboles/jardin.gif" alt="Plantar con clic y actualizar todas las copias desde el maestro" /><figcaption>Plantar con clic y actualizar todas las copias desde el maestro</figcaption></figure>
+<h3 id="cambiar-todas-las-copias-a-la-vez">Cambiar todas las copias a la vez</h3>
+<ol type="1">
+<li>Selecciona una copia y pulsa <strong>Editar maestro</strong>.</li>
+<li>Cambia lo que quieras en el editor y pulsa <strong>Guardar</strong>.</li>
+<li>Acepta <strong>actualizar las copias</strong>: cambian todas a la vez.</li>
+</ol>
+<p>¿Quieres que una copia sea distinta? Selecciónala y pulsa <strong>Desligar</strong>.</p>
+<h2 id="materiales-y-render">Materiales y render</h2>
+<p>Cada especie trae sus texturas de corteza y de hoja, con material <strong>OpenPBR</strong> (ver <a href="openpbr.html">OpenPBR</a>). En el editor, el desplegable <strong>Material</strong> elige las de una especie o <strong>Clay</strong> (gris neutro, cómodo para modelar). En el visor, pulsa <kbd>6</kbd> para ver las texturas.</p>
+<ul>
+<li><strong>Resolución de texturas</strong>: 512 o 1K mientras trabajas, 2K o 4K para el render final. Se cambia en su submenú o en Ajustes, y actualiza los árboles que ya están en la escena.</li>
+<li><strong>Estilo de texturas</strong>: <strong>Realista</strong>, <strong>Cartoon</strong> (colores planos) o <strong>Estilizado</strong> (como pintado a mano).</li>
+</ul>
+<figure><img loading="lazy" src="../medios/arboles/estilos.jpg" alt="Los mismos árboles en estilo realista, cartoon y estilizado" /><figcaption>Los mismos árboles en estilo realista, cartoon y estilizado</figcaption></figure>
+<p><strong>Material propio…</strong> en el editor deja usar tus imágenes: una corteza repetible y una hoja de pie (tallo abajo, punta arriba). El plugin repite la hoja en cuatro tonos para que el follaje no sea de un verde uniforme. Se guarda en tu biblioteca, en la carpeta <code>materiales</code>.</p>
+<h2 id="consejos">Consejos</h2>
+<ul>
+<li>Si los árboles se ven grises en el visor, pulsa <kbd>6</kbd>.</li>
+<li>Si las hojas se ven negras, activa <strong>Lighting › Two Sided Lighting</strong> en el visor. El editor la activa solo.</li>
+<li>Clic derecho en el icono › <strong>Comprobar Árboles</strong> dice la versión de Maya, si está Arnold y dónde está tu biblioteca.</li>
+</ul>
+<h2 id="en-el-estante">En el estante</h2>
+<!-- auto:ordenes arboles -->
+
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Cómo</th>
+<th>Orden</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clic</strong> en el icono</td>
+<td>Abrir el editor</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Biblioteca para plantar</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Árbol de ejemplo</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Crear materiales</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Convertir materiales a OpenPBR</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Comprobar Árboles</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<h2 id="ajustes-en-mantitools">Ajustes en MantiTools</h2>
+<figure><img loading="lazy" src="../capturas/ajustes_arboles.png" alt="Ajustes de Árboles en la ventana central" /><figcaption>Ajustes de Árboles en la ventana central</figcaption></figure>
+<!-- auto:ajustes arboles -->
+
+<p><strong>Biblioteca</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carpeta de la biblioteca</td>
+<td>Una carpeta</td>
+<td>Donde Árboles guarda tus árboles, miniaturas y materiales propios.</td>
+<td><code>carpeta_biblioteca</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Texturas</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Resolución de texturas</td>
+<td>512 (aula, rápido), 1K (recomendada), 2K, 4K (render final)</td>
+<td></td>
+<td><code>resolucion_texturas</code></td>
+</tr>
+<tr class="even">
+<td>Estilo de las texturas</td>
+<td>Realista, Cartoon (colores planos), Estilizado (pintado)</td>
+<td></td>
+<td><code>estilo_texturas</code></td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="muro.html"><small>Anterior</small>Muro</a><a class="siguiente" href="trepadora.html"><small>Siguiente</small>Trepadora</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/arboles.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#para-qué-sirve">Para qué sirve</a></li><li><a href="#tu-primer-árbol-en-cinco-minutos">Tu primer árbol en cinco minutos</a></li><li><a href="#editar">Editar</a></li><li><a href="#plantar-un-jardín">Plantar un jardín</a></li><li><a href="#materiales-y-render">Materiales y render</a></li><li><a href="#consejos">Consejos</a></li><li><a href="#en-el-estante">En el estante</a></li><li><a href="#ajustes-en-mantitools">Ajustes en MantiTools</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

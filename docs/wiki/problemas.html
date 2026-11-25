@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Si algo no funciona · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html" class="actual" aria-current="page">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="titulo-pagina"><h1>Si algo no funciona</h1><p class="resumen">Cómo comprobar la instalación, los problemas más comunes y cómo pedir ayuda con un informe.</p></header>
+<div class="cuerpo">
+<article>
+<h2 id="comprobar-la-instalación">Comprobar la instalación</h2>
+<ol type="1">
+<li>Menú <strong>MantiTools › Comprobar instalación</strong>, o en la ventana central <strong>Ayuda › Comprobar instalación</strong>.</li>
+<li>Las líneas con <strong>✓</strong> están bien; las que empiezan por <strong>!</strong> dicen qué falla y cómo arreglarlo.</li>
+<li><strong>Copiar informe</strong> lo deja en el portapapeles para pegarlo en un correo o en una incidencia.</li>
+</ol>
+<p>La comprobación revisa, para cada herramienta:</p>
+<ul>
+<li>si está activa y cargada, y con qué versión;</li>
+<li>si viene del pack o de otra copia (por ejemplo, una instalación suelta que no se apartó);</li>
+<li>la comprobación propia de la herramienta, si la tiene;</li>
+<li>si queda algún <code>.mod</code> suelto activo en la carpeta de módulos;</li>
+<li>si la <a href="carpeta-compartida.html">carpeta compartida</a> se ha leído bien.</li>
+</ul>
+<h2 id="problemas-comunes">Problemas comunes</h2>
+<h3 id="al-abrir-maya-sale-untrusted-plugin-loading">Al abrir Maya sale «Untrusted Plugin Loading»</h3>
+<p>Maya avisa porque los plugins de MantiTools no están firmados. Pulsa <strong>Allow</strong>. Para que no vuelva a salir, añade la carpeta <code>plug-ins</code> de MantiTools en <strong>Preferences › Security</strong> como ruta de confianza.</p>
+<h3 id="sale-arnold-renderer-not-loaded-al-arrancar">Sale «Arnold renderer not loaded» al arrancar</h3>
+<p>Aparece detrás del aviso anterior: mientras Maya espera tu respuesta, Arnold aún no ha cargado. En cuanto pulsas <strong>Allow</strong>, Arnold carga y el aviso no importa. Con la ruta de confianza desaparecen los dos.</p>
+<h3 id="no-aparece-el-estante-o-le-faltan-iconos">No aparece el estante, o le faltan iconos</h3>
+<p>Menú <strong>MantiTools › Recrear estante</strong>. El estante también se rehace solo al arrancar si no coincide con las herramientas activas.</p>
+<h3 id="no-aparece-el-menú-mantitools">No aparece el menú MantiTools</h3>
+<p>El plugin no se cargó. Abre <strong>Windows › Settings/Preferences › Plug-in Manager</strong>, busca <code>mantitools_plugin.py</code> y marca <strong>Loaded</strong> y <strong>Auto load</strong>. Si no está en la lista, arrastra otra vez <code>instalar.py</code>.</p>
+<h3 id="moví-la-carpeta-y-ya-no-carga">Moví la carpeta y ya no carga</h3>
+<p>Arrastra otra vez <code>instalar.py</code> desde la carpeta nueva y elige <strong>Reinstalar</strong>.</p>
+<h3 id="una-herramienta-no-carga">Una herramienta no carga</h3>
+<p>Su tarjeta dice «No se pudo cargar». En la comprobación, su línea explica por qué. Lo más común:</p>
+<ul>
+<li>otra copia suelta de esa herramienta en la carpeta de módulos (la comprobación la señala): vuelve a instalar MantiTools para apartarla;</li>
+<li>la herramienta está desactivada en <strong>Ajustes › General</strong> o por la <a href="carpeta-compartida.html">carpeta compartida</a>.</li>
+</ul>
+<h3 id="los-árboles-o-la-hiedra-se-ven-grises">Los árboles o la hiedra se ven grises</h3>
+<p>Pulsa <kbd>6</kbd> en el visor (modo con texturas). En el render, comprueba que Arnold está cargado.</p>
+<h3 id="texturas-rosas-al-abrir-en-otro-ordenador">Texturas rosas al abrir en otro ordenador</h3>
+<p>En <a href="materials.html">Materials</a>, <strong>Texturas › Reparar rutas</strong>. Las texturas de Trepadora y Árboles se recolocan solas al abrir la escena.</p>
+<h3 id="escenas-antiguas-con-materiales-aistandardsurface">Escenas antiguas con materiales aiStandardSurface</h3>
+<p><strong>MantiTools › Convertir materiales a OpenPBR</strong>. Ver <a href="openpbr.html">OpenPBR</a>.</p>
+<h3 id="maya-va-lento-con-mucha-vegetación">Maya va lento con mucha vegetación</h3>
+<ul>
+<li><a href="grasseditor.html">GrassEditor</a>: mira el semáforo y usa <strong>Analizar rendimiento</strong>.</li>
+<li><a href="arboles.html">Árboles</a>: planta en calidad baja o media y mira el semáforo del editor.</li>
+<li><a href="trepadora.html">Trepadora</a>: baja la densidad de hojas o usa resolución de texturas 512 o 1K.</li>
+</ul>
+<h3 id="perdí-trabajo-porque-maya-se-cerró">Perdí trabajo porque Maya se cerró</h3>
+<p>Abre Maya otra vez: <a href="simplesave.html">SimpleSave</a> te ofrece recuperar el autoguardado. Si no lo ofrece, clic derecho en su icono › <strong>Recuperar autoguardado</strong>.</p>
+<h2 id="quitar-mantitools">Quitar MantiTools</h2>
+<p>Arrastra <code>instalar.py</code> al visor y elige <strong>Desinstalar</strong>. Si tenías herramientas sueltas, vuelven como estaban. Tu carpeta y tus ajustes no se borran.</p>
+<h2 id="pedir-ayuda">Pedir ayuda</h2>
+<p>Copia el informe de la comprobación y abre una incidencia en <a href="https://github.com/adrianmantilla/mantitools/issues">github.com/adrianmantilla/mantitools/issues</a>, con la versión de Maya, el sistema y qué estabas haciendo. Si el problema es de una herramienta concreta, su página de esta wiki enlaza a su repositorio.</p>
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="atajos.html"><small>Anterior</small>Atajos y órdenes</a><a class="siguiente" href="desarrollo.html"><small>Siguiente</small>Para desarrollar</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/problemas.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#comprobar-la-instalación">Comprobar la instalación</a></li><li><a href="#problemas-comunes">Problemas comunes</a></li><li><a href="#quitar-mantitools">Quitar MantiTools</a></li><li><a href="#pedir-ayuda">Pedir ayuda</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

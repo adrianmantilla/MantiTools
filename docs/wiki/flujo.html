@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El flujo de trabajo · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html" class="actual" aria-current="page">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="titulo-pagina"><h1>El flujo de trabajo</h1><p class="resumen">Un proyecto de principio a fin con las nueve herramientas, en el orden del estante. Por ejemplo, una ruina con hiedra en un jardín al atardecer.</p></header>
+<div class="cuerpo">
+<article>
+<figure><img loading="lazy" src="recursos/flujo.svg" alt="Los cuatro grupos del estante, en el orden en que se trabaja" /><figcaption>Los cuatro grupos del estante, en el orden en que se trabaja</figcaption></figure>
+<p>El estante está ordenado así a propósito: de izquierda a derecha es el camino de una escena, y los dos últimos grupos se usan durante todo el proyecto. No hace falta usar todas las herramientas: cada una funciona sola.</p>
+<h2 id="1-empezar-el-proyecto-muro">1. Empezar el proyecto: Muro</h2>
+<p>Antes de modelar, reúne lo que quieres conseguir.</p>
+<ol type="1">
+<li>Clic en <strong>Muro</strong>. Se abre el tablero de la escena (se guarda en <code>sourceimages/muro</code> del proyecto).</li>
+<li>Arrastra fotos de ruinas, hiedra y luz de atardecer. Agrúpalas en marcos con <kbd>Ctrl</kbd>+<kbd>G</kbd>.</li>
+<li>Escribe notas (<kbd>N</kbd>) y una lista de tareas (<kbd>L</kbd>).</li>
+<li>Mientras modelas, activa el <strong>Fantasma</strong>: el tablero queda transparente encima del visor.</li>
+</ol>
+<figure><img loading="lazy" src="../medios/muro/muro.gif" alt="Muro: referencias, marcos, notas y un marcador" /><figcaption>Muro: referencias, marcos, notas y un marcador</figcaption></figure>
+<h2 id="2-construir-árboles-trepadora-y-grasseditor">2. Construir: Árboles, Trepadora y GrassEditor</h2>
+<p>Con el escenario modelado (o con la escena de ejemplo de cada herramienta):</p>
+<ol type="1">
+<li><strong>Árboles</strong>: planta unos olivos o un roble con <strong>Biblioteca para plantar</strong>. Todos los árboles iguales son copias de un maestro: si cambias el maestro, cambian todos.</li>
+<li><strong>Trepadora</strong>: selecciona las paredes, pon el origen con un clic, pulsa <strong>Crecer</strong> hasta que te guste la forma y luego <strong>Crear malla</strong>. Pon cajas delante de las ventanas para que la hiedra las rodee.</li>
+<li><strong>GrassEditor</strong>: selecciona el suelo y crea una capa. Dibuja una curva para el camino y deja que la hierba se aparte de los troncos de Árboles. Mira el semáforo: verde va sobrado.</li>
+</ol>
+<figure><img loading="lazy" src="../medios/arboles/jardin.gif" alt="Plantar un jardín con Árboles" /><figcaption>Plantar un jardín con Árboles</figcaption></figure>
+<div class="aviso consejo"><p class="aviso-titulo">Consejo</p><p>GrassEditor reconoce los árboles de Árboles y aclara la hierba bajo sus copas.</p></div>
+<h2 id="3-look-y-render-materials-lightmanager-y-renderdesk">3. Look y render: Materials, LightManager y RenderDesk</h2>
+<ol type="1">
+<li><strong>Materials</strong>: elige recetas (piedra, madera, metal…) y ajusta la rugosidad. Si vas a pintar texturas, <strong>Enviar a Painter</strong> y, al exportar desde Painter, las texturas llegan solas a Maya. Lee los avisos de la esfera.</li>
+<li><strong>LightManager</strong>: en modo <strong>Escena</strong>, pon el sol a la hora del atardecer de tu ciudad, convierte las ventanas en portales y enciende las lámparas. Abre <strong>Comprobar</strong> antes de renderizar.</li>
+<li><strong>RenderDesk</strong>: activa el <strong>Modo render</strong>, combina presets (Revisión · Exterior · Hojas y hierba con recorte) y pulsa <strong>Probar</strong>. Compara pruebas con A/B y lanza el render final en segundo plano.</li>
+</ol>
+<figure><img loading="lazy" src="../medios/renderdesk/fase1_panel_y_visor.jpg" alt="RenderDesk junto al visor de Arnold" /><figcaption>RenderDesk junto al visor de Arnold</figcaption></figure>
+<p>Trepadora, Árboles y Materials usan el mismo tipo de material, <strong>OpenPBR</strong>, así que todo responde igual a la luz. Ver <a href="openpbr.html">OpenPBR</a>.</p>
+<h2 id="4-siempre-a-mano-simplesave-y-radial">4. Siempre a mano: SimpleSave y Radial</h2>
+<p>Durante todo el proyecto:</p>
+<ul>
+<li><strong>SimpleSave</strong>: guarda versión cada vez que termines una parte («pared modelada», «hiedra», «luces de atardecer»). Si Maya se cierra, al volver te ofrece recuperar el autoguardado. Al final, <strong>Entregar</strong> prepara un <code>.zip</code> con la escena y sus texturas.</li>
+<li><strong>Radial</strong>: <kbd>Tab</kbd> <kbd>Tab</kbd> sobre el visor abre tus órdenes más usadas. Con el <strong>radial automático</strong> cambia solo entre modelado, UV, animación y render.</li>
+</ul>
+<figure><img loading="lazy" src="../medios/radial/radial_maya.gif" alt="Radial en Maya: doble Tab y el menú aparece bajo el ratón" /><figcaption>Radial en Maya: doble Tab y el menú aparece bajo el ratón</figcaption></figure>
+<h2 id="resumen">Resumen</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Fase</th>
+<th>Herramienta</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Idea</td>
+<td>Muro</td>
+<td>Un tablero con referencias y notas, guardado con la escena</td>
+</tr>
+<tr class="even">
+<td>Vegetación</td>
+<td>Árboles, Trepadora, GrassEditor</td>
+<td>Árboles, hiedra y hierba ligeros, con texturas incluidas</td>
+</tr>
+<tr class="odd">
+<td>Materiales</td>
+<td>Materials</td>
+<td>Materiales OpenPBR con valores reales y texturas conectadas</td>
+</tr>
+<tr class="even">
+<td>Luz</td>
+<td>LightManager</td>
+<td>Luces en pasos y Kelvin, sol por hora y comprobaciones</td>
+</tr>
+<tr class="odd">
+<td>Render</td>
+<td>RenderDesk</td>
+<td>Presets combinados, pruebas comparables y render final</td>
+</tr>
+<tr class="even">
+<td>Todo el tiempo</td>
+<td>SimpleSave, Radial</td>
+<td>Versiones con nota, copias automáticas y órdenes a mano</td>
+</tr>
+</tbody>
+</table></div>
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="interfaz.html"><small>Anterior</small>El menú, el estante y la ventana central</a><a class="siguiente" href="carpeta-compartida.html"><small>Siguiente</small>La carpeta compartida</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/flujo.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#1-empezar-el-proyecto-muro">1. Empezar el proyecto: Muro</a></li><li><a href="#2-construir-árboles-trepadora-y-grasseditor">2. Construir: Árboles, Trepadora y GrassEditor</a></li><li><a href="#3-look-y-render-materials-lightmanager-y-renderdesk">3. Look y render: Materials, LightManager y RenderDesk</a></li><li><a href="#4-siempre-a-mano-simplesave-y-radial">4. Siempre a mano: SimpleSave y Radial</a></li><li><a href="#resumen">Resumen</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

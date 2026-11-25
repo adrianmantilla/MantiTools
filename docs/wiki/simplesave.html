@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SimpleSave · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html" class="actual" aria-current="page"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="portada-herramienta" style="--marca:#ca729b"><img class="icono-grande" src="recursos/iconos/simplesave.svg" alt=""><div><p class="miga">Siempre a mano</p><h1>SimpleSave</h1><p class="resumen">Versiones con nota y miniatura, autoguardado configurable y recuperación.</p><p class="chips"><span>Estante: icono SimpleSave</span><span>Menú MantiTools › SimpleSave</span><span>Versión 1.0.0</span><a href="https://github.com/adrianmantilla/simplesave">Código</a></p></div></header>
+<div class="cuerpo">
+<article>
+<img src="../medios/simplesave/panel.png" alt="Panel de SimpleSave: cinco versiones con miniatura y nota, autoguardado y copia de seguridad" width="320" align="right">
+
+<h2 id="para-qué-sirve">Para qué sirve</h2>
+<p>SimpleSave guarda tu escena por versiones, cada una con una nota y una miniatura, y hace copias automáticas para que no pierdas trabajo si Maya se cierra. Nunca pisa una versión anterior.</p>
+<br clear="right">
+
+<h2 id="guardar-versión">Guardar versión</h2>
+<ul>
+<li>Clic en el icono <strong>SimpleSave</strong>, o <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> (<kbd>⌘</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> en Mac), o el botón azul del panel.</li>
+<li>Escribe en una línea qué has hecho («brazos», «UVs del casco»). Es opcional, pero dentro de una semana lo agradecerás.</li>
+<li>Cada vez se crea un archivo nuevo: <code>robot_v001.ma</code>, <code>robot_v002.ma</code>…</li>
+</ul>
+<p><kbd>Ctrl</kbd>+<kbd>S</kbd> sigue funcionando como siempre: guarda encima de la versión que tienes abierta.</p>
+<div class="aviso consejo"><p class="aviso-titulo">Consejo</p><p>Guarda versión cada vez que termines una parte. Si pasan 30 minutos sin hacerlo, verás un aviso en el visor.</p></div>
+<h3 id="la-primera-vez">La primera vez</h3>
+<p>Si la escena no tiene nombre, SimpleSave te pide los datos para formarlo. Escribe con normalidad: las tildes, la ñ y los espacios se corrigen solos y ves el nombre final antes de guardar. El formato del nombre (por ejemplo <code>{asignatura}_{apellido}_{escena}</code>) se elige en Ajustes.</p>
+<figure><img loading="lazy" src="../medios/simplesave/nombre.png" alt="Nombre guiado de una escena nueva: tildes, espacios y paréntesis corregidos" /><figcaption>Nombre guiado de una escena nueva: tildes, espacios y paréntesis corregidos</figcaption></figure>
+<h2 id="el-panel-de-versiones">El panel de versiones</h2>
+<p>Clic derecho en el icono › <strong>Ver versiones</strong> abre la lista con su miniatura y su nota.</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Acción</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Abrir</strong></td>
+<td>Abre esa versión</td>
+</tr>
+<tr class="even">
+<td><strong>Restaurar</strong></td>
+<td>Copia una versión antigua como versión nueva y la abre. La que tenías sigue ahí</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Editar la nota, marcarla como importante, mostrarla en la carpeta</td>
+</tr>
+<tr class="even">
+<td><strong>Comparar versiones</strong></td>
+<td>Entre dos versiones: qué objetos se añadieron o se borraron y cuántas caras cambiaron (también en el clic derecho del icono)</td>
+</tr>
+</tbody>
+</table></div>
+<p>El punto naranja de arriba significa que tienes cambios sin guardar.</p>
+<h2 id="si-maya-se-cierra">Si Maya se cierra</h2>
+<p>SimpleSave hace una copia automática cada pocos minutos si has cambiado algo (5 por defecto; se cambia en Ajustes). Al volver a abrir Maya o la escena, si hay una copia más reciente que tu última versión, te pregunta si quieres <strong>recuperarla</strong>. Se guarda como versión nueva, así que no pierdes nada aunque te equivoques. También puedes buscarla tú: clic derecho en el icono › <strong>Recuperar autoguardado</strong>.</p>
+<h2 id="entregar">Entregar</h2>
+<ol type="1">
+<li>Guarda una última versión con una nota tipo «entrega».</li>
+<li>Pulsa <strong>Entregar</strong> en el panel. En la carpeta <code>entregas</code> del proyecto aparecen <code>&lt;nombre&gt;_entrega.ma</code> y un <code>.zip</code> con la escena y sus texturas.</li>
+<li>Si el aviso dice que alguna textura estaba fuera del proyecto, muévela a <code>sourceimages</code> y vuelve a entregar.</li>
+</ol>
+<h2 id="copia-en-el-usb-o-en-la-nube">Copia en el USB o en la nube</h2>
+<p>En Ajustes, activa <em>Copiar cada versión también a otra carpeta</em> y elige la carpeta del USB, Drive u OneDrive. Si el USB no está conectado, la versión se guarda igual en el ordenador y el panel te avisa.</p>
+<figure><img loading="lazy" src="../medios/simplesave/ajustes.png" alt="Ajustes del panel de SimpleSave" /><figcaption>Ajustes del panel de SimpleSave</figcaption></figure>
+<h2 id="en-el-estante">En el estante</h2>
+<!-- auto:ordenes simplesave -->
+
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Cómo</th>
+<th>Orden</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clic</strong> en el icono</td>
+<td>Guardar versión</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Ver versiones</td>
+</tr>
+<tr class="odd">
+<td>Clic derecho</td>
+<td>Recuperar autoguardado</td>
+</tr>
+<tr class="even">
+<td>Clic derecho</td>
+<td>Comparar versiones</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<h2 id="ajustes-en-mantitools">Ajustes en MantiTools</h2>
+<figure><img loading="lazy" src="../capturas/ajustes_simplesave.png" alt="Ajustes de SimpleSave en la ventana central" /><figcaption>Ajustes de SimpleSave en la ventana central</figcaption></figure>
+<!-- auto:ajustes simplesave -->
+
+<p><strong>Autoguardado</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Autoguardado activado</td>
+<td>Sí / no</td>
+<td></td>
+<td><code>autoguardado</code></td>
+</tr>
+<tr class="even">
+<td>Cada</td>
+<td>1 a 120 min</td>
+<td></td>
+<td><code>minutos</code></td>
+</tr>
+<tr class="odd">
+<td>Copias que guarda</td>
+<td>1 a 50</td>
+<td></td>
+<td><code>copias</code></td>
+</tr>
+<tr class="even">
+<td>No guardar mientras se reproduce o renderiza</td>
+<td>Sí / no</td>
+<td></td>
+<td><code>pausa_reproduccion</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Versiones</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Plantilla de nombre</td>
+<td>Texto</td>
+<td>Por ejemplo {escena} o {asignatura}<em>{apellido}</em>{escena}. La versión se añade sola.</td>
+<td><code>plantilla</code></td>
+</tr>
+<tr class="even">
+<td>Formato</td>
+<td>.ma, .mb</td>
+<td></td>
+<td><code>formato</code></td>
+</tr>
+<tr class="odd">
+<td>Guardar miniatura con cada versión</td>
+<td>Sí / no</td>
+<td></td>
+<td><code>miniaturas</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Copia de seguridad</strong></p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Valores</th>
+<th>Qué hace</th>
+<th>Clave</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Copiar cada versión a otra carpeta</td>
+<td>Sí / no</td>
+<td></td>
+<td><code>copia_activada</code></td>
+</tr>
+<tr class="even">
+<td>Segunda carpeta</td>
+<td>Una carpeta</td>
+<td>Un USB o una carpeta de la nube.</td>
+<td><code>copia_carpeta</code></td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="renderdesk.html"><small>Anterior</small>RenderDesk</a><a class="siguiente" href="radial.html"><small>Siguiente</small>Radial</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/simplesave.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#para-qué-sirve">Para qué sirve</a></li><li><a href="#guardar-versión">Guardar versión</a></li><li><a href="#el-panel-de-versiones">El panel de versiones</a></li><li><a href="#si-maya-se-cierra">Si Maya se cierra</a></li><li><a href="#entregar">Entregar</a></li><li><a href="#copia-en-el-usb-o-en-la-nube">Copia en el USB o en la nube</a></li><li><a href="#en-el-estante">En el estante</a></li><li><a href="#ajustes-en-mantitools">Ajustes en MantiTools</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

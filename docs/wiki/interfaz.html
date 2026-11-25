@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El menú, el estante y la ventana central · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html" class="actual" aria-current="page">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="titulo-pagina"><h1>El menú, el estante y la ventana central</h1><p class="resumen">Las tres puertas de entrada del pack y qué hay detrás de cada una.</p></header>
+<div class="cuerpo">
+<article>
+<h2 id="el-menú-mantitools">El menú MantiTools</h2>
+<p>En la barra de menús de Maya aparece <strong>MantiTools</strong>. Arriba lleva un submenú por herramienta, con las mismas entradas que tenía cada una cuando se instalaba por separado, en el orden del estante. Abajo van las órdenes del pack:</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Entrada</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Herramientas…</strong></td>
+<td>Abre la ventana central en la pestaña Herramientas</td>
+</tr>
+<tr class="even">
+<td><strong>Ajustes…</strong></td>
+<td>Abre la ventana central en Ajustes</td>
+</tr>
+<tr class="odd">
+<td><strong>Ayuda</strong></td>
+<td>Abre la ventana central en Ayuda</td>
+</tr>
+<tr class="even">
+<td><strong>Documentación (wiki)</strong></td>
+<td>Abre esta wiki en el navegador. Funciona sin conexión</td>
+</tr>
+<tr class="odd">
+<td><strong>Comprobar instalación</strong></td>
+<td>Revisa cada herramienta y dice qué falla</td>
+</tr>
+<tr class="even">
+<td><strong>Recrear estante</strong></td>
+<td>Vuelve a hacer el estante si lo borraste o le faltan iconos</td>
+</tr>
+<tr class="odd">
+<td><strong>Convertir materiales a OpenPBR</strong></td>
+<td>Pasa a OpenPBR los materiales viejos de Trepadora y Árboles. Ver <a href="openpbr.html">OpenPBR</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Al final aparece la versión de MantiTools. El menú se puede despegar (la línea de puntos de arriba) para tenerlo flotando.</p>
+<h2 id="el-estante">El estante</h2>
+<figure><img loading="lazy" src="../capturas/estante.png" alt="El estante, con sus cuatro grupos y los dos iconos del pack" /><figcaption>El estante, con sus cuatro grupos y los dos iconos del pack</figcaption></figure>
+<p>Los iconos siguen el orden de trabajo de una escena, en cuatro grupos separados por una raya (<a href="flujo.html">por qué este orden</a>):</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Grupo</th>
+<th>Herramientas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Empezar el proyecto</td>
+<td>Muro</td>
+</tr>
+<tr class="even">
+<td>Construir</td>
+<td>Árboles, Trepadora, GrassEditor</td>
+</tr>
+<tr class="odd">
+<td>Look y render</td>
+<td>Materials, LightManager, RenderDesk</td>
+</tr>
+<tr class="even">
+<td>Siempre a mano</td>
+<td>SimpleSave, Radial</td>
+</tr>
+<tr class="odd">
+<td>Del pack</td>
+<td>MantiTools (ventana central) y Wiki</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los iconos son de línea fina sobre el gris de Maya. Debajo de cada uno, una raya de color dice de qué herramienta es; el azul es el del pack. Una herramienta desactivada en Ajustes no tiene icono.</p>
+<p>El estante se rehace solo al arrancar Maya si no coincide con las herramientas activas. Si lo cambias a mano, se respeta mientras tenga los mismos iconos.</p>
+<h3 id="el-icono-de-la-wiki">El icono de la wiki</h3>
+<p>El último icono, el del libro, abre esta documentación en tu navegador. Con clic derecho va directo a <strong>Primeros pasos</strong>, <strong>Atajos y órdenes</strong> o <strong>Si algo no funciona</strong>.</p>
+<h3 id="todas-las-órdenes-del-estante">Todas las órdenes del estante</h3>
+<!-- auto:todas-ordenes -->
+
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Herramienta</th>
+<th>Clic</th>
+<th>Clic derecho</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img class="icono" src="recursos/iconos/muro.svg" /></td>
+<td><a href="muro.html">Muro</a></td>
+<td>Abrir el tablero</td>
+<td>Nuevo tablero · Importar tablero · Capturar visor · Fantasma</td>
+</tr>
+<tr class="even">
+<td><img class="icono" src="recursos/iconos/arboles.svg" /></td>
+<td><a href="arboles.html">Árboles</a></td>
+<td>Abrir el editor</td>
+<td>Biblioteca para plantar · Árbol de ejemplo · Crear materiales · Convertir materiales a OpenPBR · Comprobar Árboles</td>
+</tr>
+<tr class="odd">
+<td><img class="icono" src="recursos/iconos/trepadora.svg" /></td>
+<td><a href="trepadora.html">Trepadora</a></td>
+<td>Abrir Trepadora</td>
+<td>Escena de prueba sencilla · Escena de prueba: ruina · Exportar planta · Exportar con hojas ligeras · Convertir materiales a OpenPBR</td>
+</tr>
+<tr class="even">
+<td><img class="icono" src="recursos/iconos/grasseditor.svg" /></td>
+<td><a href="grasseditor.html">GrassEditor</a></td>
+<td>Abrir GrassEditor</td>
+<td>Nueva capa · Nueva capa con pincel · Jardín de ejemplo · Analizar rendimiento</td>
+</tr>
+<tr class="odd">
+<td><img class="icono" src="recursos/iconos/materials.svg" /></td>
+<td><a href="materials.html">Materials</a></td>
+<td>Abrir Materials</td>
+<td>Asignar a la selección · Cuentagotas · Enviar a Painter</td>
+</tr>
+<tr class="even">
+<td><img class="icono" src="recursos/iconos/lightmanager.svg" /></td>
+<td><a href="lightmanager.html">LightManager</a></td>
+<td>Panel de luces</td>
+<td>Tres puntos en lo seleccionado · Comprobar la iluminación · Quitar todos los solos</td>
+</tr>
+<tr class="odd">
+<td><img class="icono" src="recursos/iconos/renderdesk.svg" /></td>
+<td><a href="renderdesk.html">RenderDesk</a></td>
+<td>Abrir RenderDesk</td>
+<td>Modo render · Probar / parar · Instantánea</td>
+</tr>
+<tr class="even">
+<td><img class="icono" src="recursos/iconos/simplesave.svg" /></td>
+<td><a href="simplesave.html">SimpleSave</a></td>
+<td>Guardar versión</td>
+<td>Ver versiones · Recuperar autoguardado · Comparar versiones</td>
+</tr>
+<tr class="odd">
+<td><img class="icono" src="recursos/iconos/radial.svg" /></td>
+<td><a href="radial.html">Radial</a></td>
+<td>Mostrar u ocultar</td>
+<td>Configurar botones · Ajustes de tamaño en vivo · Volver a centrar</td>
+</tr>
+<tr class="even">
+<td><img class="icono" src="recursos/iconos/centro.svg" /></td>
+<td><a href="interfaz.html">MantiTools</a></td>
+<td>Ventana central</td>
+<td>Ajustes… · Ayuda · Comprobar instalación</td>
+</tr>
+<tr class="odd">
+<td><img class="icono" src="recursos/iconos/wiki.svg" /></td>
+<td><a href="index.html">Wiki</a></td>
+<td>Esta documentación</td>
+<td>Primeros pasos · Atajos y órdenes · Si algo no funciona</td>
+</tr>
+</tbody>
+</table></div>
+<!-- /auto -->
+
+<h2 id="la-ventana-central">La ventana central</h2>
+<p>Se abre con el icono de cuadros. Se puede acoplar a un lado de Maya y recuerda dónde la dejaste.</p>
+<h3 id="herramientas">Herramientas</h3>
+<figure><img loading="lazy" src="../capturas/centro_herramientas.png" alt="La pestaña Herramientas" /><figcaption>La pestaña Herramientas</figcaption></figure>
+<p>Una tarjeta por herramienta, con su versión y lo que hace. El botón azul hace la orden principal; «···» abre las demás. Si una herramienta está desactivada, la tarjeta lo dice y ofrece activarla; si no se pudo cargar, lo dice también y la comprobación explica por qué.</p>
+<h3 id="ajustes">Ajustes</h3>
+<figure><img loading="lazy" src="../capturas/centro_ajustes.png" alt="Ajustes › General" /><figcaption>Ajustes › General</figcaption></figure>
+<p>A la izquierda, <strong>General</strong> y una página por herramienta. Los cambios se guardan al momento en los ajustes de cada herramienta (los mismos que usa cuando está suelta) y se aplican sin reiniciar Maya. Un 🔒 indica que el valor viene fijado desde la <a href="carpeta-compartida.html">carpeta compartida</a>.</p>
+<p>En <strong>General</strong>:</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ajuste</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Idioma</strong></td>
+<td>Español o inglés para todas las herramientas a la vez</td>
+</tr>
+<tr class="even">
+<td><strong>Herramientas activas</strong></td>
+<td>Una casilla por herramienta. Una desactivada no se carga: no tiene submenú ni icono</td>
+</tr>
+<tr class="odd">
+<td><strong>Carpeta de clase</strong></td>
+<td>Una carpeta compartida con ajustes y bibliotecas para todo un grupo. Ver <a href="carpeta-compartida.html">La carpeta compartida</a></td>
+</tr>
+<tr class="even">
+<td><strong>Recrear estante</strong></td>
+<td>Lo mismo que en el menú</td>
+</tr>
+</tbody>
+</table></div>
+<p>Radial conserva además su ventana de tamaño en vivo, y Materials su pestaña de Ajustes, porque se entienden mejor viendo el resultado.</p>
+<h3 id="ayuda">Ayuda</h3>
+<figure><img loading="lazy" src="../capturas/centro_ayuda.png" alt="La pestaña Ayuda" /><figcaption>La pestaña Ayuda</figcaption></figure>
+<ul>
+<li><strong>Primeros pasos</strong> y el botón <strong>Abrir la documentación</strong>, que abre esta wiki.</li>
+<li><strong>Guías y versiones</strong>: la versión de cada herramienta y un botón que abre su página de la wiki.</li>
+<li><strong>Si algo no funciona</strong>: <strong>Comprobar instalación</strong> y <strong>Copiar informe</strong>. Ver <a href="problemas.html">Si algo no funciona</a>.</li>
+</ul>
+<h2 id="idiomas">Idiomas</h2>
+<p>La interfaz del pack y de casi todas las herramientas está en español y en inglés. Se cambia en <strong>Ajustes › General › Idioma</strong> y afecta a todas a la vez. Esta wiki está en español.</p>
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="primeros-pasos.html"><small>Anterior</small>Primeros pasos</a><a class="siguiente" href="flujo.html"><small>Siguiente</small>El flujo de trabajo</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/interfaz.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#el-menú-mantitools">El menú MantiTools</a></li><li><a href="#el-estante">El estante</a></li><li><a href="#la-ventana-central">La ventana central</a></li><li><a href="#idiomas">Idiomas</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

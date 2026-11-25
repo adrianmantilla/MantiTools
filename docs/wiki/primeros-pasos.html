@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Primeros pasos · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html" class="actual" aria-current="page">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="titulo-pagina"><h1>Primeros pasos</h1><p class="resumen">Diez minutos para conocer el pack: abrir una herramienta, usar sus órdenes rápidas, cambiar un ajuste y guardar la primera versión.</p></header>
+<div class="cuerpo">
+<article>
+<h2 id="1-encuentra-el-estante">1. Encuentra el estante</h2>
+<p>Después de instalar, arriba en Maya aparece la pestaña de estante <strong>MantiTools</strong>. Cada icono gris es una herramienta. La raya de color de debajo la identifica, y las rayas verticales separan los grupos.</p>
+<figure><img loading="lazy" src="../capturas/estante.png" alt="El estante MantiTools" /><figcaption>El estante MantiTools</figcaption></figure>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Ratón</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clic</strong> en un icono</td>
+<td>Abre la herramienta (o hace su orden principal: SimpleSave guarda versión, Radial muestra el menú)</td>
+</tr>
+<tr class="even">
+<td><strong>Clic derecho</strong> en un icono</td>
+<td>Sus órdenes rápidas: escenas de ejemplo, exportar, comprobar…</td>
+</tr>
+<tr class="odd">
+<td>Dejar el ratón encima</td>
+<td>Una nota con lo que hace el clic</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los dos últimos iconos son del pack: el de cuadros abre la <strong>ventana central</strong> y el del libro abre <strong>esta wiki</strong>.</p>
+<div class="aviso consejo"><p class="aviso-titulo">Consejo</p><p>¿No ves el estante? Menú <strong>MantiTools › Recrear estante</strong>.</p></div>
+<h2 id="2-abre-la-ventana-central">2. Abre la ventana central</h2>
+<p>Haz clic en el icono de cuadros (o <strong>MantiTools › Herramientas…</strong>). Tiene tres pestañas:</p>
+<ul>
+<li><strong>Herramientas</strong>: una tarjeta por herramienta. El botón azul la abre; «···» enseña las mismas órdenes rápidas que el clic derecho del estante.</li>
+<li><strong>Ajustes</strong>: a la izquierda la lista de herramientas y a la derecha sus opciones. Los cambios se guardan solos.</li>
+<li><strong>Ayuda</strong>: los primeros pasos, la documentación de cada herramienta y <strong>Comprobar instalación</strong>.</li>
+</ul>
+<figure><img loading="lazy" src="../capturas/centro.gif" alt="Un recorrido por la ventana central" /><figcaption>Un recorrido por la ventana central</figcaption></figure>
+<h2 id="3-prueba-una-herramienta-en-un-minuto">3. Prueba una herramienta en un minuto</h2>
+<p>Cada herramienta trae algo listo para probar desde el clic derecho de su icono:</p>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Prueba esto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="arboles.html">Árboles</a></td>
+<td>Clic derecho › <strong>Árbol de ejemplo</strong></td>
+</tr>
+<tr class="even">
+<td><a href="trepadora.html">Trepadora</a></td>
+<td>Clic derecho › <strong>Escena de prueba: ruina</strong>, y luego clic en el icono</td>
+</tr>
+<tr class="odd">
+<td><a href="grasseditor.html">GrassEditor</a></td>
+<td>Clic derecho › <strong>Jardín de ejemplo</strong></td>
+</tr>
+<tr class="even">
+<td><a href="lightmanager.html">LightManager</a></td>
+<td>Selecciona un objeto y clic derecho › <strong>Tres puntos en lo seleccionado</strong></td>
+</tr>
+<tr class="odd">
+<td><a href="radial.html">Radial</a></td>
+<td>Con el ratón sobre el visor, pulsa <kbd>Tab</kbd> <kbd>Tab</kbd> rápido</td>
+</tr>
+<tr class="even">
+<td><a href="muro.html">Muro</a></td>
+<td>Clic en el icono y arrastra una imagen al tablero</td>
+</tr>
+</tbody>
+</table></div>
+<figure><img loading="lazy" src="../medios/trepadora/crecimiento.gif" alt="Trepadora creciendo sobre la ruina de ejemplo" /><figcaption>Trepadora creciendo sobre la ruina de ejemplo</figcaption></figure>
+<h2 id="4-cambia-un-ajuste">4. Cambia un ajuste</h2>
+<p>En <strong>Ajustes</strong>, elige una herramienta en la lista y cambia lo que quieras. Por ejemplo:</p>
+<ul>
+<li><strong>General › Idioma</strong>: español o inglés, para todas a la vez.</li>
+<li><strong>SimpleSave › Autoguardado</strong>: cada cuántos minutos se hace una copia.</li>
+<li><strong>Radial › Forma</strong>: anillo o pill.</li>
+</ul>
+<figure><img loading="lazy" src="../capturas/ajustes_simplesave.png" alt="Ajustes de SimpleSave en la ventana central" /><figcaption>Ajustes de SimpleSave en la ventana central</figcaption></figure>
+<h2 id="5-guarda-tu-primera-versión">5. Guarda tu primera versión</h2>
+<p>Pulsa el icono del disquete (o <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>; en Mac <kbd>⌘</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>). Escribe una nota corta de lo que has hecho. Cada vez se crea un archivo nuevo, <code>escena_v001.ma</code>, <code>escena_v002.ma</code>…, y nunca se pisa uno anterior. Más en <a href="simplesave.html">SimpleSave</a>.</p>
+<h2 id="siguiente-paso">Siguiente paso</h2>
+<ul>
+<li><a href="flujo.html">El flujo de trabajo</a>: un proyecto completo con todas las herramientas.</li>
+<li><a href="atajos.html">Atajos y órdenes</a>: todo lo que hace cada icono, en una tabla.</li>
+</ul>
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="instalar.html"><small>Anterior</small>Instalar y actualizar</a><a class="siguiente" href="interfaz.html"><small>Siguiente</small>El menú, el estante y la ventana central</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/primeros-pasos.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#1-encuentra-el-estante">1. Encuentra el estante</a></li><li><a href="#2-abre-la-ventana-central">2. Abre la ventana central</a></li><li><a href="#3-prueba-una-herramienta-en-un-minuto">3. Prueba una herramienta en un minuto</a></li><li><a href="#4-cambia-un-ajuste">4. Cambia un ajuste</a></li><li><a href="#5-guarda-tu-primera-versión">5. Guarda tu primera versión</a></li><li><a href="#siguiente-paso">Siguiente paso</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

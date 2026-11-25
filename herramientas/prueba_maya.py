@@ -111,6 +111,20 @@ def probar_informe():
         print("        (el informe avisa de algo; mira las líneas con «!»)")
 
 
+def probar_documentacion():
+    print("\n== Documentación (wiki)")
+    from mantitools import documentacion
+    from mantitools import herramientas as hr
+    comprobar(bool(documentacion.ruta()), "wiki en {}".format(documentacion.carpeta()))
+    for ficha in hr.FICHAS:
+        comprobar(documentacion.pagina_de(ficha.id) == ficha.id, "página de {} en la wiki".format(ficha.nombre))
+
+
+def carga_activa(ident):
+    from mantitools import carga
+    return carga.activa(ident)
+
+
 def probar_interfaz(cmds):
     print("\n== Menú, estante y ventana")
     from mantitools import centro, estante, menu
@@ -122,8 +136,15 @@ def probar_interfaz(cmds):
         comprobar(not cmds.menu(ficha.menu, exists=True) or ficha.menu in elementos,
                   "{} no queda arriba en la barra".format(ficha.nombre))
     estante.crear(forzar=True)
-    botones = cmds.shelfLayout(estante.ESTANTE, query=True, childArray=True) or []
-    comprobar(len(botones) == len(hr.FICHAS) + 1, "estante con {} botones".format(len(botones)))
+    etiquetas = []
+    for hijo in cmds.shelfLayout(estante.ESTANTE, query=True, childArray=True) or []:
+        try:
+            etiquetas.append(cmds.shelfButton(hijo, query=True, label=True))
+        except RuntimeError:  # un separador
+            pass
+    activas = [f.nombre for f in hr.FICHAS if carga_activa(f.id)]
+    comprobar(etiquetas == activas + ["MantiTools", "Wiki"], "estante: {}".format(", ".join(etiquetas)))
+
     v = centro.mostrar("herramientas")
     comprobar(v is not None, "ventana central abierta")
     for pestana in centro.PESTANAS:
@@ -147,7 +168,7 @@ def main():
         interfaz, propio = False, True
     print("MantiTools: prueba en Maya {} ({})".format(cmds.about(version=True),
                                                        "con interfaz" if interfaz else "sin interfaz"))
-    for paso in (lambda: probar_carga(cmds), probar_ordenes, probar_ajustes, probar_informe):
+    for paso in (lambda: probar_carga(cmds), probar_ordenes, probar_ajustes, probar_informe, probar_documentacion):
         try:
             paso()
         except Exception:

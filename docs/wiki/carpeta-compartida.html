@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La carpeta compartida · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html" class="actual" aria-current="page">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="titulo-pagina"><h1>La carpeta compartida</h1><p class="resumen">Una carpeta en red o en la nube que da a todo un grupo los mismos botones de Radial, las mismas recetas de Materials y, si se quiere, los mismos ajustes.</p></header>
+<div class="cuerpo">
+<article>
+<h2 id="para-qué-sirve">Para qué sirve</h2>
+<p>Cuando varias personas trabajan con MantiTools en ordenadores distintos (un aula, un estudio, un equipo), una carpeta compartida evita configurar cada ordenador a mano:</p>
+<ul>
+<li><strong>Radial</strong> encuentra en ella los radiales del grupo.</li>
+<li><strong>Materials</strong> encuentra recetas compartidas, que salen en su biblioteca.</li>
+<li>MantiTools puede <strong>desactivar herramientas</strong> y <strong>fijar ajustes</strong> para todos.</li>
+</ul>
+<p>En la interfaz se llama <strong>Carpeta de clase</strong>.</p>
+<h2 id="elegir-la-carpeta">Elegir la carpeta</h2>
+<p>En la ventana central, <strong>Ajustes › General › Carpeta de clase</strong>, pulsa «…» y elige la carpeta (una unidad de red, Google Drive, OneDrive, Dropbox…). Se lee al momento y cada vez que arranca Maya. Debajo verás un resumen de lo que se ha leído.</p>
+<h2 id="qué-lleva-dentro">Qué lleva dentro</h2>
+<pre><code>Carpeta/
+├── mantitools_clase.json   ← opcional: herramientas desactivadas y ajustes fijados
+├── radial/                 ← radiales compartidos de Radial
+└── materials/              ← recetas compartidas de Materials (.json)</code></pre>
+<p>Cada herramienta busca solo su subcarpeta. Si una no existe, no pasa nada.</p>
+<h2 id="fijar-ajustes-con-mantitools_clasejson">Fijar ajustes con mantitools_clase.json</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;desactivar&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;radial&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fijar&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;muro&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;abrir_con_escena&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">},</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;materials&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;destino&quot;</span><span class="fu">:</span> <span class="st">&quot;juego&quot;</span><span class="fu">,</span> <span class="dt">&quot;motor_juego&quot;</span><span class="fu">:</span> <span class="st">&quot;unity&quot;</span><span class="fu">},</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;simplesave&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;autoguardado&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span> <span class="dt">&quot;minutos&quot;</span><span class="fu">:</span> <span class="dv">10</span><span class="fu">}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<ul>
+<li><strong>desactivar</strong>: herramientas que no se cargan en ese grupo. Su tarjeta lo dice.</li>
+<li><strong>fijar</strong>: por herramienta, clave y valor. Cada página de herramienta de esta wiki termina con la tabla de sus ajustes, y la columna <strong>Clave</strong> dice cómo se llama cada uno (por ejemplo, en <a href="simplesave.html">SimpleSave</a>).</li>
+</ul>
+<p>Lo fijado se aplica cada vez que arranca Maya y aparece con 🔒 en Ajustes: se ve, pero no se puede cambiar.</p>
+<div class="aviso cuidado"><p class="aviso-titulo">Cuidado</p><p>Si el JSON tiene un error (una coma de más, comillas que faltan), no se fija nada y <strong>Comprobar instalación</strong> lo avisa con la línea del error.</p></div>
+<h2 id="quitar-la-carpeta">Quitar la carpeta</h2>
+<p>Deja vacío el campo <strong>Carpeta de clase</strong>. Los ajustes fijados dejan de estar bloqueados y conservan el último valor.</p>
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="flujo.html"><small>Anterior</small>El flujo de trabajo</a><a class="siguiente" href="openpbr.html"><small>Siguiente</small>Materiales OpenPBR</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/carpeta-compartida.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#para-qué-sirve">Para qué sirve</a></li><li><a href="#elegir-la-carpeta">Elegir la carpeta</a></li><li><a href="#qué-lleva-dentro">Qué lleva dentro</a></li><li><a href="#fijar-ajustes-con-mantitools_clasejson">Fijar ajustes con mantitools_clase.json</a></li><li><a href="#quitar-la-carpeta">Quitar la carpeta</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>

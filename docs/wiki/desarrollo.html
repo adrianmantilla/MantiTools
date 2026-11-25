@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Para desarrollar · MantiTools</title>
+<link rel="icon" href="recursos/iconos/centro.svg">
+<link rel="stylesheet" href="recursos/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<button class="abrir-menu" aria-label="Menú" aria-expanded="false">☰</button>
+<nav class="lateral" aria-label="Páginas de la wiki">
+  <a class="marca" href="index.html"><img src="recursos/iconos/centro.svg" alt=""><span>MantiTools<small>Documentación · v1.1.0</small></span></a>
+  <div class="buscar"><input type="search" id="buscar" placeholder="Buscar en la wiki…" autocomplete="off" aria-label="Buscar en la wiki"><ul id="resultados" hidden></ul></div>
+  <h4>Empezar</h4><ul><li><a href="index.html">Portada</a></li><li><a href="instalar.html">Instalar</a></li><li><a href="primeros-pasos.html">Primeros pasos</a></li></ul><h4>La suite</h4><ul><li><a href="interfaz.html">Menú, estante y ventana</a></li><li><a href="flujo.html">Flujo de trabajo</a></li><li><a href="carpeta-compartida.html">Carpeta compartida</a></li><li><a href="openpbr.html">OpenPBR</a></li></ul><h4>Empezar el proyecto</h4><ul><li><a href="muro.html"><img src="recursos/iconos/muro.svg" alt="">Muro</a></li></ul><h4>Construir</h4><ul><li><a href="arboles.html"><img src="recursos/iconos/arboles.svg" alt="">Árboles</a></li><li><a href="trepadora.html"><img src="recursos/iconos/trepadora.svg" alt="">Trepadora</a></li><li><a href="grasseditor.html"><img src="recursos/iconos/grasseditor.svg" alt="">GrassEditor</a></li></ul><h4>Look y render</h4><ul><li><a href="materials.html"><img src="recursos/iconos/materials.svg" alt="">Materials</a></li><li><a href="lightmanager.html"><img src="recursos/iconos/lightmanager.svg" alt="">LightManager</a></li><li><a href="renderdesk.html"><img src="recursos/iconos/renderdesk.svg" alt="">RenderDesk</a></li></ul><h4>Siempre a mano</h4><ul><li><a href="simplesave.html"><img src="recursos/iconos/simplesave.svg" alt="">SimpleSave</a></li><li><a href="radial.html"><img src="recursos/iconos/radial.svg" alt="">Radial</a></li></ul><h4>Referencia</h4><ul><li><a href="atajos.html">Atajos y órdenes</a></li><li><a href="problemas.html">Si algo no funciona</a></li><li><a href="desarrollo.html" class="actual" aria-current="page">Para desarrollar</a></li></ul>
+</nav>
+<main id="contenido">
+<header class="titulo-pagina"><h1>Para desarrollar</h1><p class="resumen">Cómo está hecho el pack, cómo se añade una herramienta, cómo se regeneran los iconos, las capturas y esta wiki, y cómo se prueba.</p></header>
+<div class="cuerpo">
+<article>
+<h2 id="cómo-está-hecho">Cómo está hecho</h2>
+<p>Cada herramienta sigue siendo su propio plugin, con su repositorio. El pack trae una copia de cada una en <code>incluidas/&lt;id&gt;</code>, con la versión elegida en <code>versiones.json</code>, y un plugin que las carga por ruta.</p>
+<pre><code>mantitools/
+├── instalar.py               ← se arrastra a Maya
+├── plug-ins/mantitools_plugin.py
+├── scripts/mantitools/       ← menú, estante, carga, ventana central, ajustes, documentación
+├── icons/                    ← iconos del estante (generados)
+├── incluidas/&lt;id&gt;/           ← copia de cada herramienta (no se edita aquí)
+├── plantillas/pack.py        ← contrato que lleva cada herramienta
+├── versiones.json            ← repositorio, rama, versión y commit de cada una
+├── docs/wiki/                ← esta wiki (.md fuente y .html generado)
+├── docs/capturas/            ← capturas de la ventana central (generadas)
+├── docs/medios/              ← imágenes y GIF de cada herramienta
+├── herramientas/             ← sincronizar, generar iconos, capturas y wiki, prueba en Maya
+└── tests/</code></pre>
+<p>El código de cada herramienta se arregla <strong>en su propio repositorio</strong>, y se trae con <code>sincronizar.py</code>.</p>
+<h2 id="fichas">Fichas</h2>
+<p><code>scripts/mantitools/herramientas.py</code> tiene una ficha por herramienta: nombre, color, plugin, cómo se crea su menú y sus órdenes. El menú, el estante, las tarjetas, la comprobación y las tablas de esta wiki salen de las fichas. <code>GRUPOS</code> define los grupos del estante.</p>
+<h2 id="añadir-una-herramienta">Añadir una herramienta</h2>
+<ol type="1">
+<li>Su repositorio lleva <code>scripts/&lt;id&gt;/pack.py</code> (copia de <code>plantillas/pack.py</code>) y <code>scripts/&lt;id&gt;/estilo.py</code> (copia de <code>scripts/mantitools/estilo.py</code>). Las pruebas comprueban que las copias son idénticas.</li>
+<li>En MantiTools: ficha en <code>herramientas.py</code>, página en <code>adaptadores.py</code>, trazo del icono en <code>iconos.py</code>, textos en <code>i18n/es.json</code> y <code>i18n/en.json</code>, y su entrada en <code>versiones.json</code>.</li>
+<li><code>python herramientas/sincronizar.py &lt;id&gt;</code> la copia en <code>incluidas/</code>.</li>
+<li>Una página <code>docs/wiki/&lt;id&gt;.md</code> con <code>herramienta: &lt;id&gt;</code> en la cabecera.</li>
+<li>Regenera iconos, capturas y wiki (abajo).</li>
+</ol>
+<h2 id="regenerar">Regenerar</h2>
+<div class="tabla"><table>
+<thead>
+<tr class="header">
+<th>Qué</th>
+<th>Orden</th>
+<th>Necesita</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Traer versiones nuevas</td>
+<td><code>python herramientas/sincronizar.py</code> (o <code>--desde ~/clones</code>, o solo <code>radial muro</code>)</td>
+<td>git</td>
+</tr>
+<tr class="even">
+<td>Iconos del estante</td>
+<td><code>python herramientas/generar_iconos.py</code></td>
+<td>PySide6</td>
+</tr>
+<tr class="odd">
+<td>Capturas a doble resolución</td>
+<td><code>python herramientas/capturas_docs.py</code></td>
+<td>PySide6, Pillow</td>
+</tr>
+<tr class="even">
+<td>Esta wiki</td>
+<td><code>python herramientas/generar_wiki.py</code></td>
+<td>PySide6, pandoc</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="la-wiki">La wiki</h2>
+<p>Cada página es un <code>.md</code> en <code>docs/wiki/</code> con una cabecera:</p>
+<pre><code>---
+titulo: Muro
+corto: Muro                 ← nombre en la barra lateral
+herramienta: muro           ← solo en las páginas de herramientas
+resumen: Tablero de referencias…
+---</code></pre>
+<ul>
+<li>Se escribe en Markdown de GitHub, que GitHub ya enseña bien. Los avisos <code>&gt; [!TIP]</code>, <code>&gt; [!NOTE]</code>, <code>&gt; [!IMPORTANT]</code> y <code>&gt; [!WARNING]</code> salen como recuadros.</li>
+<li>Los bloques <code>&lt;!-- auto:ordenes &lt;id&gt; --&gt;</code>, <code>&lt;!-- auto:ajustes &lt;id&gt; --&gt;</code>, <code>&lt;!-- auto:todas-ordenes --&gt;</code> y <code>&lt;!-- auto:herramientas --&gt;</code> se rellenan desde el código al generar. No se editan a mano.</li>
+<li><code>generar_wiki.py</code> escribe el <code>.html</code> de cada página (barra lateral, buscador, índice, anterior y siguiente), los iconos en <code>recursos/iconos/</code>, el esquema <code>recursos/flujo.svg</code> y el índice del buscador. Las páginas funcionan sin conexión y sin servidor.</li>
+<li>El orden de la barra lateral está en <code>navegacion()</code> del mismo script.</li>
+<li><code>scripts/mantitools/documentacion.py</code> abre las páginas desde Maya.</li>
+</ul>
+<h2 id="pruebas">Pruebas</h2>
+<ul>
+<li><strong>Sin Maya</strong> (necesitan PySide6): <code>python -m unittest discover -s tests</code>. Usan un Maya falso para comprobar el arranque, los submenús, el estante, cada ajuste contra el código real de cada herramienta, y que la wiki no tiene enlaces ni imágenes rotos.</li>
+<li><strong>En Maya</strong>: <code>mayapy herramientas/prueba_maya.py</code>, o desde el Script Editor con Maya abierto para revisar también el menú, el estante y la ventana.</li>
+</ul>
+
+<footer class="pie">
+  <div class="vecinas"><a class="anterior" href="problemas.html"><small>Anterior</small>Si algo no funciona</a></div>
+  <p>MantiTools 1.1.0 · Licencia MIT · <a href="https://github.com/adrianmantilla/mantitools">github.com/adrianmantilla/mantitools</a> · <a href="https://github.com/adrianmantilla/mantitools/blob/main/docs/wiki/desarrollo.md">Ver esta página en GitHub</a></p>
+</footer>
+</article>
+<aside class="indice"><h4>En esta página</h4><ul><li><a href="#cómo-está-hecho">Cómo está hecho</a></li><li><a href="#fichas">Fichas</a></li><li><a href="#añadir-una-herramienta">Añadir una herramienta</a></li><li><a href="#regenerar">Regenerar</a></li><li><a href="#la-wiki">La wiki</a></li><li><a href="#pruebas">Pruebas</a></li></ul></aside>
+</div>
+</main>
+<script src="recursos/buscador.js"></script>
+<script src="recursos/wiki.js"></script>
+</body>
+</html>
