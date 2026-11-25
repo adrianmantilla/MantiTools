@@ -28,6 +28,7 @@ siguen ahí.
 | 🟣 puntos | Radial | Mostrar u ocultar el menú radial | configurar botones, tamaño en vivo, volver a centrar |
 | 🟡 tablero | Muro | Abrir el tablero | nuevo, importar, capturar visor, fantasma |
 | 🔴 esfera | Materials | Abrir Materials | asignar, cuentagotas, enviar a Painter |
+| 🟠 foco | LightManager | Abrir el panel de luces | tres puntos, comprobar la iluminación, quitar solos |
 | 🟩 hierba | GrassEditor | Abrir GrassEditor | nueva capa, capa con pincel, jardín de ejemplo, analizar |
 | 🩷 disquete | SimpleSave | Guardar versión | ver versiones, recuperar autoguardado, comparar |
 | 🔵 cuadros | MantiTools | Abrir la ventana central | ajustes, ayuda, comprobar |

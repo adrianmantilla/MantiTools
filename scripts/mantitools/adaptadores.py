@@ -418,8 +418,60 @@ class PaginaSimpleSave(Pagina):
         return super(PaginaSimpleSave, self).bloqueada(clave)
 
 
+# --- LightManager --------------------------------------------------------------------------------
+
+class PaginaLightManager(Pagina):
+    ident = "lightmanager"
+
+    def secciones(self):
+        try:
+            from lightmanager.sol import CIUDADES
+            ciudades = [(c[0], c[1]) for c in CIUDADES]
+        except ImportError:
+            ciudades = [("madrid", "Madrid")]
+        agrupar = [("papel", t("aj_lm_agrupar_papel")), ("zona", t("aj_lm_agrupar_zona")),
+                   ("tipo", t("aj_lm_agrupar_tipo")), ("grupo", t("aj_lm_agrupar_grupo"))]
+        return [
+            (t("sec_lm_panel"), [
+                Control("opciones", "modo", t("aj_lm_modo"),
+                        [("auto", t("aj_lm_modo_auto")), ("estudio", t("aj_lm_modo_estudio")),
+                         ("escena", t("aj_lm_modo_escena"))], ayuda=t("aj_lm_modo_ayuda")),
+                Control("opciones", "agrupar_estudio", t("aj_lm_agrupar_estudio"), agrupar),
+                Control("opciones", "agrupar_escena", t("aj_lm_agrupar_escena"), agrupar),
+                Control("casilla", "ver_arnold", t("aj_lm_ver_arnold")),
+            ]),
+            (t("sec_lm_bibliotecas"), [
+                Control("carpeta", "carpeta_hdri", t("aj_lm_carpeta_hdri"), ayuda=t("aj_lm_carpeta_vacia")),
+                Control("carpeta", "carpeta_esquemas", t("aj_lm_carpeta_esquemas"), ayuda=t("aj_lm_carpeta_vacia")),
+                Control("carpeta", "carpeta_ies", t("aj_lm_carpeta_ies")),
+            ]),
+            (t("sec_lm_sol"), [
+                Control("opciones", "ciudad", t("aj_lm_ciudad"), ciudades),
+                Control("decimal", "norte", t("aj_lm_norte"), minimo=-180, maximo=180, sufijo="°",
+                        ayuda=t("aj_lm_norte_ayuda")),
+                Control("casilla", "practicas_auto", t("aj_lm_practicas_auto")),
+                Control("entero", "repetir_cantidad", t("aj_lm_repetir"), minimo=1, maximo=50),
+            ]),
+        ]
+
+    def _m(self):
+        return self._modulo("lightmanager.interfaz_maya")
+
+    def leer(self, clave):
+        return self._m().ajustes()[clave]
+
+    def escribir(self, clave, valor):
+        self._m().ajustes()[clave] = valor
+        recargar = getattr(self._m(), "recargar_ajustes", None)
+        if callable(recargar):
+            try:
+                recargar()
+            except Exception:
+                pass
+
+
 PAGINAS = {p.ident: p for p in (PaginaTrepadora, PaginaArboles, PaginaRadial, PaginaMuro, PaginaMaterials,
-                               PaginaGrassEditor, PaginaSimpleSave)}
+                               PaginaLightManager, PaginaGrassEditor, PaginaSimpleSave)}
 
 
 def pagina(ident, clase=None):

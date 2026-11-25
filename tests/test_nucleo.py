@@ -80,12 +80,13 @@ class PruebaClase(Temporal):
 class PruebaInstalador(Temporal):
     def test_incluidas_en_orden(self):
         self.assertEqual([i for i, _ in instalar.incluidas(comun.RAIZ)],
-                         ["trepadora", "arboles", "radial", "muro", "materials", "grasseditor", "simplesave"])
+                         ["trepadora", "arboles", "radial", "muro", "materials", "lightmanager", "grasseditor",
+                          "simplesave"])
 
     def test_mod_con_un_bloque_por_herramienta(self):
         texto = instalar.contenido_mod(comun.RAIZ, self.dir)
         bloques = [b for b in texto.split("\n\n") if b.strip()]
-        self.assertEqual(len(bloques), 8)
+        self.assertEqual(len(bloques), 9)
         self.assertTrue(bloques[0].startswith("+ MantiTools 1."))
         self.assertIn("+ MantiTools_materials ", texto)
         for b in bloques:

@@ -66,10 +66,22 @@ def _con_rutas():
     return False
 
 
+def _desfasado(ruta_completa=False):
+    """¿Le faltan o le sobran botones al estante (p. ej. tras añadir una herramienta al pack)?"""
+    actuales = []
+    for boton in cmds.shelfLayout(ESTANTE, query=True, childArray=True) or []:
+        try:
+            actuales.append(cmds.shelfButton(boton, query=True, label=True))
+        except RuntimeError:
+            continue
+    return actuales != [b[0] for b in botones(ruta_completa)]
+
+
 def crear(forzar=False, seleccionar=False, ruta_completa=False):
     """Crea el estante si falta; con ``forzar`` lo rehace aunque exista.
 
-    Si el estante se hizo al instalar (iconos por ruta), se rehace con los nombres.
+    Si el estante se hizo al instalar (iconos por ruta), se rehace con los nombres. También se
+    rehace si sus botones no son los de las herramientas activas (una herramienta nueva en el pack).
     """
     if cmds.about(batch=True):
         return None
@@ -78,7 +90,7 @@ def crear(forzar=False, seleccionar=False, ruta_completa=False):
     ruta_completa = _sesion["rutas"]
     padre = mel.eval("$tmp = $gShelfTopLevel")
     if existe():
-        if not forzar and (ruta_completa or not _con_rutas()):
+        if not forzar and (ruta_completa or not _con_rutas()) and not _desfasado(ruta_completa):
             return ESTANTE
         for boton in cmds.shelfLayout(ESTANTE, query=True, childArray=True) or []:
             cmds.deleteUI(boton)

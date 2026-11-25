@@ -22,7 +22,8 @@ import tempfile
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VERSIONES = os.path.join(RAIZ, "versiones.json")
-COPIAR = ("scripts", "plug-ins", "icons", "iconos", "texturas", "painter", "LICENSE", "README.md", "GUIA_ALUMNOS.md")
+COPIAR = ("scripts", "plug-ins", "icons", "iconos", "texturas", "painter", "LICENSE", "README.md", "GUIA_ALUMNOS.md",
+          "GUIA_DE_USO.md")
 IGNORAR = shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store")
 
 

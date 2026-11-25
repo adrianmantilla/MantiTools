@@ -72,6 +72,24 @@ class Arranque(unittest.TestCase):
         for b in ultimos:
             self.assertEqual(len(b.get("menuItem", [])), len(b.get("menuItemPython", [])))
 
+    def test_estante_viejo_sin_una_herramienta_se_rehace(self):
+        from mantitools import estante
+        from mantitools import herramientas as hr
+        estante._sesion["rutas"] = False
+        estante.crear(forzar=True)
+        cmds.deleteUI(cmds.estantes[estante.ESTANTE][-2])   # como un estante guardado antes de LightManager
+        estante.crear()
+        etiquetas = [cmds.shelfButton(b, query=True, label=True) for b in cmds.estantes[estante.ESTANTE]]
+        self.assertEqual(etiquetas, [f.nombre for f in hr.FICHAS] + ["MantiTools"])
+
+    def test_estante_al_dia_no_se_toca(self):
+        from mantitools import estante
+        estante._sesion["rutas"] = False
+        estante.crear(forzar=True)
+        antes = list(cmds.estantes[estante.ESTANTE])
+        estante.crear()
+        self.assertEqual(cmds.estantes[estante.ESTANTE], antes)
+
     def test_estante_de_la_instalacion_usa_rutas_y_luego_nombres(self):
         import os
         from mantitools import estante
@@ -83,11 +101,12 @@ class Arranque(unittest.TestCase):
 
     def test_desactivar_quita_submenu_y_boton(self):
         from mantitools import estante, menu
+        from mantitools import herramientas as hr
         self.carga.cambiar_activa("muro", False)
         try:
             self.assertFalse(self.carga.cargada("muro"))
             self.assertNotIn("MuroMenu", cmds.menus[menu.MENU])
-            self.assertEqual(len(cmds.estantes[estante.ESTANTE]), 7)
+            self.assertEqual(len(cmds.estantes[estante.ESTANTE]), len(hr.FICHAS))
         finally:
             self.carga.cambiar_activa("muro", True)
         self.assertIn("MuroMenu", cmds.menus[menu.MENU])

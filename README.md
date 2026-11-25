@@ -13,6 +13,7 @@ los ajustes de todas juntos.
 | **Radial** | Menú radial o pill con doble Tab, configurable y con buscador de órdenes. |
 | **Muro** | Tablero de referencias y notas dentro de Maya, con fantasma sobre el visor. |
 | **Materials** | Biblioteca de materiales OpenPBR con ida y vuelta a Substance Painter. |
+| **LightManager** | Luces de Arnold en pasos y Kelvin: esquemas de estudio, interiores y exteriores por zonas, sol por hora y comprobaciones. |
 | **GrassEditor** | Hierba por capas, con pincel, tipos y control de rendimiento. |
 | **SimpleSave** | Versiones con nota y miniatura, autoguardado configurable y recuperación. |
 
@@ -143,8 +144,8 @@ Las pruebas comprueban que las copias son idénticas.
 
 ## English summary
 
-MantiTools bundles seven Maya 2026/2027 tools (Trepadora, Árboles, Radial,
-Muro, Materials, GrassEditor and SimpleSave) into one pack.
+MantiTools bundles eight Maya 2026/2027 tools (Trepadora, Árboles, Radial,
+Muro, Materials, LightManager, GrassEditor and SimpleSave) into one pack.
 
 - **Install:** drag `instalar.py` into the Maya viewport. You get a
   «MantiTools» menu with one submenu per tool, a shelf with one icon per tool

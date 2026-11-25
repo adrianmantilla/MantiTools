@@ -19,6 +19,7 @@ class Cmds(types.ModuleType):
         self.llamadas = []
         self.menus = {}       # nombre -> [elementos]
         self.estantes = {}    # nombre -> [botones]
+        self.botones = {}     # botón -> opciones con que se creó
         self.opciones = {}
         self.plugins = set()
 
@@ -104,11 +105,15 @@ class Cmds(types.ModuleType):
             return list(self.estantes.get(nombre, []))
         return nombre
 
-    def shelfButton(self, **k):
+    def shelfButton(self, boton=None, **k):
+        if k.get("query"):
+            datos = self.botones.get(boton, {})
+            return datos.get("label") if k.get("label") else datos.get("image", "")
         padre = k["parent"]
         nombre = "boton{}".format(sum(len(v) for v in self.estantes.values()))
         self.estantes.setdefault(padre, []).append(nombre)
         self.llamadas.append(("shelfButton", k))
+        self.botones[nombre] = k
         return nombre
 
     def pluginInfo(self, nombre=None, **k):
