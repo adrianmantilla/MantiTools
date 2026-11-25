@@ -100,7 +100,7 @@
  "aj_minutos": "Every",
  "aj_motor": "Game engine",
  "aj_opacidad_fantasma": "Ghost opacity",
- "aj_pausa_reproduccion": "Don't save while playing back or rendering",
+ "aj_pausa_reproduccion": "Don't save while the animation plays back",
  "aj_plantilla": "Name template",
  "aj_plantilla_ayuda": "For example {escena} or {asignatura}_{apellido}_{escena}. The version is added automatically.",
  "aj_radial_vivo_ayuda": "Radial keeps its own window to adjust size while seeing the menu.",

@@ -116,11 +116,17 @@ class PaginaTrepadora(Pagina):
 
     def escribir(self, clave, valor):
         if clave == "resolucion":
+            # Como el desplegable de la ventana de Trepadora: cambia las plantas que ya están en
+            # la escena y la recuerda para las nuevas.
             from trepadora import texturas
-            texturas.recordar_resolucion(valor)
+            texturas.cambiar_resolucion(valor)
             ventana = getattr(self._modulo("trepadora.ui.ventana"), "_ventana", None)
-            if ventana is not None and hasattr(ventana, "usar_resolucion"):
-                ventana.usar_resolucion(valor)
+            combo = getattr(ventana, "combo_texturas", None)
+            if combo is not None:
+                try:
+                    combo.poner(valor)   # sin señales: no vuelve a cambiar la escena
+                except RuntimeError:     # ventana ya cerrada por Maya
+                    pass
 
     def boton(self, clave):
         if clave == "abrir_preajustes":
