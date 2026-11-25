@@ -35,6 +35,12 @@
     "version": "1.0.0",
     "commit": "79e1831"
   },
+  "renderdesk": {
+    "repositorio": "adrianmantilla/renderdesk",
+    "rama": "main",
+    "version": "0.3.0",
+    "commit": "6445ac1"
+  },
   "grasseditor": {
     "repositorio": "adrianmantilla/GrassEditor",
     "rama": "main",

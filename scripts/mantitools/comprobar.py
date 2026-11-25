@@ -20,6 +20,7 @@ def sueltas_activas(carpeta_modulos, mods=None):
     mods = mods or {
         "trepadora": ("trepadora.mod",), "arboles": ("arboles.mod",), "radial": ("radial.mod",),
         "muro": ("muro.mod",), "materials": ("materials.mod", "muestrario.mod"), "lightmanager": ("lightmanager.mod",),
+        "renderdesk": ("renderdesk.mod", "renderpresets.mod"),
         "grasseditor": ("grasseditor.mod", "pradera.mod"), "simplesave": ("simplesave.mod",),
     }
     encontradas = []
