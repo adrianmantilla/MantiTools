@@ -144,6 +144,8 @@
  "ayuda_primeros": "Primeros pasos",
  "ayuda_problemas": "Si algo no funciona",
  "ayuda_problemas_texto": "Comprueba la instalación y copia el informe para pegarlo en un correo al profesor.",
+ "ayuda_wiki": "Documentación",
+ "ayuda_wiki_texto": "La wiki tiene la guía completa: instalación, flujo de trabajo, cada herramienta paso a paso, ajustes y problemas frecuentes. Se abre en el navegador y funciona sin conexión.",
  "bloqueada_ayuda": "Lo fija el profesor en la carpeta de clase.",
  "boton_abrir_carpeta": "Abrir carpeta",
  "boton_aceptar": "Aceptar",
@@ -156,6 +158,8 @@
  "boton_radial_configurar": "Configurar botones…",
  "boton_radial_vivo": "Ajustes de tamaño en vivo…",
  "boton_reinstalar": "Reinstalar",
+ "boton_wiki": "Abrir la wiki",
+ "boton_wiki_pagina": "Wiki",
  "clase_cambiada": "Carpeta de clase cambiada.",
  "clase_no_existe": "No encuentro esa carpeta. ¿Está conectada la unidad del aula?",
  "clase_resumen": "Carpeta de clase leída: {fijadas} ajustes fijados por el profesor y {desactivadas} herramientas desactivadas.",
@@ -214,6 +218,8 @@
  "menu_openpbr": "Convertir materiales a OpenPBR",
  "menu_openpbr_ayuda": "Para escenas hechas con versiones anteriores: pasa a openPBRSurface los materiales de Trepadora y de Árboles. Las texturas no cambian.",
  "menu_recrear_estante": "Recrear estante",
+ "menu_wiki": "Documentación (wiki)",
+ "menu_wiki_ayuda": "Abre en el navegador la wiki de MantiTools: guía completa de la suite y de cada herramienta.",
  "openpbr_hecho": "Convertidos a OpenPBR: {n} materiales.",
  "openpbr_nada": "No había materiales viejos que convertir: la escena ya usa OpenPBR.",
  "pagina_general": "General",
@@ -257,5 +263,6 @@
  "tarjeta_desactivada": "Desactivada. Actívala para usarla.",
  "tarjeta_fallo": "No se pudo cargar. Mira Ayuda › Comprobar instalación.",
  "tarjeta_mas": "Más órdenes",
- "tarjeta_profesor": "Desactivada por el profesor (carpeta de clase)."
+ "tarjeta_profesor": "Desactivada por el profesor (carpeta de clase).",
+ "wiki_no_hay": "No encuentro la wiki (docs/wiki/index.html). Vuelve a descargar MantiTools."
 }

@@ -144,6 +144,8 @@
  "ayuda_primeros": "First steps",
  "ayuda_problemas": "If something doesn't work",
  "ayuda_problemas_texto": "Check the installation and copy the report to paste it into an email to your teacher.",
+ "ayuda_wiki": "Documentation",
+ "ayuda_wiki_texto": "The wiki is the full guide: installation, workflow, every tool step by step, settings and common problems. It opens in your browser and works offline (in Spanish).",
  "bloqueada_ayuda": "Set by the teacher in the class folder.",
  "boton_abrir_carpeta": "Open folder",
  "boton_aceptar": "OK",
@@ -156,6 +158,8 @@
  "boton_radial_configurar": "Configure buttons…",
  "boton_radial_vivo": "Live size settings…",
  "boton_reinstalar": "Reinstall",
+ "boton_wiki": "Open the wiki",
+ "boton_wiki_pagina": "Wiki",
  "clase_cambiada": "Class folder changed.",
  "clase_no_existe": "I can't find that folder. Is the classroom drive connected?",
  "clase_resumen": "Class folder read: {fijadas} settings set by the teacher and {desactivadas} tools turned off.",
@@ -214,6 +218,8 @@
  "menu_openpbr": "Convert materials to OpenPBR",
  "menu_openpbr_ayuda": "For scenes made with earlier versions: switches Trepadora and Árboles materials to openPBRSurface. Textures stay the same.",
  "menu_recrear_estante": "Rebuild shelf",
+ "menu_wiki": "Documentation (wiki)",
+ "menu_wiki_ayuda": "Opens the MantiTools wiki in your browser: the full guide to the suite and every tool.",
  "openpbr_hecho": "Converted to OpenPBR: {n} materials.",
  "openpbr_nada": "There were no old materials to convert: the scene already uses OpenPBR.",
  "pagina_general": "General",
@@ -257,5 +263,6 @@
  "tarjeta_desactivada": "Turned off. Turn it on to use it.",
  "tarjeta_fallo": "Could not load. See Help › Check installation.",
  "tarjeta_mas": "More commands",
- "tarjeta_profesor": "Turned off by the teacher (class folder)."
+ "tarjeta_profesor": "Turned off by the teacher (class folder).",
+ "wiki_no_hay": "Can't find the wiki (docs/wiki/index.html). Download MantiTools again."
 }
