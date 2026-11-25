@@ -1,0 +1,51 @@
+# Publica una versión de MantiTools en GitHub Releases, con un ZIP listo para instalar.
+# Se lanza a mano (Actions › Publicar versión › Run workflow) o al subir una etiqueta vX.Y.Z.
+# Las notas salen de docs/versiones/<versión>.md.
+name: Publicar versión
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versión (por ejemplo 1.1.0). Vacío: la de scripts/mantitools/__init__.py"
+        required: false
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Versión
+        id: v
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if [ -z "$VERSION" ] && [ "${GITHUB_REF_TYPE}" = "tag" ]; then VERSION="${GITHUB_REF_NAME#v}"; fi
+          if [ -z "$VERSION" ]; then VERSION=$(python3 -c "import re;print(re.search(r'__version__ = \"([^\"]+)\"', open('scripts/mantitools/__init__.py').read()).group(1))"); fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: ZIP para instalar
+        run: |
+          mkdir -p dist/MantiTools
+          git archive HEAD | tar -x -C dist/MantiTools
+          rm -rf dist/MantiTools/.github dist/MantiTools/tests
+          cd dist && zip -qr "MantiTools-${{ steps.v.outputs.version }}.zip" MantiTools
+
+      - name: Publicar
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V="${{ steps.v.outputs.version }}"
+          NOTAS="docs/versiones/$V.md"
+          [ -f "$NOTAS" ] || echo "MantiTools $V" > "$NOTAS"
+          if gh release view "v$V" >/dev/null 2>&1; then
+            gh release upload "v$V" "dist/MantiTools-$V.zip" --clobber
+          else
+            gh release create "v$V" "dist/MantiTools-$V.zip" --target "$GITHUB_SHA" \
+              --title "MantiTools $V" --notes-file "$NOTAS" --latest
+          fi
